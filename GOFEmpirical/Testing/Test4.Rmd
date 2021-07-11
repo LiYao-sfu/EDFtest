@@ -1,0 +1,53 @@
+---
+title: "Normal p-value"
+author: "Li Yao"
+date: "7/6/2021"
+output: html_document
+---
+
+```{r}
+library(GOFEmpirical)
+```
+
+
+## Histogram of p-value
+## AD, Normal
+```{r}
+check.AD.normal = function(par,n,m){
+  out <- matrix(0,m,1)
+  pval <- matrix(0,m,1)
+  for(i in 1:m){
+    x=rnorm(n,par[1],par[2])
+    out[i,]=AD.normal(x)
+    pval[i,]=AD.normal.pvalue(out[i,])$P
+  }
+  hist(out,main="AD statistics for Normal random sample")
+  abline(v=mean(out), col="red")
+  hist(pval,main="p value of AD")
+  abline(v=mean(pval), col="red")
+}
+system.time(check.AD.normal(c(2,1),400,50))
+```
+
+
+## Histogram of p-value
+## CvM, Normal
+```{r}
+check.CvM.normal = function(par,n,m){
+  out <- matrix(0,m,1)
+  pval <- matrix(0,m,1)
+  for(i in 1:m){
+    x=rnorm(n,par[1],par[2])
+    out[i,]=CvM.normal(x)
+    pval[i,]=CvM.normal.pvalue(out[i,])$P
+  }
+  hist(out,main="CvM statistics for Normal random sample")
+  abline(v=mean(out), col="red")
+  hist(pval,main="p value of CvM")
+  abline(v=mean(pval), col="red")
+}
+system.time(check.CvM.normal(c(2,1),400,50))
+```
+
+
+

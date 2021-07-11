@@ -1,0 +1,56 @@
+---
+title: "Test: p-value functions, AD"
+author: "Li Yao"
+date: "6/30/2021"
+output: html_document
+---
+
+```{r}
+library(GOFEmpirical)
+```
+
+
+## Histogram of p-value
+## AD, Logistic
+
+```{r}
+check.AD.logistic = function(par,n,m){
+  out <- matrix(0,m,1)
+  pval <- matrix(0,m,1)
+  for(i in 1:m){
+    x=rlogis(n,par[1],par[2])
+    out[i,]=AD.logistic(x)
+    pval[i,]=AD.logistic.pvalue(out[i,])$P
+  }
+  hist(out,main="AD statistics for Logistic random sample")
+  abline(v=mean(out), col="red")
+  hist(pval,main="p value of AD")
+  abline(v=mean(pval), col="red")
+}
+system.time(check.AD.logistic(c(2,1),400,200))
+```
+
+## Histogram of p-value
+## AD, Weibull
+
+```{r}
+check.AD.weibull = function(par,n,m){
+  out <- matrix(0,m,1)
+  pval <- matrix(0,m,1)
+  for(i in 1:m){
+    x=rweibull(n,par[1],par[2])
+    out[i,]=AD.weibull(x)
+    pval[i,]=AD.weibull.pvalue(out[i,])$P
+  }
+  hist(out,main="AD statistics for Weibull random sample")
+  abline(v=mean(out), col="red")
+  hist(pval,main="p value of AD")
+  abline(v=mean(pval), col="red")
+}
+system.time(check.AD.weibull(c(2,1),400,200))
+```
+
+
+
+
+

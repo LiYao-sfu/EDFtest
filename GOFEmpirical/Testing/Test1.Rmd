@@ -1,0 +1,110 @@
+---
+title: "Test1"
+author: "Li Yao"
+date: "6/25/2021"
+output: html_document
+---
+
+
+```{r}
+library(GOFEmpirical)
+```
+
+Test functions: estimate.normal; estimate.gamma; estimate.weibull; estimate.logistic
+
+Part 1. 
+
+```{r}
+x1=rnorm(100000,7,12)
+estimate.normal(x1)
+x1=rnorm(100000,5,999)
+estimate.normal(x1)
+
+
+x2=rgamma(100000,7,12)
+estimate.gamma(x2)
+x2=rgamma(100000,0.01,999)
+estimate.gamma(x2)
+
+
+x3=rlogis(100000,7,12)
+estimate.logistic(x3)
+x3=rlogis(100000,0.01,999)
+estimate.logistic(x3)
+
+
+x4=rweibull(100000,7,12)
+estimate.weibull(x4)
+x4=rweibull(100000,0.01,999)
+estimate.weibull(x4)
+
+```
+
+Part 2.
+
+
+```{r}
+check.estimation.normal = function(par,n,m){
+  out <- matrix(0,m,2)
+  for(i in 1:m){
+  x=rnorm(n,par[1],par[2])
+  out[i,]=estimate.normal(x)
+  }
+  hist(out[,1],main="Parameter 1")
+  abline(v=par[1], col="red")
+  hist(out[,2],main="Parameter 2")
+  abline(v=par[2], col="red")
+}
+system.time(check.estimation.normal(c(7,13),100000,1000))
+```
+
+```{r}
+check.estimation.gamma = function(par,n,m){
+  out <- matrix(0,m,2)
+  for(i in 1:m){
+    x=rgamma(n,par[1],par[2])
+    out[i,]=estimate.gamma(x)
+  }
+  hist(out[,1],main="Parameter 1")
+  abline(v=par[1], col="red")
+  hist(1/out[,2],main="Parameter 2")
+  abline(v=par[2], col="red")
+}
+system.time(check.estimation.gamma(c(7,13),100000,1000))
+
+```
+
+
+```{r}
+check.estimation.logistic = function(par,n,m){
+  out <- matrix(0,m,2)
+  for(i in 1:m){
+    x=rlogis(n,par[1],par[2])
+    out[i,]=estimate.logistic(x)
+  }
+  hist(out[,1],main="Parameter 1")
+  abline(v=par[1], col="red")
+  hist(out[,2],main="Parameter 2")
+  abline(v=par[2], col="red")
+}
+system.time(check.estimation.logistic(c(7,13),100000,1000))
+
+```
+
+```{r}
+check.estimation.weibull = function(par,n,m){
+  out <- matrix(0,m,2)
+  for(i in 1:m){
+    x=rweibull(n,par[1],par[2])
+    out[i,]=estimate.weibull(x)
+  }
+  hist(out[,1],main="Parameter 1")
+  abline(v=par[1], col="red")
+  hist(out[,2],main="Parameter 2")
+  abline(v=par[2], col="red")
+}
+system.time(check.estimation.weibull(c(7,13),100000,1000))
+```
+
+
+

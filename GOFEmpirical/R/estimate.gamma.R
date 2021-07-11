@@ -1,0 +1,36 @@
+#' MLE for Gamma Distribution
+#'
+#' Computes the mle of the shape, alpha, and scale, beta, for a sample x from the Gamma distribution.
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+estimate.gamma <- function(x){
+  #  Uses the digamma and trigamma functions in Base R and does Newton-Raphson
+  #    on the profile log-likelihood for alpha
+  n <- length(x)
+  m1 <- mean(x)
+  m2 <- var(x)
+  b <- m2/m1
+  a <- m1/b
+  mlog <- mean(log(x))
+  logm=log(m1)
+  aold <- a
+  anew <- aold -(log(aold)-logm + mlog -digamma(aold))/(1/aold-trigamma(aold))
+  bnew=m1/anew
+  if( anew < 0) anew <- aold/2
+  while ( abs(anew-aold) > 1e-7){
+    aold <- anew
+    old.score = (log(aold)-log(m1)+ mlog -digamma(aold))
+    old.score.derivative = 1/aold-trigamma(aold)
+    anew <- aold - old.score/old.score.derivative
+    if( anew < 0) anew <- aold/2
+  }
+  beta <- m1/anew
+  alpha <- anew
+  c(alpha, beta)
+}

@@ -1,0 +1,52 @@
+---
+title: "p_value laplace"
+author: "Li Yao"
+date: "7/8/2021"
+output: html_document
+---
+
+```{r}
+library(GOFEmpirical)
+library(ExtDist)
+```
+
+
+## Histogram of p-value
+## AD, Laplace
+```{r}
+check.AD.laplace = function(par,n,m){
+  out <- matrix(0,m,1)
+  pval <- matrix(0,m,1)
+  for(i in 1:m){
+    x=rLaplace(n,par[1],par[2])
+    out[i,]=AD.laplace(x)
+    pval[i,]=AD.laplace.pvalue(out[i,])$P
+  }
+  hist(out,main="AD statistics for Lapalce random sample")
+  abline(v=mean(out), col="red")
+  hist(pval,main="p value of AD")
+  abline(v=mean(pval), col="red")
+}
+system.time(check.AD.laplace(c(2,1),400,100))
+
+```
+
+
+## Histogram of p-value
+## CvM, Laplace
+```{r}
+check.CvM.laplace = function(par,n,m){
+  out <- matrix(0,m,1)
+  pval <- matrix(0,m,1)
+  for(i in 1:m){
+    x=rLaplace(n,par[1],par[2])
+    out[i,]=CvM.laplace(x)
+    pval[i,]=CvM.laplace.pvalue(out[i,])$P
+  }
+  hist(out,main="CvM statistics for Laplace random sample")
+  abline(v=mean(out), col="red")
+  hist(pval,main="p value of CvM")
+  abline(v=mean(pval), col="red")
+}
+system.time(check.CvM.laplace(c(1,1),400,100))
+```
