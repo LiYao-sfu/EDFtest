@@ -26,7 +26,7 @@ check.AD.normal = function(par,n,m){
   hist(pval,main="p value of AD")
   abline(v=mean(pval), col="red")
 }
-system.time(check.AD.normal(c(2,1),400,50))
+system.time(check.AD.normal(c(2,1),80,10))
 ```
 
 
@@ -46,7 +46,7 @@ check.CvM.normal = function(par,n,m){
   hist(pval,main="p value of CvM")
   abline(v=mean(pval), col="red")
 }
-system.time(check.CvM.normal(c(2,1),400,50))
+system.time(check.CvM.normal(c(2,1),80,200))
 ```
 
 

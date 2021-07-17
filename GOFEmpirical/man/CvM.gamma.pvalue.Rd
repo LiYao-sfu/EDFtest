@@ -4,13 +4,10 @@
 \alias{CvM.gamma.pvalue}
 \title{CvM.gamma.pvalue}
 \usage{
-CvM.gamma.pvalue(w, nd = 7, verbose = FALSE)
+CvM.gamma.pvalue(w, shape, neig = 100, verbose = FALSE)
 }
 \arguments{
 \item{verbose}{}
-}
-\value{
-
 }
 \description{
 CvM.gamma.pvalue

@@ -4,13 +4,10 @@
 \alias{AD.laplace.pvalue}
 \title{AD.laplace.pvalue}
 \usage{
-AD.laplace.pvalue(a, nd = 7, verbose = F)
+AD.laplace.pvalue(a, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}
-}
-\value{
-
 }
 \description{
 AD.laplace.pvalue

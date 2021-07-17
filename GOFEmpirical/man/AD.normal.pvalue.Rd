@@ -4,17 +4,11 @@
 \alias{AD.normal.pvalue}
 \title{AD.normal.pvalue}
 \usage{
-AD.normal.pvalue(a, nd = 9, verbose = F)
+AD.normal.pvalue(a, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}
 }
-\value{
-
-}
 \description{
 AD.normal.pvalue
-}
-\examples{
-
 }

@@ -27,7 +27,7 @@ check.AD.laplace = function(par,n,m){
   hist(pval,main="p value of AD")
   abline(v=mean(pval), col="red")
 }
-system.time(check.AD.laplace(c(2,1),400,100))
+system.time(check.AD.laplace(c(2,1),80,20))
 
 ```
 
@@ -48,5 +48,5 @@ check.CvM.laplace = function(par,n,m){
   hist(pval,main="p value of CvM")
   abline(v=mean(pval), col="red")
 }
-system.time(check.CvM.laplace(c(1,1),400,100))
+system.time(check.CvM.laplace(c(1,1),80,200))
 ```

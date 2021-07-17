@@ -4,13 +4,10 @@
 \alias{CvM.laplace.pvalue}
 \title{CvM.laplace.pvalue}
 \usage{
-CvM.laplace.pvalue(w, nd = 7, verbose = F)
+CvM.laplace.pvalue(w, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}
-}
-\value{
-
 }
 \description{
 CvM.laplace.pvalue

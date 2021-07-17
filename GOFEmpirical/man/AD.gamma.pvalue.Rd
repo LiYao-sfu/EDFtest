@@ -4,13 +4,10 @@
 \alias{AD.gamma.pvalue}
 \title{AD.gamma.pvalue}
 \usage{
-AD.gamma.pvalue(a, nd = 7, verbose = FALSE)
+AD.gamma.pvalue(a, shape, neig = 100, verbose = FALSE)
 }
 \arguments{
 \item{verbose}{}
-}
-\value{
-
 }
 \description{
 AD.gamma.pvalue

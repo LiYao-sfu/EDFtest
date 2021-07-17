@@ -4,13 +4,10 @@
 \alias{AD.logistic.pvalue}
 \title{AD.logistic.pvalue}
 \usage{
-AD.logistic.pvalue(a, nd = 9, verbose = F)
+AD.logistic.pvalue(a, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}
-}
-\value{
-
 }
 \description{
 AD.logistic.pvalue

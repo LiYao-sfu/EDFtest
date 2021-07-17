@@ -12,7 +12,7 @@ AD.gamma.eigen=function(n,shape){
   # mean = 1 -?
   s=1:n
   s=s/(n+1)
-  M=AD.gamma.covmat(n)
+  M=AD.gamma.covmat(n,shape)
   e=eigen(M)$values/n
   e # *mean/sum(e)
 }

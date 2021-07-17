@@ -4,17 +4,11 @@
 \alias{CvM.normal.pvalue}
 \title{CvM.normal.pvalue}
 \usage{
-CvM.normal.pvalue(w, nd = 7, verbose = F)
+CvM.normal.pvalue(w, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}
 }
-\value{
-
-}
 \description{
 CvM.normal.pvalue
-}
-\examples{
-
 }

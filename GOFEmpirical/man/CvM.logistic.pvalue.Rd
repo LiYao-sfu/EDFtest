@@ -4,13 +4,10 @@
 \alias{CvM.logistic.pvalue}
 \title{CvM.logistic.pvalue}
 \usage{
-CvM.logistic.pvalue(w, nd = 9, verbose = F)
+CvM.logistic.pvalue(w, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}
-}
-\value{
-
 }
 \description{
 CvM.logistic.pvalue
