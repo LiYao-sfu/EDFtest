@@ -4,7 +4,7 @@
 \alias{CvM.weibull.pvalue}
 \title{CvM.weibull.pvalue}
 \usage{
-CvM.weibull.pvalue(w, nd = 9, verbose = F)
+CvM.weibull.pvalue(w, neig = 100, verbose = FALSE)
 }
 \arguments{
 \item{verbose}{}

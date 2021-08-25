@@ -15,5 +15,5 @@ cdf.laplace.regression = function(fit,data){
   coeff.hat=theta.hat[-1]
   sd.hat=theta.hat[1]
   y.hat = x%*%coeff.hat
-  pnorm(y,mean=yhat,sd=sd.hat)
+  pnorm(y,mean=y.hat,sd=sd.hat)
 }

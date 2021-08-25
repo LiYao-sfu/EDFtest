@@ -4,7 +4,7 @@
 \alias{AD.exp.pvalue}
 \title{AD.exp.pvalue}
 \usage{
-AD.exp.pvalue(a, nd = 7, verbose = FALSE)
+AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 }
 \arguments{
 \item{verbose}{}

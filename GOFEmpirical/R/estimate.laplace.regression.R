@@ -17,12 +17,14 @@ estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
   #  An intercept term is added by lm
   #
   # By default fits an intercept
-  #
+  # what distribution should use when generating y
+  # what is lad
+  # fit.intercept=FALSE
   data=data.frame(y=y,x=x)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
   n = length(y)
   r = residuals(fit)
   coeff.hat = coefficients(fit)
-  sigma.hat = sqrt(mean(abs(r)))
+  sigma.hat = fit$scale
   c(sigma.hat,coeff.hat)
 }

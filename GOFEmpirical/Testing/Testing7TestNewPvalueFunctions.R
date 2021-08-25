@@ -2,12 +2,13 @@
 library(GOFEmpirical)
 
 #
-#  Gamma shape 2
+#  Gamma
 #
 set.seed(1943)
 n=100
 M=1000
-shape=2
+
+shape=1
 gamma.dat = matrix(rgamma(n*M,shape=shape),nrow=M)
 pars = apply(gamma.dat,1,estimate.gamma)
 shape = pars[1,]
@@ -36,9 +37,10 @@ AD(PA.gamma)
 set.seed(1943)
 n=100
 M=1000
+
 shape=0.01
 
-logistic.dat = matrix(rlogis(n*M,0,100),nrow=M)
+logistic.dat = matrix(rlogis(n*M,0,1),nrow=M)
 pars = t(apply(logistic.dat,1,estimate.logistic))
 W.logistic = apply(logistic.dat,1,CvM.logistic)
 A.logistic = apply(logistic.dat,1,AD.logistic)
@@ -65,8 +67,7 @@ AD(PA.logistic)
 set.seed(1943)
 n=100
 M=1000
-shape=2
-laplace.dat = matrix(LaplacesDemon::rlaplace(n*M,100,100),nrow=M)
+laplace.dat = matrix(LaplacesDemon::rlaplace(n*M,5,2),nrow=M)
 pars = t(apply(laplace.dat,1,estimate.laplace))
 W.laplace = apply(laplace.dat,1,CvM.laplace)
 A.laplace = apply(laplace.dat,1,AD.laplace)
@@ -93,7 +94,6 @@ AD(PA.laplace)
 set.seed(1943)
 n=100
 M=1000
-shape=2
 normal.dat = matrix(rnorm(n*M),nrow=M)
 pars = t(apply(normal.dat,1,estimate.normal))
 W.normal = apply(normal.dat,1,CvM.normal)
@@ -117,58 +117,57 @@ AD(PA.normal)
 
 
 #
-#  Gamma shape 10
+#  Weibull
 #
 set.seed(1943)
 n=100
 M=1000
-shape=10
-gamma.dat = matrix(rgamma(n*M,shape=shape),nrow=M)
-pars = apply(gamma.dat,1,estimate.gamma)
+weibull.dat = matrix(rweibull(n*M,shape=50),nrow=M)
+pars = apply(weibull.dat,1,estimate.weibull)
 shape = pars[1,]
-W.gamma = apply(gamma.dat,1,CvM.gamma)
-A.gamma = apply(gamma.dat,1,AD.gamma)
-hist(W.gamma,breaks=50)
-hist(A.gamma,breaks=50)
+W.weibull = apply(weibull.dat,1,CvM.weibull)
+A.weibull = apply(weibull.dat,1,AD.weibull)
+#hist(W.weibull,breaks=50)
+#hist(A.weibull,breaks=50)
 
-PW.gamma = W.gamma
-PA.gamma = A.gamma
+PW.weibull = W.weibull
+PA.weibull = A.weibull
 for( i in 1:M){ #c(1:909,911:950,952:1000)
-  PW.gamma[i] = CvM.gamma.pvalue(W.gamma[i],shape=shape[i])$P
-  PA.gamma[i] = AD.gamma.pvalue(A.gamma[i],shape=shape[i])$P
+  PW.weibull[i] = CvM.weibull.pvalue(W.weibull[i])$P
+  PA.weibull[i] = AD.weibull.pvalue(A.weibull[i])$P
 }
 
-hist(PW.gamma,breaks=20)
-hist(PA.gamma,breaks=20)
-plot(PW.gamma,PA.gamma, pch='.')
-AD(PW.gamma)
-AD(PA.gamma)
+hist(PW.weibull,breaks=20)
+hist(PA.weibull,breaks=20)
+plot(PW.weibull,PA.weibull, pch='.')
+AD(PW.weibull)
+AD(PA.weibull)
+
 
 
 #
-#  Gamma shape 0.5
+#  Exponential
 #
 set.seed(1943)
 n=100
 M=1000
-shape=0.5
-gamma.dat = matrix(rgamma(n*M,shape=shape),nrow=M)
-pars = apply(gamma.dat,1,estimate.gamma)
-shape = pars[1,]
-W.gamma = apply(gamma.dat,1,CvM.gamma)
-A.gamma = apply(gamma.dat,1,AD.gamma)
-hist(W.gamma,breaks=50)
-hist(A.gamma,breaks=50)
+exp.dat = matrix(rexp(n*M,rate=0.001),nrow=M)
+pars = apply(exp.dat,1,estimate.exp)
+rate = pars
+W.exp = apply(exp.dat,1,CvM.exp)
+A.exp = apply(exp.dat,1,AD.exp)
+hist(W.exp,breaks=50)
+hist(A.exp,breaks=50)
 
-PW.gamma = W.gamma
-PA.gamma = A.gamma
+PW.exp = W.exp
+PA.exp = A.exp
 for( i in 1:M){ #c(1:909,911:950,952:1000)
-  PW.gamma[i] = CvM.gamma.pvalue(W.gamma[i],shape=shape[i])$P
-  PA.gamma[i] = AD.gamma.pvalue(A.gamma[i],shape=shape[i])$P
+  PW.exp[i] = CvM.exp.pvalue(W.exp[i])$P
+  PA.exp[i] = AD.exp.pvalue(A.exp[i])$P
 }
 
-hist(PW.gamma,breaks=20)
-hist(PA.gamma,breaks=20)
-plot(PW.gamma,PA.gamma, pch='.')
-AD(PW.gamma)
-AD(PA.gamma)
+hist(PW.exp,breaks=20)
+hist(PA.exp,breaks=20)
+plot(PW.exp,PA.exp, pch='.')
+AD(PW.exp)
+AD(PA.exp)

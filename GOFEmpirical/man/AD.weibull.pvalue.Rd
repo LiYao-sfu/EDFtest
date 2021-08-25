@@ -4,7 +4,7 @@
 \alias{AD.weibull.pvalue}
 \title{AD.weibull.pvalue}
 \usage{
-AD.weibull.pvalue(a, nd = 9, verbose = F)
+AD.weibull.pvalue(a, neig = 100, verbose = F)
 }
 \arguments{
 \item{verbose}{}

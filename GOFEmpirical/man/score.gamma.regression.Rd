@@ -15,3 +15,17 @@ score.gamma.regression(y, x, theta.hat)
 \description{
 score.gamma.regression
 }
+\examples{
+set.seed(5)
+n = 200  #(sample size)
+p = 3
+beta = c(3,4,5)
+alpha = 3
+x = rnorm(n*(p-1))
+x = c(rep(1,n),x)
+x = matrix(x,n,p)
+scale=exp(x \%*\% beta) / alpha
+y =rgamma(n,shape=alpha,scale=scale)
+theta.hat = estimate.gamma.regression(x,y)
+
+}

@@ -4,7 +4,7 @@
 \alias{CvM.exp.pvalue}
 \title{CvM.exp.pvalue}
 \usage{
-CvM.exp.pvalue(w, nd = 7, verbose = FALSE)
+CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 }
 \arguments{
 \item{verbose}{}
