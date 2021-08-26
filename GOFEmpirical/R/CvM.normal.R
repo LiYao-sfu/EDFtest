@@ -1,15 +1,21 @@
-#' CvM.normal
+#' EDF statistics W^2 for Normal Distribution
 #'
-#' @param x
+#' Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Normal distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.normal" by default.
 #'
-#' @return
+#' @param x random sample
+#' @param parameter parameter of Normal distribution
+#'
+#' @return CvM.normal gives Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-CvM.normal = function(x){
-  pars <- estimate.normal(x)
-  xbar <- pars[1]
-  s <- pars[2]
+#' x= rnorm(1000)
+#' CvM.normal(x)
+#' CvM.normal(x,c(0,1))
+CvM.normal = function(x,parameter=estimate.normal(x)){
+  xbar <- parameter[1]
+  s <- parameter[2]
   z <- pnorm(x,mean=xbar,sd=s)
   CvM(z)
 }

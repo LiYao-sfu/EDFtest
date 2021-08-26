@@ -1,18 +1,19 @@
-#' Cramer Von Mises Statistics for the Gamma Distribution
+#' EDF statistics W^2 for Gamma Distribution
 #'
-#' Computes Cramer Von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
-#' Estimate parameters by default ML using "estimate.gamma"
+#' Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.gamma" by default.
 #'
-#' @param x
-#' @param parameter
+#' @param x random sample
+#' @param parameter parameters of Gamma distribution
 #'
-#' @return
+#' @return CvM.gamma gives Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-#'
+#' x = rgamma(100,1,1)
+#' CvM.gamma(x)
+#' CvM.gamma(x,parameter=c(1,1))
 CvM.gamma <- function(x,parameter=estimate.gamma(x)){
-#    pars <- estimate.gamma(x)
     alpha <- parameter[1]
     beta <- parameter[2]
     z <- pgamma(x,shape=alpha,scale=beta)

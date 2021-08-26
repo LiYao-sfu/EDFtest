@@ -2,16 +2,25 @@
 % Please edit documentation in R/AD.laplace.R
 \name{AD.laplace}
 \alias{AD.laplace}
-\title{AD.laplace}
+\title{EDF statistics A^2 for Laplace Distribution}
 \usage{
-AD.laplace(x)
+AD.laplace(x, parameter = estimate.laplace(x))
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of Laplace distribution}
 }
 \value{
-
+AD.laplace gives Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.laplace
+Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Laplace distribution with parameters unknown.
+Estimate parameters by ML using "estimate.laplace" by default.
+}
+\examples{
+library(L1pack)
+x= rlaplace(100)
+AD.laplace(x)
+AD.laplace(x,c(0,1))
 }

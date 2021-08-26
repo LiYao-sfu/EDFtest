@@ -1,13 +1,21 @@
-#' AD.exp
+#' EDF statistics A^2 for Exponential Distribution
 #'
-#' @param x
+#' Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Exponential distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.exp" by default.
 #'
-#' @return
+#' @param x random sample
+#' @param parameter parameter of exponential distribution
+#'
+#' @return AD.exp gives Anderson-Darling statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-AD.exp = function(x){
-  theta = estimate.exp(x)
+#' x= rexp(100)
+#' AD.exp(x)
+#' AD.exp(x,1)
+AD.exp = function(x,parameter=estimate.exp(x)){
+  #theta = estimate.exp(x)
+  theta = parameter[1]
   z = pexp(x/theta[1],rate=1)
   AD(z)
 }

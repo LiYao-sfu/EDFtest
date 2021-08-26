@@ -2,13 +2,25 @@
 % Please edit documentation in R/AD.normal.pvalue.R
 \name{AD.normal.pvalue}
 \alias{AD.normal.pvalue}
-\title{AD.normal.pvalue}
+\title{P-value of EDF statistics A^2 for Normal Distribution}
 \usage{
 AD.normal.pvalue(a, neig = 100, verbose = F)
 }
 \arguments{
-\item{verbose}{}
+\item{a}{A^2 for Normal Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
+}
+\value{
+AD.normal.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.normal.pvalue
+Compute p-value of the given Anderson-Darling statistic A^2
+}
+\examples{
+x = rnorm(1000)
+asq = AD.normal(x)
+AD.normal.pvalue(asq)
 }

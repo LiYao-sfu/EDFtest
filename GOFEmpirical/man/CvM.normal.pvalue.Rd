@@ -2,13 +2,25 @@
 % Please edit documentation in R/CvM.normal.pvalue.R
 \name{CvM.normal.pvalue}
 \alias{CvM.normal.pvalue}
-\title{CvM.normal.pvalue}
+\title{P-value of EDF statistics W^2 for Normal Distribution}
 \usage{
 CvM.normal.pvalue(w, neig = 100, verbose = F)
 }
 \arguments{
-\item{verbose}{}
+\item{w}{W^2 for Normal Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
+}
+\value{
+CvM.normal.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.normal.pvalue
+Compute p-value of the given Cramer-von Mises statistic W^2
+}
+\examples{
+x = rnorm(1000)
+wsq = CvM.normal(x)
+CvM.normal.pvalue(wsq)
 }

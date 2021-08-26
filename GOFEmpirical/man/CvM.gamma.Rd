@@ -2,20 +2,24 @@
 % Please edit documentation in R/CvM.gamma.R
 \name{CvM.gamma}
 \alias{CvM.gamma}
-\title{Cramer Von Mises Statistics for the Gamma Distribution}
+\title{EDF statistics W^2 for Gamma Distribution}
 \usage{
 CvM.gamma(x, parameter = estimate.gamma(x))
 }
 \arguments{
-\item{parameter}{}
+\item{x}{random sample}
+
+\item{parameter}{parameters of Gamma distribution}
 }
 \value{
-
+CvM.gamma gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Computes Cramer Von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
-Estimate parameters by default ML using "estimate.gamma"
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
+Estimate parameters by ML using "estimate.gamma" by default.
 }
 \examples{
-
+x = rgamma(100,1,1)
+CvM.gamma(x)
+CvM.gamma(x,parameter=c(1,1))
 }

@@ -2,16 +2,25 @@
 % Please edit documentation in R/CvM.weibull.pvalue.R
 \name{CvM.weibull.pvalue}
 \alias{CvM.weibull.pvalue}
-\title{CvM.weibull.pvalue}
+\title{P-value of EDF statistics W^2 for Weibull Distribution}
 \usage{
 CvM.weibull.pvalue(w, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{w}{W^2 for Weibull Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
 }
 \value{
-
+CvM.weibull.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.weibull.pvalue
+Compute p-value of the given Cramer-von Mises statistic W^2
+}
+\examples{
+x = rweibull(1000,1)
+wsq = CvM.weibull(x)
+CvM.weibull.pvalue(wsq)
 }

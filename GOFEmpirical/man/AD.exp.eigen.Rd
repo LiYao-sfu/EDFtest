@@ -4,10 +4,10 @@
 \alias{AD.exp.eigen}
 \title{AD.exp.eigen}
 \usage{
-AD.exp.eigen(n, shape)
+AD.exp.eigen(n)
 }
 \arguments{
-\item{shape}{}
+\item{n}{number of eigenvalues}
 }
 \value{
 

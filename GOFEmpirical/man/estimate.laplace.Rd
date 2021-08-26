@@ -7,14 +7,15 @@
 estimate.laplace(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
 }
 \value{
-
+estimated location and scale parameters of the Laplace distribution.
 }
 \description{
-Computes the mle of the location, mu, and scale, b, for a sample x from the Laplace distribution.
+Estimate location and scale parameters of the Laplace distribution by the method of maximum likelihood.
 }
 \examples{
-
+x=runif(10,-5,5)
+estimate.laplace(x)
 }

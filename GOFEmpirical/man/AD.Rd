@@ -7,14 +7,16 @@
 AD(z)
 }
 \arguments{
-\item{z}{Assumes z is a vector with 0 < z[i] < 1 for each i}
+\item{z}{vector of numbers supposed to be 0 and 1}
 }
 \value{
-float
+AD gives Anderson-Darling statistic of a uniform sample.
 }
 \description{
-Computes the Anderson-Darling goodness-of-fit statistic for testing uniformity on the unit interval.
+Given probability integral transforms, compute the Anderson-Darling goodness-of-fit statistic
+for testing uniformity on the unit interval.
 }
 \examples{
-
+x = runif(10)
+AD(x)
 }

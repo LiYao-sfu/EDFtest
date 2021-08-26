@@ -2,16 +2,25 @@
 % Please edit documentation in R/AD.exp.pvalue.R
 \name{AD.exp.pvalue}
 \alias{AD.exp.pvalue}
-\title{AD.exp.pvalue}
+\title{P-value of EDF statistics A^2 for Exponential Distribution}
 \usage{
 AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{a}{A^2 for Exponential Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
 }
 \value{
-
+AD.exp.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.exp.pvalue
+Compute p-value of the given Anderson-Darling statistic A^2
+}
+\examples{
+x = rexp(100)
+asq = AD.exp(x)
+AD.exp.pvalue(asq)
 }

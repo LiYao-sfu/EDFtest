@@ -2,16 +2,31 @@
 % Please edit documentation in R/estimate.gamma.regression.R
 \name{estimate.gamma.regression}
 \alias{estimate.gamma.regression}
-\title{estimate.gamma.regression}
+\title{Gamma regression model}
 \usage{
 estimate.gamma.regression(x, y)
 }
 \arguments{
-\item{y}{}
+\item{x}{the design matrix}
+
+\item{y}{the univariate response}
 }
 \value{
-
+estimated sigma and coefficients of gamma regression model.
 }
 \description{
-estimate.gamma.regression
+Estimate the parameters in a Gamma regression model which fits log(E(y))= x beta
+}
+\examples{
+set.seed(5)
+n = 200  #(sample size)
+p = 3
+beta = c(3,4,5)
+alpha = 3
+x = rnorm(n*(p-1))
+x = c(rep(1,n),x)
+x = matrix(x,n,p)
+scale=exp(x \%*\% beta) / alpha
+y =rgamma(n,shape=alpha,scale=scale)
+estimate.gamma.regression(x,y)
 }

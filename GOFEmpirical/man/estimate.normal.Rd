@@ -7,11 +7,15 @@
 estimate.normal(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
 }
 \value{
-
+estimated location and scale parameters of the Normal distribution.
 }
 \description{
-Computes the mean and variance of a sample x from the normal distribution.
+Estimate location and scale parameters of the Normal distribution by the method of maximum likelihood.
+}
+\examples{
+x=rnorm(10)
+estimate.normal(x)
 }

@@ -7,14 +7,15 @@
 estimate.weibull(x)
 }
 \arguments{
-\item{x}{numerical vector}
+\item{x}{random sample}
 }
 \value{
-vector of two parameters, the first alpha, the second beta
+estimated shape and scale parameters of the Weibull distribution.
 }
 \description{
-MLE for Weibull Distribution
+Estimate shape and scale parameters of the Weibull distribution by the method of maximum likelihood.
 }
 \examples{
-
+x=rweibull(10,1)
+estimate.weibull(x)
 }

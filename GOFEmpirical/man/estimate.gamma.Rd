@@ -7,14 +7,16 @@
 estimate.gamma(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
 }
 \value{
-
+estimated shape and scale parameters of the Gamma distribution.
 }
 \description{
-Computes the mle of the shape, alpha, and scale, beta, for a sample x from the Gamma distribution.
+Estimate shape and scale parameters of the Gamma distribution by the method of maximum likelihood.
+Use the digamma and trigamma functions in Base R and do Newton-Raphson on the profile log-likelihood for alpha
 }
 \examples{
-
+x=rgamma(10,2,1)
+estimate.gamma(x)
 }

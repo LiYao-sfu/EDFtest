@@ -1,11 +1,20 @@
-#' AD.logistic.pvalue
+#' P-value of EDF statistics A^2 for Logistic Distribution
 #'
-#' @param a
-#' @param neig
-#' @param verbose
+#' Compute p-value of the given Anderson-Darling statistic A^2
 #'
-AD.logistic.pvalue = function(a,neig=100,verbose=F){
-  library("CompQuadForm")
+#' @param a A^2 for Logistic Distribution
+#' @param neig number of eigenvalues
+#' @param verbose logical; if TRUE, print warning messages
+#'
+#' @return AD.logistic.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
+#' @export
+#'
+#' @examples
+#' x = rlogis(1000)
+#' asq = AD.logistic(x)
+#' AD.logistic.pvalue(asq)
+AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
+  require("CompQuadForm")
   e = AD.logistic.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")

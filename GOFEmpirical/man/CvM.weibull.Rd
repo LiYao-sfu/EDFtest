@@ -2,20 +2,24 @@
 % Please edit documentation in R/CvM.weibull.R
 \name{CvM.weibull}
 \alias{CvM.weibull}
-\title{Cramer Von Mises Statistics for the Weibull Distribution}
+\title{EDF statistics W^2 for Weibull Distribution}
 \usage{
 CvM.weibull(x, parameter = estimate.weibull(x))
 }
 \arguments{
-\item{parameter}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of Weibull distribution}
 }
 \value{
-
+CvM.weibull gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Computes Cramer Von Mises statistic W^2 for an iid sample, x, to test for the Weibull distribution with parameters unknown.
-Estimate parameters by default ML using "estimate.weibull"
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Weibull distribution with parameters unknown.
+Estimate parameters by ML using "estimate.weibull" by default.
 }
 \examples{
-
+x= rweibull(1000,1)
+CvM.weibull(x)
+CvM.weibull(x,c(1,1))
 }

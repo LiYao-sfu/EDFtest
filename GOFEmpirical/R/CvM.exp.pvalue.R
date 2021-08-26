@@ -1,19 +1,24 @@
-#' CvM.exp.pvalue
+#' P-value of EDF statistics W^2 for Exponential Distribution
 #'
-#' @param w
-#' @param neig
-#' @param verbose
+#' Compute p-value of the given Cramer-von Mises statistic W^2
 #'
-#' @return
+#' @param w W^2 for Exponential Distribution
+#' @param neig number of eigenvalues
+#' @param verbose logical; if TRUE, print warning messages
+#'
+#' @return CvM.exp.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples
+#' x = rexp(100)
+#' wsq = CvM.exp(x)
+#' CvM.exp.pvalue(wsq)
 CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
-  library("CompQuadForm")
+  require("CompQuadForm")
   e=CvM.exp.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)#play with eps and limit
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7) #play with epsabs and limit
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq

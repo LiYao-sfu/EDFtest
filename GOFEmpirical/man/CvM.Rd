@@ -7,14 +7,16 @@
 CvM(z)
 }
 \arguments{
-\item{z}{Assumes z is a vector with 0 < z[i] < 1 for each i}
+\item{z}{vector of numbers supposed to be 0 and 1}
 }
 \value{
-float
+CvM gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Computes the Cramer-von Mises goodness-of-fit statistic for testing uniformity on the unit interval.
+Given probability integral transforms, compute the Cramer-von Mises goodness-of-fit statistic
+for testing uniformity on the unit interval. It is a component of doing other tests.
 }
 \examples{
-
+x = runif(10)
+CvM(x)
 }

@@ -7,14 +7,19 @@
 estimate.logistic(x, eps = 1e-07, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{x}{random sample}
+
+\item{eps}{stopping criterion}
+
+\item{verbose}{logical; if TRUE, print the warning message}
 }
 \value{
-
+estimated location and scale parameters of the Logistic distribution.
 }
 \description{
-MLE for Logistic Distribution
+Estimate location and scale parameters of the Logistic distribution by the method of maximum likelihood.
 }
 \examples{
-
+x=rlogis(10)
+estimate.logistic(x)
 }

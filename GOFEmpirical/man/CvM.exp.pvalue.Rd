@@ -2,16 +2,25 @@
 % Please edit documentation in R/CvM.exp.pvalue.R
 \name{CvM.exp.pvalue}
 \alias{CvM.exp.pvalue}
-\title{CvM.exp.pvalue}
+\title{P-value of EDF statistics W^2 for Exponential Distribution}
 \usage{
 CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{w}{W^2 for Exponential Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
 }
 \value{
-
+CvM.exp.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.exp.pvalue
+Compute p-value of the given Cramer-von Mises statistic W^2
+}
+\examples{
+x = rexp(100)
+wsq = CvM.exp(x)
+CvM.exp.pvalue(wsq)
 }

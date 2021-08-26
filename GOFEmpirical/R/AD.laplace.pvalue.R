@@ -1,11 +1,21 @@
-#' AD.laplace.pvalue
+#' P-value of EDF statistics A^2 for Laplace Distribution
 #'
-#' @param a
-#' @param neig
-#' @param verbose
+#' Compute p-value of the given Anderson-Darling statistic A^2
 #'
-AD.laplace.pvalue = function(a,neig=100,verbose=F){
-  library("CompQuadForm")
+#' @param a A^2 for Exponential Distribution
+#' @param neig number of eigenvalues
+#' @param verbose logical; if TRUE, print warning messages
+#'
+#' @return AD.laplace.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
+#' @export
+#'
+#' @examples
+#' library(L1pack)
+#' x= rlaplace(100)
+#' asq = AD.laplace(x)
+#' AD.laplace.pvalue(asq)
+AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
+  require("CompQuadForm")
   e = AD.laplace.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")

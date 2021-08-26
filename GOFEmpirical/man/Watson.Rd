@@ -2,16 +2,21 @@
 % Please edit documentation in R/Watson.R
 \name{Watson}
 \alias{Watson}
-\title{Watson Statistics}
+\title{EDF statistics U^2}
 \usage{
 Watson(z)
 }
 \arguments{
-\item{z}{}
+\item{z}{vector of numbers supposed to be 0 and 1.}
 }
 \value{
 
 }
 \description{
-Watson Statistics
+Given probability integral transforms, compute the Watson goodness-of-fit statistic
+for testing uniformity on the unit interval. It is also a component of doing other tests.
+}
+\examples{
+x = runif(10)
+Watson(x)
 }

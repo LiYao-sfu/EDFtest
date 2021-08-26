@@ -2,22 +2,24 @@
 % Please edit documentation in R/AD.weibull.R
 \name{AD.weibull}
 \alias{AD.weibull}
-\title{Anderson-Darling Statistics for the Weibull Distribution}
+\title{EDF statistics A^2 for Weibull Distribution}
 \usage{
 AD.weibull(x, parameter = estimate.weibull(x))
 }
 \arguments{
-\item{x}{numerical vector}
+\item{x}{random sample}
 
-\item{parameter}{}
+\item{parameter}{parameter of Weibull distribution}
 }
 \value{
-float
+AD.weibull gives Anderson-Darling statistic of a uniform sample.
 }
 \description{
-Computes Anderson-Darling statistic A^2 for an iid sample, x, to test for the Weibull distribution with parameters unknown.
-Estimate parameters by ML using "estimate.weibull"
+Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Weibull distribution with parameters unknown.
+Estimate parameters by ML using "estimate.weibull" by default.
 }
 \examples{
-
+x= rweibull(1000,1)
+AD.weibull(x)
+AD.weibull(x,c(1,1))
 }

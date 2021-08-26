@@ -1,14 +1,15 @@
 #' MLE for Weibull Distribution
 #'
+#' Estimate shape and scale parameters of the Weibull distribution by the method of maximum likelihood.
 #'
+#' @param x random sample
 #'
-#' @param x numerical vector
-#'
-#' @return vector of two parameters, the first alpha, the second beta
+#' @return estimated shape and scale parameters of the Weibull distribution.
 #' @export
 #'
 #' @examples
-#'
+#' x=rweibull(10,1)
+#' estimate.weibull(x)
 estimate.weibull <- function(x){
     n <- length(x)
     m1 <- mean(x)

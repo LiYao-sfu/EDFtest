@@ -7,14 +7,15 @@
 estimate.exp(x)
 }
 \arguments{
-\item{x}{random sample from the Exponential distirbution}
+\item{x}{random sample}
 }
 \value{
-
+estimated scale parameter of the Exponential distribution.
 }
 \description{
-Computes the mle of the scale parameter for a sample x from the Exponential distribution.
+Estimate scale parameter of the Exponential distribution by the method of maximum likelihood.
 }
 \examples{
-
+x=rexp(10)
+estimate.exp(x)
 }

@@ -7,6 +7,8 @@
 CvM.gamma.covmat(n, shape)
 }
 \arguments{
+\item{n}{number of eigenvalues}
+
 \item{shape}{}
 }
 \value{

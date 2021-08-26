@@ -2,16 +2,33 @@
 % Please edit documentation in R/estimate.normal.regression.R
 \name{estimate.normal.regression}
 \alias{estimate.normal.regression}
-\title{estimate.normal.regression}
+\title{linear model by OLS}
 \usage{
 estimate.normal.regression(x, y, fit.intercept = TRUE)
 }
 \arguments{
-\item{fit.intercept}{}
+\item{x}{the design matrix which is not expected to have a column of 1s}
+
+\item{y}{the univariate response}
+
+\item{fit.intercept}{logical; if TRUE, an intercept term is added by lm}
 }
 \value{
-
+estimated sigma and coefficients of linear regression by OLS.
 }
 \description{
-estimate.normal.regression
+Just fit a standard linear model by OLS (ordinary least square)
+}
+\examples{
+set.seed(5)
+n = 100
+p = 3
+beta = c(1,2,3)
+x = rnorm(n*(p-1))
+x = c(rep(1,n),x)
+x = matrix(x,n,p)
+mean = x\%*\%(beta)
+sd = 2
+y =rnorm(n,mean=mean,sd=sd)
+estimate.normal.regression(x,y)
 }

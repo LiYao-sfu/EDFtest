@@ -2,16 +2,24 @@
 % Please edit documentation in R/CvM.normal.R
 \name{CvM.normal}
 \alias{CvM.normal}
-\title{CvM.normal}
+\title{EDF statistics W^2 for Normal Distribution}
 \usage{
-CvM.normal(x)
+CvM.normal(x, parameter = estimate.normal(x))
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of Normal distribution}
 }
 \value{
-
+CvM.normal gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.normal
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Normal distribution with parameters unknown.
+Estimate parameters by ML using "estimate.normal" by default.
+}
+\examples{
+x= rnorm(1000)
+CvM.normal(x)
+CvM.normal(x,c(0,1))
 }

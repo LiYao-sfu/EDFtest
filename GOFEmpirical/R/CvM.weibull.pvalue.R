@@ -1,15 +1,20 @@
-#' CvM.weibull.pvalue
+#' P-value of EDF statistics W^2 for Weibull Distribution
 #'
-#' @param w
-#' @param neig
-#' @param verbose
+#' Compute p-value of the given Cramer-von Mises statistic W^2
 #'
-#' @return
+#' @param w W^2 for Weibull Distribution
+#' @param neig number of eigenvalues
+#' @param verbose logical; if TRUE, print warning messages
+#'
+#' @return CvM.weibull.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples
+#' x = rweibull(1000,1)
+#' wsq = CvM.weibull(x)
+#' CvM.weibull.pvalue(wsq)
 CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
-  library("CompQuadForm")
+  require("CompQuadForm")
   e=CvM.weibull.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")

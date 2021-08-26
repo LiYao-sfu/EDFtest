@@ -2,16 +2,25 @@
 % Please edit documentation in R/AD.weibull.pvalue.R
 \name{AD.weibull.pvalue}
 \alias{AD.weibull.pvalue}
-\title{AD.weibull.pvalue}
+\title{P-value of EDF statistics A^2 for Weibull Distribution}
 \usage{
 AD.weibull.pvalue(a, neig = 100, verbose = F)
 }
 \arguments{
-\item{verbose}{}
+\item{a}{A^2 for Weibull Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
 }
 \value{
-
+AD.weibull.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.weibull.pvalue
+Compute p-value of the given Anderson-Darling statistic A^2
+}
+\examples{
+x = rweibull(1000,1)
+asq = AD.weibull(x)
+AD.weibull.pvalue(asq)
 }

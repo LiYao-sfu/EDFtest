@@ -1,12 +1,10 @@
 #' CvM.gamma.eigen
 #'
-#' @param n
+#' @param n number of eigenvalues
 #' @param shape
 #'
 #' @return
 #' @export
-#'
-#' @examples
 CvM.gamma.eigen = function(n,shape){
   # I don't have code for this yet
   # mean = 1/6 -?

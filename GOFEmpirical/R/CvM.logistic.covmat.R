@@ -1,11 +1,9 @@
 #' CvM.logistic.covmat
 #'
-#' @param n
+#' @param n number of eigenvalues
 #'
 #' @return
 #' @export
-#'
-#' @examples
 CvM.logistic.covmat=function(n){
   Fisher.logistic = matrix(c(1/3,0,0,(pi^2+3)/9),nrow=2)
   s=1:n

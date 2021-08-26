@@ -1,11 +1,9 @@
 #' AD.laplace.covmat
 #'
-#' @param n
+#' @param n number of eigenvalues
 #'
 #' @return
 #' @export
-#'
-#' @examples
 AD.laplace.covmat=function(n){
   s=1:n
   s=s/(n+1)

@@ -1,13 +1,20 @@
-#' AD.laplace
+#' EDF statistics A^2 for Laplace Distribution
 #'
-#' @param x
+#' Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Laplace distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.laplace" by default.
 #'
-#' @return
+#' @param x random sample
+#' @param parameter parameter of Laplace distribution
+#'
+#' @return AD.laplace gives Anderson-Darling statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-AD.laplace = function(x){
-  theta = estimate.laplace(x)
-  z = cdf.laplace((x-theta[1])/theta[2])
+#' library(L1pack)
+#' x= rlaplace(100)
+#' AD.laplace(x)
+#' AD.laplace(x,c(0,1))
+AD.laplace = function(x,parameter=estimate.laplace(x)){
+  z = cdf.laplace((x-parameter[1])/parameter[2])
   AD(z)
 }

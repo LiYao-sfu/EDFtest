@@ -1,13 +1,15 @@
 #' MLE for Normal Distribution
 #'
-#' Computes the mean and variance of a sample x from the normal distribution.
+#' Estimate location and scale parameters of the Normal distribution by the method of maximum likelihood.
 #'
-#' @param x
+#' @param x random sample
 #'
-#' @return
+#' @return estimated location and scale parameters of the Normal distribution.
 #' @export
 #'
 #' @examples
+#' x=rnorm(10)
+#' estimate.normal(x)
 estimate.normal = function(x){
   c(mean(x),sd(x))
 

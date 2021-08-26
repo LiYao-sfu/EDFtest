@@ -1,11 +1,16 @@
-#' Watson Statistics
+#' EDF statistics U^2
 #'
-#' @param z
+#' Given probability integral transforms, compute the Watson goodness-of-fit statistic
+#' for testing uniformity on the unit interval. It is also a component of doing other tests.
+#'
+#' @param z vector of numbers supposed to be 0 and 1.
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' x = runif(10)
+#' Watson(x)
 Watson <- function(z){
     n <- length(z)
     u <- sort(z)

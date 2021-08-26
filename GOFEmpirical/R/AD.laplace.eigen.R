@@ -1,11 +1,9 @@
 #' AD.laplace.eigen
 #'
-#' @param n
+#' @param n number of eigenvalues
 #'
 #' @return
 #' @export
-#'
-#' @examples
 AD.laplace.eigen = function(n){
   mean = 1-.5351471355520514227 # from Maple
   M=AD.laplace.covmat(n)

@@ -1,12 +1,10 @@
 #' CvM.gamma.covmat
 #'
-#' @param n
+#' @param n number of eigenvalues
 #' @param shape
 #'
 #' @return
 #' @export
-#'
-#' @examples
 CvM.gamma.covmat=function(n,shape){
   fisher.information.gamma=function(shape.hat){
     #

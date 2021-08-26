@@ -2,16 +2,24 @@
 % Please edit documentation in R/CvM.exp.R
 \name{CvM.exp}
 \alias{CvM.exp}
-\title{CvM.exp}
+\title{EDF statistics W^2 for Exponential Distribution}
 \usage{
-CvM.exp(x)
+CvM.exp(x, parameter = estimate.exp(x))
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of exponential distribution}
 }
 \value{
-
+CvM.exp gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.exp
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
+Estimate parameters by ML using "estimate.gamma" by default.
+}
+\examples{
+x= rexp(100)
+CvM.exp(x)
+CvM.exp(x,parameter=2)
 }

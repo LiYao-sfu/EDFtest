@@ -1,13 +1,15 @@
 #' EDF statistics A^2
 #'
-#' Computes the Anderson-Darling goodness-of-fit statistic for testing uniformity on the unit interval.
+#' Given probability integral transforms, compute the Anderson-Darling goodness-of-fit statistic
+#' for testing uniformity on the unit interval.
 #'
-#' @param z Assumes z is a vector with 0 < z[i] < 1 for each i
-#' @return float
+#' @param z vector of numbers supposed to be 0 and 1
+#' @return AD gives Anderson-Darling statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-#'
+#' x = runif(10)
+#' AD(x)
 AD <- function(z){
   n <- length(z)
   u <- sort(z)

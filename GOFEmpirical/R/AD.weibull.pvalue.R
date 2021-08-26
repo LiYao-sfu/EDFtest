@@ -1,15 +1,20 @@
-#' AD.weibull.pvalue
+#' P-value of EDF statistics A^2 for Weibull Distribution
 #'
-#' @param a
-#' @param neig
-#' @param verbose
+#' Compute p-value of the given Anderson-Darling statistic A^2
 #'
-#' @return
+#' @param a A^2 for Weibull Distribution
+#' @param neig number of eigenvalues
+#' @param verbose logical; if TRUE, print warning messages
+#'
+#' @return AD.weibull.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
 #' @export
 #'
 #' @examples
+#' x = rweibull(1000,1)
+#' asq = AD.weibull(x)
+#' AD.weibull.pvalue(asq)
 AD.weibull.pvalue = function(a,neig=100,verbose=F){
-  library("CompQuadForm")
+  require("CompQuadForm")
   e=AD.weibull.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")

@@ -2,22 +2,24 @@
 % Please edit documentation in R/AD.logistic.R
 \name{AD.logistic}
 \alias{AD.logistic}
-\title{Anderson-Darling Statistics for the Logistic Distribution}
+\title{EDF statistics A^2 for Logistic Distribution}
 \usage{
 AD.logistic(x, parameter = estimate.logistic(x))
 }
 \arguments{
-\item{x}{numerical vector}
+\item{x}{random sample}
 
-\item{parameter}{}
+\item{parameter}{parameter of Logistic distribution}
 }
 \value{
-float
+AD.logistic gives Anderson-Darling statistic of a uniform sample.
 }
 \description{
-Computes Anderson-Darling statistic A^2 for an iid sample, x, to test for the Logistic distribution with parameters unknown.
-Estimate parameters by ML using "estimate.logistic"
+Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Logistic distribution with parameters unknown.
+Estimate parameters by ML using "estimate.logistic" by default.
 }
 \examples{
-
+x= rlogis(1000)
+AD.logistic(x)
+AD.logistic(x,c(0,1))
 }

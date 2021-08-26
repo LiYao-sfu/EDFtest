@@ -1,17 +1,17 @@
 #' MLE for Gamma Distribution
 #'
-#' Computes the mle of the shape, alpha, and scale, beta, for a sample x from the Gamma distribution.
+#' Estimate shape and scale parameters of the Gamma distribution by the method of maximum likelihood.
+#' Use the digamma and trigamma functions in Base R and do Newton-Raphson on the profile log-likelihood for alpha
 #'
-#' @param x
+#' @param x random sample
 #'
-#' @return
+#' @return estimated shape and scale parameters of the Gamma distribution.
 #' @export
 #'
 #' @examples
-#'
+#' x=rgamma(10,2,1)
+#' estimate.gamma(x)
 estimate.gamma <- function(x){
-  #  Uses the digamma and trigamma functions in Base R and does Newton-Raphson
-  #    on the profile log-likelihood for alpha
   n <- length(x)
   m1 <- mean(x)
   m2 <- var(x)

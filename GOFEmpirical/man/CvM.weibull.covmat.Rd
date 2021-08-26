@@ -7,7 +7,7 @@
 CvM.weibull.covmat(n)
 }
 \arguments{
-\item{n}{}
+\item{n}{number of eigenvalues}
 }
 \value{
 

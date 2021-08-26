@@ -1,16 +1,17 @@
 #' MLE for Logistic Distribution
 #'
+#' Estimate location and scale parameters of the Logistic distribution by the method of maximum likelihood.
 #'
+#' @param x random sample
+#' @param eps stopping criterion
+#' @param verbose logical; if TRUE, print the warning message
 #'
-#' @param x
-#' @param eps
-#' @param verbose
-#'
-#' @return
+#' @return estimated location and scale parameters of the Logistic distribution.
 #' @export
 #'
 #' @examples
-#'
+#' x=rlogis(10)
+#' estimate.logistic(x)
 estimate.logistic <- function(x,eps=1e-7,verbose=FALSE){
     hessianscore.logistic=function(x,theta){
       #

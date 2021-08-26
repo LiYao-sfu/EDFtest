@@ -1,18 +1,19 @@
-#' Cramer Von Mises Statistics for the Logistic Distribution
+#' EDF statistics W^2 for Logistic Distribution
 #'
-#' Computes Cramer Von Mises statistic W^2 for an iid sample, x, to test for the Logistic distribution with parameters unknown.
-#' Estimate parameters by default ML using "estimate.logistic"
+#' Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Logistic distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.logistic" by default.
 #'
-#' @param x
-#' @param parameter
+#' @param x random sample
+#' @param parameter parameter of Logistic distribution
 #'
-#' @return
+#' @return CvM.logistic gives Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-#'
+#' x= rlogis(1000)
+#' CvM.logistic(x)
+#' CvM.logistic(x,c(0,1))
 CvM.logistic <- function(x,parameter=estimate.logistic(x)){
-#    pars <- estimate.logistic(x)
     alpha <- parameter[1]
     beta <- parameter[2]
     z <- plogis(x,location=alpha,scale=beta)

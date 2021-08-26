@@ -2,13 +2,27 @@
 % Please edit documentation in R/AD.gamma.pvalue.R
 \name{AD.gamma.pvalue}
 \alias{AD.gamma.pvalue}
-\title{AD.gamma.pvalue}
+\title{P-value of EDF statistics A^2 for Gamma Distribution}
 \usage{
 AD.gamma.pvalue(a, shape, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{a}{A^2 for Gamma Distribution}
+
+\item{shape}{shape parameter for Gamma distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
+}
+\value{
+AD.gamma.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.gamma.pvalue
+Compute p-value of the given Anderson-Darling statistic A^2
+}
+\examples{
+x = rgamma(100,1,2)
+asq = AD.gamma(x)
+AD.gamma.pvalue(asq,1)
 }

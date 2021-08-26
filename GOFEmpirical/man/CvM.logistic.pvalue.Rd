@@ -2,13 +2,25 @@
 % Please edit documentation in R/CvM.logistic.pvalue.R
 \name{CvM.logistic.pvalue}
 \alias{CvM.logistic.pvalue}
-\title{CvM.logistic.pvalue}
+\title{P-value of EDF statistics W^2 for Logistic Distribution}
 \usage{
 CvM.logistic.pvalue(w, neig = 100, verbose = F)
 }
 \arguments{
-\item{verbose}{}
+\item{w}{W^2 for Logistic Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
+}
+\value{
+CvM.logistic.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.logistic.pvalue
+Compute p-value of the given Cramer-von Mises statistic W^2
+}
+\examples{
+x = rlogis(1000)
+wsq = CvM.logistic(x)
+CvM.logistic.pvalue(wsq)
 }

@@ -2,22 +2,24 @@
 % Please edit documentation in R/AD.gamma.R
 \name{AD.gamma}
 \alias{AD.gamma}
-\title{Anderson-Darling Statistics for the Gamma Distribution}
+\title{EDF statistics A^2 for Gamma Distribution}
 \usage{
 AD.gamma(x, parameter = estimate.gamma(x))
 }
 \arguments{
-\item{x}{numerical vector}
+\item{x}{random sample}
 
-\item{parameter}{}
+\item{parameter}{parameters of Gamma distribution}
 }
 \value{
-float
+AD.gamma gives Anderson-Darling statistic of a uniform sample.
 }
 \description{
-Computes Anderson-Darling statistic A^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
-Estimate parameters by ML using "estimate.gamma"
+Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
+Estimate parameters by ML using "estimate.gamma" by default.
 }
 \examples{
-
+x = rgamma(100,1,2)
+AD.gamma(x)
+AD.gamma(x,c(1,1/2))
 }

@@ -2,13 +2,26 @@
 % Please edit documentation in R/AD.laplace.pvalue.R
 \name{AD.laplace.pvalue}
 \alias{AD.laplace.pvalue}
-\title{AD.laplace.pvalue}
+\title{P-value of EDF statistics A^2 for Laplace Distribution}
 \usage{
-AD.laplace.pvalue(a, neig = 100, verbose = F)
+AD.laplace.pvalue(a, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{a}{A^2 for Exponential Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
+}
+\value{
+AD.laplace.pvalue gives p-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.laplace.pvalue
+Compute p-value of the given Anderson-Darling statistic A^2
+}
+\examples{
+library(L1pack)
+x= rlaplace(100)
+asq = AD.laplace(x)
+AD.laplace.pvalue(asq)
 }

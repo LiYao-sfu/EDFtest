@@ -1,11 +1,9 @@
 #' AD.weibull.eigen
 #'
-#' @param n
+#' @param n number of eigenvalues
 #'
 #' @return
 #' @export
-#'
-#' @examples
 AD.weibull.eigen = function(n){
   mean.asq.weibull = 0.3868394505  # from Maple
   M=AD.weibull.covmat(n)

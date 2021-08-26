@@ -2,16 +2,24 @@
 % Please edit documentation in R/AD.exp.R
 \name{AD.exp}
 \alias{AD.exp}
-\title{AD.exp}
+\title{EDF statistics A^2 for Exponential Distribution}
 \usage{
-AD.exp(x)
+AD.exp(x, parameter = estimate.exp(x))
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of exponential distribution}
 }
 \value{
-
+AD.exp gives Anderson-Darling statistic of a uniform sample.
 }
 \description{
-AD.exp
+Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Exponential distribution with parameters unknown.
+Estimate parameters by ML using "estimate.exp" by default.
+}
+\examples{
+x= rexp(100)
+AD.exp(x)
+AD.exp(x,1)
 }

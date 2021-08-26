@@ -2,20 +2,24 @@
 % Please edit documentation in R/CvM.logistic.R
 \name{CvM.logistic}
 \alias{CvM.logistic}
-\title{Cramer Von Mises Statistics for the Logistic Distribution}
+\title{EDF statistics W^2 for Logistic Distribution}
 \usage{
 CvM.logistic(x, parameter = estimate.logistic(x))
 }
 \arguments{
-\item{parameter}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of Logistic distribution}
 }
 \value{
-
+CvM.logistic gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Computes Cramer Von Mises statistic W^2 for an iid sample, x, to test for the Logistic distribution with parameters unknown.
-Estimate parameters by default ML using "estimate.logistic"
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Logistic distribution with parameters unknown.
+Estimate parameters by ML using "estimate.logistic" by default.
 }
 \examples{
-
+x= rlogis(1000)
+CvM.logistic(x)
+CvM.logistic(x,c(0,1))
 }

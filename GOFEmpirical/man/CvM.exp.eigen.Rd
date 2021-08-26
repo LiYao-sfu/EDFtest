@@ -7,7 +7,7 @@
 CvM.exp.eigen(n)
 }
 \arguments{
-\item{n}{}
+\item{n}{number of eigenvalues}
 }
 \value{
 

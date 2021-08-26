@@ -2,13 +2,26 @@
 % Please edit documentation in R/CvM.laplace.pvalue.R
 \name{CvM.laplace.pvalue}
 \alias{CvM.laplace.pvalue}
-\title{CvM.laplace.pvalue}
+\title{P-value of EDF statistics W^2 for Laplace Distribution}
 \usage{
 CvM.laplace.pvalue(w, neig = 100, verbose = F)
 }
 \arguments{
-\item{verbose}{}
+\item{w}{W^2 for Laplace Distribution}
+
+\item{neig}{number of eigenvalues}
+
+\item{verbose}{logical; if TRUE, print warning messages}
+}
+\value{
+CvM.laplace.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-CvM.laplace.pvalue
+Compute p-value of the given Cramer-von Mises statistic W^2
+}
+\examples{
+library(L1pack)
+x = rlaplace(1000,0,1)
+wsq = CvM.laplace(x)
+CvM.laplace.pvalue(wsq)
 }

@@ -2,16 +2,34 @@
 % Please edit documentation in R/estimate.laplace.regression.R
 \name{estimate.laplace.regression}
 \alias{estimate.laplace.regression}
-\title{estimate.laplace.regression}
+\title{linear model by LAD}
 \usage{
 estimate.laplace.regression(x, y, fit.intercept = TRUE)
 }
 \arguments{
-\item{fit.intercept}{}
+\item{x}{the design matrix which is not expected to have a column of 1s}
+
+\item{y}{the univariate response}
+
+\item{fit.intercept}{logical; if TRUE, an intercept term is added by lm}
 }
 \value{
-
+estimated sigma and coefficients of linear regression by LAD.
 }
 \description{
-estimate.laplace.regression
+Just fit a standard linear model by least absolute deviations
+}
+\examples{
+library(LaplacesDemon)
+set.seed(5)
+n = 500  #(sample size)
+p = 3
+beta = c(1,2,3)
+x = rnorm(n*(p-1))
+x = c(rep(1,n),x)
+x = matrix(x,n,p)
+mean = x\%*\%(beta)
+sd = 2
+y =rlaplace(500, location=mean, scale=sd)
+estimate.laplace.regression(x,y,FALSE)
 }
