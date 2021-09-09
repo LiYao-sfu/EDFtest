@@ -2,16 +2,22 @@
 % Please edit documentation in R/cdf.weibull.R
 \name{cdf.weibull}
 \alias{cdf.weibull}
-\title{cdf.weibull}
+\title{Probability Integral Transforms for Weibull Distribution}
 \usage{
 cdf.weibull(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameters of Weibull distribution}
 }
 \value{
-
+cdf.weibull gives probability integral transforms for dataset following Weibull distribution
 }
 \description{
-cdf.weibull
+Compute the probability integral transforms of the random sample x in a Weibull distribution
+}
+\examples{
+x= rweibull(100,1)
+cdf.weibull(x,c(1,1))
 }

@@ -2,16 +2,27 @@
 % Please edit documentation in R/gof.logistic.R
 \name{gof.logistic}
 \alias{gof.logistic}
-\title{gof.logistic}
+\title{EDF Goodness-of-Fit tests for Logistic Distribution}
 \usage{
 gof.logistic(x, print = T, verbose = F)
 }
 \arguments{
-\item{verbose}{}
+\item{x}{random sample}
+
+\item{print}{Logical, if TRUE print statistics and P-values}
+
+\item{verbose}{Logical, if TRUE print every step}
 }
 \value{
-
+gof.logistic computes Cramer-von Mises and Anderson-Darling statistics and their P-values.
 }
 \description{
-gof.logistic
+This function takes in an i.i.d. random sample, use MLE to estimate Logistic
+parameters, compute probability integral transforms, and computes Cramer-von Mises
+and Anderson-Darling statistics and their P-values
+}
+\examples{
+x = rlogis(100,1)
+gof.logistic(x)
+gof.logistic(x,print=TRUE,verbose=TRUE)
 }

@@ -2,16 +2,28 @@
 % Please edit documentation in R/gof.statistics.only.R
 \name{gof.statistics.only}
 \alias{gof.statistics.only}
-\title{gof.statistics.only}
+\title{EDF Goodness-of-Fit tests for Statistics Only}
 \usage{
-gof.statistics.only(pit, a2 = T, w2 = T, u2 = T)
+gof.statistics.only(pit, a2 = TRUE, w2 = TRUE, u2 = TRUE)
 }
 \arguments{
-\item{u2}{}
+\item{pit}{a vector of probability integral transforms}
+
+\item{a2}{logical, if TRUE print Anderson-Darling statistic}
+
+\item{w2}{logical, if TRUE print Cramer-von Mises statistic}
+
+\item{u2}{logical, if TRUE print Watson statistic}
 }
 \value{
-
+gof.statistics.only gives Anderson-Darling, Cramer-von Mises or Watson statistics
 }
 \description{
-gof.statistics.only
+This function takes in a vector of probability integral transforms
+and computes whichever of the three statistics is asked for.
+By default A^2,W^2, and U^2 are computed
+}
+\examples{
+x= runif(100)
+gof.statistics.only(x)
 }

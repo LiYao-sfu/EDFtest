@@ -2,16 +2,16 @@
 % Please edit documentation in R/fisher.information.normal.R
 \name{fisher.information.normal}
 \alias{fisher.information.normal}
-\title{fisher.information.normal}
+\title{Fisher Information for Normal Regression Model}
 \usage{
 fisher.information.normal(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{matrix of covariates, normally x will contain an intercept term, that is a column of 1s}
 }
 \value{
-
+fisher.information.normal returns the Fisher Information per point for a normal regression model
 }
 \description{
-fisher.information.normal
+Fisher Information for Normal Regression Model
 }

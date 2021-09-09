@@ -1,0 +1,37 @@
+#' EDF Goodness-of-Fit tests for Normal Distribution by Bootstrap
+#'
+#' This function takes in an i.i.d. random sample, use MLE to estimate Normal
+#' parameters, compute probability integral transforms, and computes Cramer-von Mises
+#' and Anderson-Darling statistics. P-values are calculated by M bootstrap.
+#'
+#' @param x random sample
+#' @param M number of bootstrap
+#'
+#' @return gof.normal.bootstrap computes Cramer-von Mises and Anderson-Darling statistics and their P-values by bootstrap.
+#' @export
+#'
+#' @examples
+#' x=rnorm(1000)
+#' gof.normal.bootstrap(x,M=1000)
+#' gof.normal(x)
+gof.normal.bootstrap<-function(x, M=10000){
+  a2 <- AD.normal(x)
+  w2 <- CvM.normal(x)
+  n <- length(x)
+  pars <- estimate.normal(x)
+  xbar <- pars[1]
+  s <- pars[2]
+  dat <- rnorm(n*M,mean=xbar,sd=s)
+  dat <- matrix(dat,nrow=M)
+  a2vals <- apply(dat,1,AD.normal)
+  w2vals <- apply(dat,1,CvM.normal)
+  a.pv <- length(a2vals[a2vals>a2])/M
+  w.pv <- length(w2vals[w2vals>w2])/M
+  w2text <- paste("Cramer-von Mises statistic is ", as.character(round(w2,7)))
+  w2text <- paste(w2text,"with P-value is ", as.character(round(w.pv,7)),"\n")
+  a2text <- paste("Anderson-Darling statistic is ", as.character(round(a2,7)))
+  a2text <- paste(a2text,"with P-value is ", as.character(round(a.pv,7)),"\n")
+  cat(w2text)
+  cat(a2text)
+  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2))
+}

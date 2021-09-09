@@ -2,16 +2,18 @@
 % Please edit documentation in R/score.weibull.R
 \name{score.weibull}
 \alias{score.weibull}
-\title{score.weibull}
+\title{Score Function for Weibull Distribution}
 \usage{
 score.weibull(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameter of Weibull distribution}
 }
 \value{
-
+score.weibull returns an n by 2 matrix whose ith row refers to the ith data point.
 }
 \description{
-score.weibull
+Compute the score function for the two parameter Weibull distribution
 }

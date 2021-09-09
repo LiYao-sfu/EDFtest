@@ -2,16 +2,21 @@
 % Please edit documentation in R/cdf.laplace.regression.R
 \name{cdf.laplace.regression}
 \alias{cdf.laplace.regression}
-\title{cdf.laplace.regression}
+\title{Probability Integral Transforms for Laplace Regression}
 \usage{
 cdf.laplace.regression(fit, data)
 }
 \arguments{
-\item{data}{}
+\item{y}{response variable}
+
+\item{x}{explanatory variables}
+
+\item{theta.hat}{estimates of coefficients}
 }
 \value{
-
+cdf.laplace.regression gives probability integral transforms for y in a
 }
 \description{
-cdf.laplace.regression
+Computes the probability integral transforms of the responses y
+in a normal linear regression model
 }

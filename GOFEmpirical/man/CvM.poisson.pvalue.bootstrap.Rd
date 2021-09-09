@@ -2,18 +2,33 @@
 % Please edit documentation in R/CvM.poisson.pvalue.bootstrap.R
 \name{CvM.poisson.pvalue.bootstrap}
 \alias{CvM.poisson.pvalue.bootstrap}
-\title{CvM.poisson.pvalue.bootstrap}
+\title{P-value of EDF statistics W^2 for Poisson Distribution by bootstrap}
 \usage{
-CvM.poisson.pvalue.bootstrap(x, nmc = 200, return.samples = F, print = TRUE)
+CvM.poisson.pvalue.bootstrap(
+  x,
+  nmc = 200,
+  return.samples = FALSE,
+  print = TRUE
+)
 }
 \arguments{
 \item{x}{random sample}
 
-\item{print}{}
+\item{print}{logical, if True print the statistic and p-value}
 }
 \value{
-
+CvM.poisson.pvalue.bootstrap gives Cramer-von Mises statistic and its p-value.
 }
 \description{
-CvM.poisson.pvalue.bootstrap
+Compute the Cramer-von Mises statistic W^2 and a corresponding P-value
+for testing the hypothesis that a sample comes from a Poisson distribution
+with mean to be estimated from the data
+The P-value is computed by conditional sampling using nmc samples from
+the conditional distribution of x given sum(x) for a Poisson distribution.
+This distribution is multinomial.
+}
+\examples{
+x= rpois(100,2)
+CvM.poisson(x)
+CvM.poisson.pvalue.bootstrap(x,return.samples=T)
 }

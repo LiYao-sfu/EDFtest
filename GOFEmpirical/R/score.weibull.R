@@ -1,21 +1,20 @@
-#' score.weibull
+#' Score Function for Weibull Distribution
 #'
-#' @param x
-#' @param theta
+#' Compute the score function for the two parameter Weibull distribution
 #'
-#' @return
+#' @param x random sample
+#' @param theta parameter of Weibull distribution
+#'
+#' @return score.weibull returns an n by 2 matrix whose ith row refers to the ith data point.
 #' @export
 #'
 #' @examples
 score.weibull=function(x,theta){
-  #
-  # This is the score function for the two parameter Weibull distribution
-  #
   scale=theta[2]
   shape=theta[1]
   r=x/scale
   lr=log(r)
   s.shape= 1/shape+lr-lr*r^shape
   s.scale= shape*(r^shape-1)/scale
-  rbind(s.shape,s.scale)
+  cbind(s.shape,s.scale)
 }

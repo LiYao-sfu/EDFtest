@@ -1,18 +1,12 @@
-#' fisher.information.normal
+#' Fisher Information for Normal Regression Model
 #'
-#' @param x
+#' @param x matrix of covariates, normally x will contain an intercept term, that is a column of 1s
 #'
-#' @return
+#' @return fisher.information.normal returns the Fisher Information per point for a normal regression model
 #' @export
 #'
 #' @examples
 fisher.information.normal=function(x){
-  #
-  # returns the Fisher Information per point
-  # for a normal regression model: the mean is predicted
-  # linearly from a matrix of covariates x
-  # Normally x will contain an intercept term, that is,
-  # a column of 1s
   #
   # The value returned is for sigma=1.  In general the FI must
   #  be divided by sigma^2.

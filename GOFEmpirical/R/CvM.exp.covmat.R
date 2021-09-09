@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.exp.covmat=function(n){
   Fisher.exp = 1 # fisher.information.exp=1
   s=1:n

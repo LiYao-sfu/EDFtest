@@ -1,13 +1,20 @@
-#' Watson.laplace
+#' EDF statistics U^2 for Laplace Distribution
 #'
-#' @param x
+#' Compute Watson statistic U^2 for an iid sample, x, to test for the Laplace distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.laplace" by default.
 #'
-#' @return
+#' @param x random sample
+#' @param parameter parameter of Laplace distribution
+#'
+#' @return Watson.laplace gives Watson statistic of a uniform sample
 #' @export
 #'
 #' @examples
-Watson.laplace = function(x){
-  pars <- estimate.laplace(x)
-  z <- cdf.laplace((x-par[1])/pars[2])
+#' library(L1pack)
+#' x= rlaplace(1000,0,1)
+#' estimate.laplace(x)
+#' Watson.laplace(x,c(0,1))
+Watson.laplace = function(x,parameter=estimate.laplace(x)){
+  z <- cdf.laplace((x-parameter[1])/parameter[2])
   Watson(z)
 }

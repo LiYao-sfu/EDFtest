@@ -2,16 +2,24 @@
 % Please edit documentation in R/Watson.normal.R
 \name{Watson.normal}
 \alias{Watson.normal}
-\title{Watson.normal}
+\title{EDF statistics U^2 for Normal Distribution}
 \usage{
-Watson.normal(x)
+Watson.normal(x, parameter = estimate.normal(x))
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of Normal distribution}
 }
 \value{
-
+Watson.normal gives Watson statistic of a uniform sample.
 }
 \description{
-Watson.normal
+Compute Watson statistic U^2 for an iid sample, x, to test for the Normal distribution with parameters unknown.
+Estimate parameters by ML using "estimate.normal" by default.
+}
+\examples{
+x= rnorm(1000)
+Watson.normal(x)
+Watson.normal(x,c(0,1))
 }

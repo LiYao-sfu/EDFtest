@@ -9,7 +9,7 @@ AD.normal(x, parameter = estimate.normal(x))
 \arguments{
 \item{x}{random sample}
 
-\item{parameter}{parameter of Normal distribution}
+\item{parameter}{parameters of Normal distribution}
 }
 \value{
 AD.normal gives Anderson-Darling statistic of a uniform sample.

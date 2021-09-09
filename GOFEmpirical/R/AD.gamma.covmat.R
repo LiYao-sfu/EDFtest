@@ -1,10 +1,9 @@
 #' AD.gamma.covmat
 #'
 #' @param n number of eigenvalues
-#' @param shape
+#' @param shape shape parameter for Gamma distribution
 #'
 #' @return
-#' @export
 AD.gamma.covmat=function(n,shape){
   s=1:n
   s=s/(n+1)

@@ -1,15 +1,18 @@
-#' cdf.laplace
+#' Probability Integral Transforms for Laplace Distribution
 #'
-#' @param x
-#' @param theta
+#' Compute the probability integral transforms of the random sample x in a Laplace distribution
 #'
-#' @return
+#' @param x random sample
+#' @param theta parameters of Laplace distribution
+#'
+#' @return cdf.laplace gives probability integral transforms for dataset following Laplace distribution
 #' @export
 #'
 #' @examples
-cdf.laplace = function(x,theta=c(0,1)){
-  #   shape=theta[1]
-  #   scale=theta[2]
+#' library(L1pack)
+#' x= rlaplace(100)
+#' cdf.laplace(x,c(0,1))
+cdf.laplace = function(x,theta){
   m = theta[1]
   s = theta[2]
   v = exp(x-m)/2

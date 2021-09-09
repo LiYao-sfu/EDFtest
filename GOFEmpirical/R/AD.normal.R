@@ -4,7 +4,7 @@
 #' Estimate parameters by ML using "estimate.normal" by default.
 #'
 #' @param x random sample
-#' @param parameter parameter of Normal distribution
+#' @param parameter parameters of Normal distribution
 #'
 #' @return AD.normal gives Anderson-Darling statistic of a uniform sample.
 #' @export

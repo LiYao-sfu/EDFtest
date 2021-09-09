@@ -2,16 +2,27 @@
 % Please edit documentation in R/gof.weibull.R
 \name{gof.weibull}
 \alias{gof.weibull}
-\title{gof.weibull}
+\title{EDF Goodness-of-Fit tests for Weibull Distribution}
 \usage{
-gof.weibull(x, print = T, verbose = F)
+gof.weibull(x, print = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{x}{random sample}
+
+\item{print}{Logical, if TRUE print statistics and P-values}
+
+\item{verbose}{Logical, if TRUE print every step}
 }
 \value{
-
+gof.weibull computes Cramer-von Mises and Anderson-Darling statistics and their P-values.
 }
 \description{
-gof.weibull
+This function takes in an i.i.d. random sample, use MLE to estimate Weibull
+parameters, compute probability integral transforms, and computes Cramer-von Mises
+and Anderson-Darling statistics and their P-values
+}
+\examples{
+x = rweibull(100,1)
+gof.weibull(x)
+gof.weibull(x,print=TRUE,verbose=TRUE)
 }

@@ -1,10 +1,15 @@
-#' score.gamma.regression
+#' Score Function for Gamma Regression Model
 #'
-#' @param y
-#' @param x
-#' @param theta.hat
+#' Compute a p+1 by n matrix containing the components of the score function
+#' in a Gamma regression of y on the n x p covariate matrix x.
+#' The ith column of the output corresponds to the ith data point.
 #'
-#' @return
+#' @param y the univariate response
+#' @param x the design matrix
+#' @param theta.hat MLEs of parameters
+#'
+#' @return Row 1 of the output is the shape component of the score. Rows 2 to p+1
+#' are the components of the score corresponding to the regression coefficients.
 #' @export
 #'
 #' @examples

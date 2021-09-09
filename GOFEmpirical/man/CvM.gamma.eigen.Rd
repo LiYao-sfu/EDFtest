@@ -9,7 +9,7 @@ CvM.gamma.eigen(n, shape)
 \arguments{
 \item{n}{number of eigenvalues}
 
-\item{shape}{}
+\item{shape}{shape parameter of Gamma distribution}
 }
 \value{
 

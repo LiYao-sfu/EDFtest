@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.normal.covmat=function(n){
   Fisher.normal = matrix(c(1,0,0,2),nrow=2)
   s=1:n

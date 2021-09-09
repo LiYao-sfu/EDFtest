@@ -2,16 +2,22 @@
 % Please edit documentation in R/cdf.logistic.R
 \name{cdf.logistic}
 \alias{cdf.logistic}
-\title{cdf.logistic}
+\title{Probability Integral Transforms for Logistic Distribution}
 \usage{
 cdf.logistic(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameters of Logistic distribution}
 }
 \value{
-
+cdf.logistic gives probability integral transforms for dataset following Logistic distribution
 }
 \description{
-cdf.logistic
+Compute the probability integral transforms of the random sample x in a Logistic distribution
+}
+\examples{
+x= rlogis(100)
+cdf.logistic(x,c(0,1))
 }

@@ -2,16 +2,25 @@
 % Please edit documentation in R/gof.weibull.bootstrap.R
 \name{gof.weibull.bootstrap}
 \alias{gof.weibull.bootstrap}
-\title{gof.weibull.bootstrap}
+\title{EDF Goodness-of-Fit tests for Weibull Distribution by Bootstrap}
 \usage{
 gof.weibull.bootstrap(x, M = 10000)
 }
 \arguments{
-\item{M}{}
+\item{x}{random sample}
+
+\item{M}{number of bootstrap}
 }
 \value{
-
+gof.weibull.bootstrap computes Cramer-von Mises and Anderson-Darling statistics and their P-values by bootstrap.
 }
 \description{
-gof.weibull.bootstrap
+This function takes in an i.i.d. random sample, use MLE to estimate Weibull
+parameters, compute probability integral transforms, and computes Cramer-von Mises
+and Anderson-Darling statistics. P-values are calculated by M bootstrap.
+}
+\examples{
+x=rweibull(1000,1)
+gof.weibull.bootstrap(x,M=1000)
+gof.weibull(x)
 }

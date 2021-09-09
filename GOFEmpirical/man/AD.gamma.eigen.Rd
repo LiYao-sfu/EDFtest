@@ -9,7 +9,7 @@ AD.gamma.eigen(n, shape)
 \arguments{
 \item{n}{number of eigenvalues}
 
-\item{shape}{}
+\item{shape}{shape parameter for Gamma distribution}
 }
 \value{
 

@@ -1,10 +1,10 @@
 #' EDF statistics W^2 for Exponential Distribution
 #'
-#' Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
-#' Estimate parameters by ML using "estimate.gamma" by default.
+#' Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Exponential distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.exp" by default.
 #'
 #' @param x random sample
-#' @param parameter parameter of exponential distribution
+#' @param parameter parameter of Exponential distribution
 #'
 #' @return CvM.exp gives Cramer-von Mises statistic of a uniform sample.
 #' @export

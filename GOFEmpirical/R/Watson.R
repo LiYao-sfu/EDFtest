@@ -5,7 +5,7 @@
 #'
 #' @param z vector of numbers supposed to be 0 and 1.
 #'
-#' @return
+#' @return Watson gives Watson statistic of a uniform sample.
 #' @export
 #'
 #' @examples

@@ -2,16 +2,18 @@
 % Please edit documentation in R/score.normal.R
 \name{score.normal}
 \alias{score.normal}
-\title{score.normal}
+\title{Score Function for Normal Distribution}
 \usage{
 score.normal(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameter of Normal distribution}
 }
 \value{
-
+score.normal returns an n by 2 matrix whose ith row refers to the ith data point.
 }
 \description{
-score.normal
+Compute the score function for the two parameter Normal distribution
 }

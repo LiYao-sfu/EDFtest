@@ -2,18 +2,25 @@
 % Please edit documentation in R/score.gamma.regression.R
 \name{score.gamma.regression}
 \alias{score.gamma.regression}
-\title{score.gamma.regression}
+\title{Score Function for Gamma Regression Model}
 \usage{
 score.gamma.regression(y, x, theta.hat)
 }
 \arguments{
-\item{theta.hat}{}
+\item{y}{the univariate response}
+
+\item{x}{the design matrix}
+
+\item{theta.hat}{MLEs of parameters}
 }
 \value{
-
+Row 1 of the output is the shape component of the score. Rows 2 to p+1
+are the components of the score corresponding to the regression coefficients.
 }
 \description{
-score.gamma.regression
+Compute a p+1 by n matrix containing the components of the score function
+in a Gamma regression of y on the n x p covariate matrix x.
+The ith column of the output corresponds to the ith data point.
 }
 \examples{
 set.seed(5)

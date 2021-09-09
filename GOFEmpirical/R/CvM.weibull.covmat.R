@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.weibull.covmat=function(n){
   Fisher.weibull = matrix(c(pi^2/6+(1+digamma(1))^2,-(1+digamma(1)),-(1+digamma(1)),1),nrow=2)
   s=1:n-0.5

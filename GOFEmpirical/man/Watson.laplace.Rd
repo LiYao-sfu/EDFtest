@@ -2,16 +2,25 @@
 % Please edit documentation in R/Watson.laplace.R
 \name{Watson.laplace}
 \alias{Watson.laplace}
-\title{Watson.laplace}
+\title{EDF statistics U^2 for Laplace Distribution}
 \usage{
-Watson.laplace(x)
+Watson.laplace(x, parameter = estimate.laplace(x))
 }
 \arguments{
-\item{x}{}
+\item{x}{random sample}
+
+\item{parameter}{parameter of Laplace distribution}
 }
 \value{
-
+Watson.laplace gives Watson statistic of a uniform sample
 }
 \description{
-Watson.laplace
+Compute Watson statistic U^2 for an iid sample, x, to test for the Laplace distribution with parameters unknown.
+Estimate parameters by ML using "estimate.laplace" by default.
+}
+\examples{
+library(L1pack)
+x= rlaplace(1000,0,1)
+estimate.laplace(x)
+Watson.laplace(x,c(0,1))
 }

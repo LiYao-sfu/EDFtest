@@ -2,16 +2,23 @@
 % Please edit documentation in R/CvM.poisson.R
 \name{CvM.poisson}
 \alias{CvM.poisson}
-\title{Cramer Von Mises Statistics for the Poisson Distribution}
+\title{EDF statistics W^2 for Poisson Distribution}
 \usage{
 CvM.poisson(x, eps = 10^(-9))
 }
 \arguments{
+\item{x}{random sample}
+
 \item{eps}{how much prob you are willing to omit}
 }
 \value{
-
+CvM.poisson gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Cramer Von Mises Statistics for the Poisson Distribution
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Poisson distribution with parameters unknown.
+Estimate parameters by ML using "estimate.poisson" by default.
+}
+\examples{
+x= rpois(100,2)
+CvM.poisson(x)
 }

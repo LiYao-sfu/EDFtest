@@ -10,7 +10,7 @@ Watson(z)
 \item{z}{vector of numbers supposed to be 0 and 1.}
 }
 \value{
-
+Watson gives Watson statistic of a uniform sample.
 }
 \description{
 Given probability integral transforms, compute the Watson goodness-of-fit statistic

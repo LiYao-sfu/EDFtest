@@ -1,15 +1,21 @@
-#' Watson.normal
+#' EDF statistics U^2 for Normal Distribution
 #'
-#' @param x
+#' Compute Watson statistic U^2 for an iid sample, x, to test for the Normal distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.normal" by default.
 #'
-#' @return
+#' @param x random sample
+#' @param parameter parameter of Normal distribution
+#'
+#' @return Watson.normal gives Watson statistic of a uniform sample.
 #' @export
 #'
 #' @examples
-Watson.normal = function(x){
-  pars <- estimate.normal(x)
-  xbar <- pars[1]
-  s <- pars[2]
+#' x= rnorm(1000)
+#' Watson.normal(x)
+#' Watson.normal(x,c(0,1))
+Watson.normal = function(x,parameter=estimate.normal(x)){
+  xbar <- parameter[1]
+  s <- parameter[2]
   z <- pnorm(x,mean=xbar,sd=s)
   Watson(z)
 }

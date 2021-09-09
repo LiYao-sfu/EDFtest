@@ -1,19 +1,18 @@
-#' score.gamma
+#' Score Function for Gamma Distribution
 #'
-#' @param x
-#' @param theta
+#' Compute the score function for the two parameter Gamma distribution
 #'
-#' @return
+#' @param x random sample
+#' @param theta parameter of Gamma distribution
+#'
+#' @return score.gamma returns an n by 2 matrix whose ith row refers to the ith data point.
 #' @export
 #'
 #' @examples
 score.gamma=function(x,theta){
-  #
-  # This is the score function for the two parameter Gamma distribution
-  #
   scale=theta[2]
   shape=theta[1]
   s.shape= log(x/scale)-digamma(shape)
   s.scale= x/scale^2 -shape/scale
-  rbind(s.shape,s.scale) #should be cbind
+  cbind(s.shape,s.scale)
 }

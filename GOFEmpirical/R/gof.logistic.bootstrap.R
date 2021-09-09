@@ -1,14 +1,20 @@
-#' gof.logistic.bootstrap
+#' EDF Goodness-of-Fit tests for Logistic Distribution by Bootstrap
 #'
-#' @param x
-#' @param M
+#' This function takes in an i.i.d. random sample, use MLE to estimate Logistic
+#' parameters, compute probability integral transforms, and computes Cramer-von Mises
+#' and Anderson-Darling statistics. P-values are calculated by M bootstrap.
 #'
-#' @return
+#' @param x random sample
+#' @param M number of bootstrap
+#'
+#' @return gof.logistic.bootstrap computes Cramer-von Mises and Anderson-Darling statistics and their P-values by bootstrap.
 #' @export
 #'
 #' @examples
-"gof.logistic.bootstrap" <-
-  function(x, M=10000){
+#' x=rlogis(1000)
+#' gof.logistic.bootstrap(x,M=1000)
+#' gof.logistic(x)
+gof.logistic.bootstrap=function(x, M=10000){
     a2 <- AD.logistic(x)
     w2 <- CvM.logistic(x)
     n <- length(x)
@@ -21,11 +27,11 @@
     w2vals <- apply(dat,1,CvM.logistic)
     a.pv <- length(a2vals[a2vals>a2])/M
     w.pv <- length(w2vals[w2vals>w2])/M
-    a2text <- paste("A squared is ", as.character(round(a2,4)))
-    a2text <- paste(a2text,"P-value is ", as.character(round(a.pv,4)),"\n")
-    w2text <- paste("W squared is ", as.character(round(w2,4)))
-    w2text <- paste(w2text,"P-value is ", as.character(round(w.pv,4)),"\n")
-    cat(a2text)
+    w2text <- paste("Cramer-von Mises statistic is ", as.character(round(w2,7)))
+    w2text <- paste(w2text,"with P-value is ", as.character(round(w.pv,7)),"\n")
+    a2text <- paste("Anderson-Darling statistic is ", as.character(round(a2,7)))
+    a2text <- paste(a2text,"with P-value is ", as.character(round(a.pv,7)),"\n")
     cat(w2text)
+    cat(a2text)
     invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2))
   }

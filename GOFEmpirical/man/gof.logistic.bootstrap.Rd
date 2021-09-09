@@ -2,16 +2,25 @@
 % Please edit documentation in R/gof.logistic.bootstrap.R
 \name{gof.logistic.bootstrap}
 \alias{gof.logistic.bootstrap}
-\title{gof.logistic.bootstrap}
+\title{EDF Goodness-of-Fit tests for Logistic Distribution by Bootstrap}
 \usage{
 gof.logistic.bootstrap(x, M = 10000)
 }
 \arguments{
-\item{M}{}
+\item{x}{random sample}
+
+\item{M}{number of bootstrap}
 }
 \value{
-
+gof.logistic.bootstrap computes Cramer-von Mises and Anderson-Darling statistics and their P-values by bootstrap.
 }
 \description{
-gof.logistic.bootstrap
+This function takes in an i.i.d. random sample, use MLE to estimate Logistic
+parameters, compute probability integral transforms, and computes Cramer-von Mises
+and Anderson-Darling statistics. P-values are calculated by M bootstrap.
+}
+\examples{
+x=rlogis(1000)
+gof.logistic.bootstrap(x,M=1000)
+gof.logistic(x)
 }

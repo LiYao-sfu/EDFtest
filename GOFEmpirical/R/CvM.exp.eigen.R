@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.exp.eigen = function(n){
   mean = 5/54 # from Maple
   M=CvM.exp.covmat(n)

@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 AD.exp.eigen=function(n){
   mean = 0.595886194 # 3 - 2*zeta(3) from Maple
   s=1:n

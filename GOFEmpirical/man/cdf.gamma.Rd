@@ -2,16 +2,22 @@
 % Please edit documentation in R/cdf.gamma.R
 \name{cdf.gamma}
 \alias{cdf.gamma}
-\title{cdf.gamma}
+\title{Probability Integral Transforms for Gamma Distribution}
 \usage{
 cdf.gamma(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameters of Gamma distribution}
 }
 \value{
-
+cdf.gamma gives probability integral transforms for dataset following Gamma distribution
 }
 \description{
-cdf.gamma
+Compute the probability integral transforms of the random sample x in a Gamma distribution
+}
+\examples{
+x = rgamma(100,1,2)
+cdf.gamma(x,c(1,1/2))
 }

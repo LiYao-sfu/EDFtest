@@ -1,12 +1,17 @@
-#' Cramer Von Mises Statistics for the Poisson Distribution
+#' EDF statistics W^2 for Poisson Distribution
 #'
-#' @param x
+#' Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Poisson distribution with parameters unknown.
+#' Estimate parameters by ML using "estimate.poisson" by default.
+#'
+#' @param x random sample
 #' @param eps how much prob you are willing to omit
 #'
-#' @return
+#' @return CvM.poisson gives Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples
+#' x= rpois(100,2)
+#' CvM.poisson(x)
 CvM.poisson = function(x,eps=10^(-9)){
     n=length(x)
     s=mean(x)

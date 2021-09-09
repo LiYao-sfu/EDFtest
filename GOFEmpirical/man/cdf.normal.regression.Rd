@@ -2,16 +2,21 @@
 % Please edit documentation in R/cdf.normal.regression.R
 \name{cdf.normal.regression}
 \alias{cdf.normal.regression}
-\title{cdf.normal.regression}
+\title{Probability Integral Transforms for Normal Regression}
 \usage{
 cdf.normal.regression(y, x, theta.hat)
 }
 \arguments{
-\item{theta.hat}{}
+\item{y}{response variable}
+
+\item{x}{explanatory variables}
+
+\item{theta.hat}{estimates of coefficients}
 }
 \value{
-
+cdf.normal.regression gives probability integral transforms for y in a ordinary linear regression model
 }
 \description{
-cdf.normal.regression
+Computes the probability integral transforms of the responses y
+in a normal linear regression model
 }

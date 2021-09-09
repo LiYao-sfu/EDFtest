@@ -2,16 +2,21 @@
 % Please edit documentation in R/cdf.gamma.regression.R
 \name{cdf.gamma.regression}
 \alias{cdf.gamma.regression}
-\title{cdf.gamma.regression}
+\title{Probability Integral Transforms for Gamma Regression}
 \usage{
 cdf.gamma.regression(y, x, theta.hat)
 }
 \arguments{
-\item{theta.hat}{}
+\item{y}{response variable}
+
+\item{x}{explanatory variables}
+
+\item{theta.hat}{estimates of coefficients}
 }
 \value{
-
+cdf.gamma.regression gives probability integral transforms for y in a gamma log-linear regression model
 }
 \description{
-cdf.gamma.regression
+Computes the probability integral transforms of the responses y
+in a gamma log-linear regression model: log(E(y)) = x beta
 }

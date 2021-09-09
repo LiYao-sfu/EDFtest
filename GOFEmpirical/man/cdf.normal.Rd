@@ -2,16 +2,22 @@
 % Please edit documentation in R/cdf.normal.R
 \name{cdf.normal}
 \alias{cdf.normal}
-\title{cdf.normal}
+\title{Probability Integral Transforms for Normal Distribution}
 \usage{
 cdf.normal(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameters of Normal distribution}
 }
 \value{
-
+cdf.logistic gives probability integral transforms for dataset following Normal distribution
 }
 \description{
-cdf.normal
+Compute the probability integral transforms of the random sample x in a Normal distribution
+}
+\examples{
+x= rnorm(100)
+cdf.normal(x,c(0,1))
 }

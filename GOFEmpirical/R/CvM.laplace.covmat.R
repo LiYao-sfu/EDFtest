@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.laplace.covmat=function(n){
   Fisher.laplace = matrix(c(1,0,0,1),nrow=2)
   s=1:n

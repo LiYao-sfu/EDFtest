@@ -9,14 +9,14 @@ CvM.exp(x, parameter = estimate.exp(x))
 \arguments{
 \item{x}{random sample}
 
-\item{parameter}{parameter of exponential distribution}
+\item{parameter}{parameter of Exponential distribution}
 }
 \value{
 CvM.exp gives Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Gamma distribution with parameters unknown.
-Estimate parameters by ML using "estimate.gamma" by default.
+Compute Cramer-von Mises statistic W^2 for an iid sample, x, to test for the Exponential distribution with parameters unknown.
+Estimate parameters by ML using "estimate.exp" by default.
 }
 \examples{
 x= rexp(100)

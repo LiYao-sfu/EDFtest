@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 AD.logistic.covmat=function(n){
   s=1:n
   s=s/(n+1)

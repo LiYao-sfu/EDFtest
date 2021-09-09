@@ -2,16 +2,23 @@
 % Please edit documentation in R/cdf.laplace.R
 \name{cdf.laplace}
 \alias{cdf.laplace}
-\title{cdf.laplace}
+\title{Probability Integral Transforms for Laplace Distribution}
 \usage{
-cdf.laplace(x, theta = c(0, 1))
+cdf.laplace(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameters of Laplace distribution}
 }
 \value{
-
+cdf.laplace gives probability integral transforms for dataset following Laplace distribution
 }
 \description{
-cdf.laplace
+Compute the probability integral transforms of the random sample x in a Laplace distribution
+}
+\examples{
+library(L1pack)
+x= rlaplace(100)
+cdf.laplace(x,c(0,1))
 }

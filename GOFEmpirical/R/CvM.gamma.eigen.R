@@ -1,10 +1,9 @@
 #' CvM.gamma.eigen
 #'
 #' @param n number of eigenvalues
-#' @param shape
+#' @param shape shape parameter of Gamma distribution
 #'
 #' @return
-#' @export
 CvM.gamma.eigen = function(n,shape){
   # I don't have code for this yet
   # mean = 1/6 -?

@@ -2,16 +2,23 @@
 % Please edit documentation in R/score.normal.regression.R
 \name{score.normal.regression}
 \alias{score.normal.regression}
-\title{score.normal.regression}
+\title{Score Function for Simple Linear Regression Model}
 \usage{
 score.normal.regression(y, x, theta.hat)
 }
 \arguments{
-\item{theta.hat}{}
+\item{y}{the univariate response}
+
+\item{x}{the design matrix}
+
+\item{theta.hat}{MLEs of parameters}
 }
 \value{
-
+Column 1 of the output is the sigma component of the score. Columns 2 to p+1
+are the components of the score corresponding to the regression coefficients.
 }
 \description{
-score.normal.regression
+computes an n by p+1 matrix containing the components of the score function
+in a linear regression of y on the n x p covariate matrix x.
+The ith row of the output corresponds to the ith data point.
 }

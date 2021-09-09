@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.laplace.eigen  = function(n){
   mean = 1/6 -1/12-1/54
   M=CvM.laplace.covmat(n)

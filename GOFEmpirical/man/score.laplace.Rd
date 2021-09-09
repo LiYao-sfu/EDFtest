@@ -2,16 +2,18 @@
 % Please edit documentation in R/score.laplace.R
 \name{score.laplace}
 \alias{score.laplace}
-\title{score.laplace}
+\title{Score Function for Laplace Distribution}
 \usage{
 score.laplace(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameter of Laplace distribution}
 }
 \value{
-
+score.laplace returns an n by 2 matrix whose ith row refers to the ith data point.
 }
 \description{
-score.laplace
+Compute the score function for the two parameter Laplace distribution
 }

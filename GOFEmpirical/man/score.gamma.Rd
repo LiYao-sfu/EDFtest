@@ -2,16 +2,18 @@
 % Please edit documentation in R/score.gamma.R
 \name{score.gamma}
 \alias{score.gamma}
-\title{score.gamma}
+\title{Score Function for Gamma Distribution}
 \usage{
 score.gamma(x, theta)
 }
 \arguments{
-\item{theta}{}
+\item{x}{random sample}
+
+\item{theta}{parameter of Gamma distribution}
 }
 \value{
-
+score.gamma returns an n by 2 matrix whose ith row refers to the ith data point.
 }
 \description{
-score.gamma
+Compute the score function for the two parameter Gamma distribution
 }

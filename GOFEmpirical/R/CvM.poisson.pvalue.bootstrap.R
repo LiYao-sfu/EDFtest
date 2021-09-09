@@ -1,30 +1,26 @@
-#' CvM.poisson.pvalue.bootstrap
+#' P-value of EDF statistics W^2 for Poisson Distribution by bootstrap
+#'
+#' Compute the Cramer-von Mises statistic W^2 and a corresponding P-value
+#' for testing the hypothesis that a sample comes from a Poisson distribution
+#' with mean to be estimated from the data
+#
+#' The P-value is computed by conditional sampling using nmc samples from
+#' the conditional distribution of x given sum(x) for a Poisson distribution.
+#' This distribution is multinomial.
 #'
 #' @param x random sample
 #' @param nmc
 #' @param return.samples
-#' @param print
+#' @param print logical, if True print the statistic and p-value
 #'
-#' @return
+#' @return CvM.poisson.pvalue.bootstrap gives Cramer-von Mises statistic and its p-value.
 #' @export
 #'
 #' @examples
-CvM.poisson.pvalue.bootstrap =
-  function(x,nmc=200,return.samples=F,print=TRUE){
-    #
-    #  This function computes the Cramer-von Mises
-    #   statistic and a corresponding P-value
-    #   for testing the hypothesis that a sample comes
-    #   from a Poisson distribution with mean to be
-    #   estimated from the data
-    #
-    #  The P-value is computed by conditional sampling using
-    #   nmc samples from the conditional distribution of x
-    #   given sum(x) for a Poisson distribution.  This distribution
-    #   is multinomial.
-    #
-    #  The actual statistic is computed by the function wsq.logistic.pvalue
-    #
+#' x= rpois(100,2)
+#' CvM.poisson(x)
+#' CvM.poisson.pvalue.bootstrap(x,return.samples=T)
+CvM.poisson.pvalue.bootstrap = function(x,nmc=200,return.samples=FALSE,print=TRUE){
     w=CvM.poisson(x)
     v= rep(0,nmc)
     n=length(x)

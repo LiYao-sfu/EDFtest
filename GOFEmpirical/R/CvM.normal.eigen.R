@@ -3,7 +3,6 @@
 #' @param n number of eigenvalues
 #'
 #' @return
-#' @export
 CvM.normal.eigen = function(n){
   mean.wsq.normal=1/6 -7*sqrt(3)/(36*pi)
   M=CvM.normal.covmat(n)

@@ -1,17 +1,17 @@
-#' cdf.laplace.regression
+#' Probability Integral Transforms for Laplace Regression
 #'
-#' @param fit
-#' @param data
+#' Computes the probability integral transforms of the responses y
+#' in a normal linear regression model
 #'
-#' @return
+#' @param y response variable
+#' @param x explanatory variables
+#' @param theta.hat estimates of coefficients
+#'
+#' @return cdf.laplace.regression gives probability integral transforms for y in a
 #' @export
 #'
 #' @examples
 cdf.laplace.regression = function(fit,data){
-  #
-  #  Computes the probability integral transforms of the responses y
-  #   in a normal linear regression model
-  #
   coeff.hat=theta.hat[-1]
   sd.hat=theta.hat[1]
   y.hat = x%*%coeff.hat
