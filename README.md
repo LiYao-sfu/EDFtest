@@ -1,4 +1,4 @@
-# GOF1.3
+# GOFEmpirical
 This repository contains software for the calculation of goodness-of-fit
 test statistics and their P-values.  The three statistics computed are the
 Empirical Distribution function statistics called Cramér-von Mises, Anderson-Darling,
