@@ -20,7 +20,7 @@ The model specifies the conditional distribution of <img src="https://render.git
 for situations where the conditional distribution is one of the list given above.  The 
 following models are handled:
 
-Linear regression with homosecdastic errors: <img src="https://render.githubusercontent.com/render/math?math=Y_i"> has a N(X_i \beta, \sigma^2) distribution given <img src="https://render.githubusercontent.com/render/math?math=X_i">.
+Linear regression with homosecdastic errors: <img src="https://render.githubusercontent.com/render/math?math=Y_i"> has a N(<img src="https://render.githubusercontent.com/render/math?math=X_i \beta">X_i \beta, \sigma^2) distribution given <img src="https://render.githubusercontent.com/render/math?math=X_i">.
 
 
 # Installation
