@@ -21,3 +21,21 @@ for situations where the conditional distribution is one of the list given above
 following models are handled:
 
 Linear regression with homosecdastic errors: Y_i has a N(X_i \beta, \sigma^2) distribution given X_i.
+
+
+# Installation
+Step 1: Install the devtools package
+```R
+install.packages("devtools")
+```
+
+Step 2: Install the package of interest from GitHub
+```R
+library(devtools)
+install_github("/GOF1.3")
+```
+
+Step 3: Load the package
+```R
+install.packages("devtools")
+```
