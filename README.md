@@ -33,13 +33,9 @@ Step 1: Install the devtools package
 install.packages("devtools")
 ```
 
-Step 2: Install the package of interest from GitHub
+Step 2: Install our GOFEmpirical package and load it
 ```R
 library(devtools)
 install_github("EigenEye/GOF1.3/GOFEmpirical")
-```
-
-Step 3: Load the package
-```R
 library("GOFEmpirical")
 ```
