@@ -5,7 +5,7 @@ Empirical Distribution function statistics called Cramér-von Mises, Anderson-Da
 and Watson's statistic.  
 
 The statistics and their P-values can be used to assess an assumed distribution. In the simplest situation
-you have an iid sample from some distribution $$F$$ and want to test the hypothesis that $F$ is a member of 
+you have an iid sample from some distribution <img src="https://render.githubusercontent.com/render/math?math=F"> and want to test the hypothesis that $F$ is a member of 
 some specific parametric family. The following families are available:
 
 ```math
