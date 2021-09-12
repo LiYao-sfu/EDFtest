@@ -12,11 +12,11 @@ some specific parametric family. The following families are available:
 <img src="https://render.githubusercontent.com/render/math?math=Gamma(shape = \alpha, scale = \beta)">,
 <img src="https://render.githubusercontent.com/render/math?math=Logistic(location = \mu, scale = \beta)">,
 <img src="https://render.githubusercontent.com/render/math?math=Laplace(location = \mu, scale = \beta)">,
-<img src="https://render.githubusercontent.com/render/math?math=Weibull(shape = \alpha, scale = \beta)">,
+<img src="https://render.githubusercontent.com/render/math?math=Weibull(shape = \alpha, scale = \beta)">, and
 <img src="https://render.githubusercontent.com/render/math?math=Extreme Value(location = \mu, scale = \beta)">
 
-The package also includes regression models in which a response $Y$ is related to predictors $X$. 
-The model specifies the conditional distribution of $Y$ given $X$.  The package contains code
+The package also includes regression models in which a response <img src="https://render.githubusercontent.com/render/math?math=Y"> is related to predictors <img src="https://render.githubusercontent.com/render/math?math=X">. 
+The model specifies the conditional distribution of <img src="https://render.githubusercontent.com/render/math?math=Y"> given <img src="https://render.githubusercontent.com/render/math?math=X">.  The package contains code
 for situations where the conditional distribution is one of the list given above.  The 
 following models are handled:
 
