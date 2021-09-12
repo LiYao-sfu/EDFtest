@@ -8,6 +8,9 @@ The statistics and their P-values can be used to assess an assumed distribution.
 you have an iid sample from some distribution $F$ and want to test the hypothesis that $F$ is a member of 
 some specific parametric family. The following families are available:
 
+```math
+Normal(\mu,\sigma^2)
+```
 Normal(\mu,\sigma^2)
 Gamma(shape = \alpha, scale = \beta)
 Logistic(location = \mu, scale = \beta)
