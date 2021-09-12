@@ -24,6 +24,10 @@ Linear regression with homosecdastic errors: Y_i has a N(X_i \beta, \sigma^2) di
 
 
 # Installation
+There are several ways you can install GitHub packages into R. For example,
+You can install this package by following steps. You need to install devtools package in R if you have not.
+
+
 Step 1: Install the devtools package
 ```R
 install.packages("devtools")
