@@ -42,3 +42,5 @@ library(devtools)
 install_github("EigenEye/GOF1.3/GOFEmpirical")
 library("GOFEmpirical")
 ```
+
+# Troubleshooting
