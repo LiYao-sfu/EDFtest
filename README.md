@@ -28,15 +28,15 @@ Linear regression with homosecdastic errors: Y_i has a N(X_i \beta, \sigma^2) di
 
 # Installation
 There are several ways you can install GitHub packages into R. For example,
-You can install our package by using devtools. You need to install devtools package in R if you have not.
+You can install our package by using `devtools`. You need to install `devtools` package in R if you have not.
 
 
-Step 1: Install the devtools package
+Step 1: Install the `devtools` package
 ```R
 install.packages("devtools")
 ```
 
-Step 2: Install our GOFEmpirical package and load it
+Step 2: Install our `GOFEmpirical` package and load it
 ```R
 library(devtools)
 install_github("EigenEye/GOF1.3/GOFEmpirical")
