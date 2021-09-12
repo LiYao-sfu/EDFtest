@@ -10,10 +10,10 @@ some specific parametric family. The following families are available:
 
 <img src="https://render.githubusercontent.com/render/math?math=Normal(\mu,\sigma^2)">,
 <img src="https://render.githubusercontent.com/render/math?math=Gamma(shape = \alpha, scale = \beta)">,
-
-
-          Gamma(shape = \alpha, scale = \beta), Logistic(location = \mu, scale = \beta),
-Laplace(location = \mu, scale = \beta), Weibull(shape = \alpha, scale = \beta) and Extreme Value(location = \mu, scale = \beta)">
+<img src="https://render.githubusercontent.com/render/math?math=Logistic(location = \mu, scale = \beta)">,
+<img src="https://render.githubusercontent.com/render/math?math=Laplace(location = \mu, scale = \beta)">,
+<img src="https://render.githubusercontent.com/render/math?math=Weibull(shape = \alpha, scale = \beta)">,
+<img src="https://render.githubusercontent.com/render/math?math=Extreme Value(location = \mu, scale = \beta)">
 
 The package also includes regression models in which a response $Y$ is related to predictors $X$. 
 The model specifies the conditional distribution of $Y$ given $X$.  The package contains code
