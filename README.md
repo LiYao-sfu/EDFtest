@@ -23,7 +23,7 @@ following models are handled:
 Linear regression with homosecdastic errors: <img src="https://render.githubusercontent.com/render/math?math=Y_i"> has a N(<img src="https://render.githubusercontent.com/render/math?math=X_i \beta, \sigma^2">) distribution given <img src="https://render.githubusercontent.com/render/math?math=X_i">.
 
 
-# Installation
+## Installation
 There are several ways you can install GitHub packages into R. For example,
 You can install our package by using `devtools`. You need to install `devtools` package in R if you have not.
 
@@ -40,4 +40,7 @@ install_github("EigenEye/GOF1.3/GOFEmpirical")
 library("GOFEmpirical")
 ```
 
-# Troubleshooting
+## Troubleshooting
+This package is still under development. EDF test for regression models are not available yet.
+
+
