@@ -8,8 +8,10 @@ The statistics and their P-values can be used to assess an assumed distribution.
 you have an iid sample from some distribution <img src="https://render.githubusercontent.com/render/math?math=F"> and want to test the hypothesis that <img src="https://render.githubusercontent.com/render/math?math=F"> is a member of 
 some specific parametric family. The following families are available:
 
-<img src="https://render.githubusercontent.com/render/math?math=Normal(\mu,\sigma^2)>,
-<img src="https://render.githubusercontent.com/render/math?math=Gamma(shape = \alpha, scale = \beta)>,          
+<img src="https://render.githubusercontent.com/render/math?math=Normal(\mu,\sigma^2)">,
+<img src="https://render.githubusercontent.com/render/math?math=Gamma(shape = \alpha, scale = \beta)">,
+
+
           Gamma(shape = \alpha, scale = \beta), Logistic(location = \mu, scale = \beta),
 Laplace(location = \mu, scale = \beta), Weibull(shape = \alpha, scale = \beta) and Extreme Value(location = \mu, scale = \beta)">
 
