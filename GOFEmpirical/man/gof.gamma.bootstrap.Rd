@@ -20,7 +20,7 @@ parameters, compute probability integral transforms, and computes Cramer-von Mis
 and Anderson-Darling statistics. P-values are calculated by M bootstrap.
 }
 \examples{
-x=rgamma(1000,1)
+x=rgamma(10,1)
 gof.gamma.bootstrap(x,M=1000)
 gof.gamma(x)
 }

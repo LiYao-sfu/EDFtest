@@ -14,8 +14,6 @@
 #' AD.gamma(x)
 #' AD.gamma(x,c(1,1/2))
 AD.gamma <- function(x,parameter=estimate.gamma(x)){
-    alpha <- parameter[1]
-    beta <- parameter[2]
-    z <- pgamma(x,shape=alpha,scale=beta)
+    z <- cdf.gamma(x,parameter)
     AD(z)
 }

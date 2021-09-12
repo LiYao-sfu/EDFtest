@@ -26,18 +26,23 @@
 #' x1=rexp(1000)
 #' gof(x=x1,family="Exponential",print=TRUE,verbose=FALSE,bootstrap=FALSE)
 #' gof(x=x1,family="Exponential",print=TRUE,verbose=FALSE,bootstrap=TRUE,M=1000)
+#'
 #' x2=rnorm(1000)
-#' gof(x=x2,family="Normal",print=TRUE,verbose=TRUE,bootstrap=FALSE)
+#' gof(x=x2,family="Normal",print=TRUE,verbose=FALSE,bootstrap=FALSE)
 #' gof(x=x2,family="Normal",print=TRUE,verbose=FALSE,bootstrap=TRUE,M=1000)
+#'
 #' x3=rgamma(1000,2)
 #' gof(x=x3,family="Gamma",print=TRUE,verbose=FALSE,bootstrap=FALSE)
 #' gof(x=x3,family="Gamma",print=TRUE,verbose=FALSE,bootstrap=TRUE,M=1000)
+#'
 #' x4=rweibull(1000,2)
 #' gof(x=x4,family="Weibull",print=TRUE,verbose=FALSE,bootstrap=FALSE)
 #' gof(x=x4,family="Weibull",print=TRUE,verbose=FALSE,bootstrap=TRUE,M=1000)
+#'
 #' x5=rlogis(1000)
 #' gof(x=x5,family="Logistic",print=TRUE,verbose=FALSE,bootstrap=FALSE)
 #' gof(x=x5,family="Logistic",print=TRUE,verbose=FALSE,bootstrap=TRUE,M=1000)
+#'
 #' library(L1pack)
 #' x6=rlaplace(1000)
 #' gof(x=x6,family="Laplace",print=TRUE,verbose=FALSE,bootstrap=FALSE)

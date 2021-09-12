@@ -6,9 +6,6 @@
 #' @param theta parameter of Gamma distribution
 #'
 #' @return score.gamma returns an n by 2 matrix whose ith row refers to the ith data point.
-#' @export
-#'
-#' @examples
 score.gamma=function(x,theta){
   scale=theta[2]
   shape=theta[1]

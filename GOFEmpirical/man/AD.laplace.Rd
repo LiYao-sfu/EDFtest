@@ -19,8 +19,9 @@ Compute Anderson-Darling statistic A^2 for an iid sample, x, to test for the Lap
 Estimate parameters by ML using "estimate.laplace" by default.
 }
 \examples{
-library(L1pack)
+library(rmutil)
 x= rlaplace(100)
+estimate.laplace(x)
 AD.laplace(x)
 AD.laplace(x,c(0,1))
 }

@@ -10,7 +10,6 @@
 #'
 #' @return Row 1 of the output is the shape component of the score. Rows 2 to p+1
 #' are the components of the score corresponding to the regression coefficients.
-#' @export
 #'
 #' @examples
 #' set.seed(5)

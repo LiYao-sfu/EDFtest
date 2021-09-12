@@ -10,11 +10,12 @@
 #' @export
 #'
 #' @examples
-#' library(L1pack)
+#' library(rmutil)
 #' x= rlaplace(100)
+#' estimate.laplace(x)
 #' AD.laplace(x)
 #' AD.laplace(x,c(0,1))
 AD.laplace = function(x,parameter=estimate.laplace(x)){
-  z = cdf.laplace((x-parameter[1])/parameter[2])
+  z = cdf.laplace(x,parameter)
   AD(z)
 }

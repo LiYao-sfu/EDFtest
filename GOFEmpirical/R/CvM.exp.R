@@ -14,7 +14,6 @@
 #' CvM.exp(x)
 #' CvM.exp(x,parameter=2)
 CvM.exp = function(x,parameter=estimate.exp(x)){
-  theta = parameter[1]
-  z = pexp(x/theta[1],rate=1)
+  z = cdf.exp(x,parameter)
   CvM(z)
 }

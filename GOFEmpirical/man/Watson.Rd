@@ -16,7 +16,3 @@ Watson gives Watson statistic of a uniform sample.
 Given probability integral transforms, compute the Watson goodness-of-fit statistic
 for testing uniformity on the unit interval. It is also a component of doing other tests.
 }
-\examples{
-x = runif(10)
-Watson(x)
-}

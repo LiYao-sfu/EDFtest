@@ -6,11 +6,6 @@
 #' @param z vector of numbers supposed to be 0 and 1.
 #'
 #' @return Watson gives Watson statistic of a uniform sample.
-#' @export
-#'
-#' @examples
-#' x = runif(10)
-#' Watson(x)
 Watson <- function(z){
     n <- length(z)
     u <- sort(z)

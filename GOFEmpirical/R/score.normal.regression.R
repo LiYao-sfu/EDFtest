@@ -10,7 +10,6 @@
 #'
 #' @return Column 1 of the output is the sigma component of the score. Columns 2 to p+1
 #' are the components of the score corresponding to the regression coefficients.
-#' @export
 #'
 #' @examples
 score.normal.regression = function(y,x,theta.hat){

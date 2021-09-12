@@ -15,13 +15,13 @@
 #' @examples
 #' x= runif(100)
 #' gof.statistics.only(x)
-gof.statistics.only=function(pit,a2=TRUE,w2=TRUE,u2=TRUE){
+gof.statistics.only=function(pit,AD=TRUE,CvM=TRUE,Watson=TRUE){
   if(any(pit<0))stop("Negative Probability Integral Transforms Not Allowed")
   if(any(pit>1))stop("Probability Integral Transforms More than 1 Not Allowed")
   p=sort(pit)
   out=list()
-  if(a2){out$A2 = AD(p)}
-  if(w2){out$W2 = CvM(p)}
-  if(u2){out$U2 = Watson(p)}
+  if(AD){out$AD = AD(p)}
+  if(CvM){out$CvM = CvM(p)}
+  if(Watson){out$Watson = Watson(p)}
   return(out)
 }

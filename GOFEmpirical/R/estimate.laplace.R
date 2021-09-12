@@ -8,7 +8,8 @@
 #' @export
 #'
 #' @examples
-#' x=runif(10,-5,5)
+#' library(rmutil)
+#' x= rlaplace(1000,0,1)
 #' estimate.laplace(x)
 estimate.laplace = function(x){
   med = median(x)

@@ -16,7 +16,3 @@ CvM gives Cramer-von Mises statistic of a uniform sample.
 Given probability integral transforms, compute the Cramer-von Mises goodness-of-fit statistic
 for testing uniformity on the unit interval. It is a component of doing other tests.
 }
-\examples{
-x = runif(10)
-CvM(x)
-}

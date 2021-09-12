@@ -10,12 +10,11 @@
 #' @export
 #'
 #' @examples
-#' library(L1pack)
+#' library(rmutil)
 #' x= rlaplace(1000,0,1)
-#' estimate.laplace(x)
 #' CvM.laplace(x)
 #' CvM.laplace(x,c(0,1))
 CvM.laplace = function(x,parameter=estimate.laplace(x)){
-  z = cdf.laplace((x-parameter[1])/parameter[2])
+  z = cdf.laplace(x,parameter)
   CvM(z)
 }

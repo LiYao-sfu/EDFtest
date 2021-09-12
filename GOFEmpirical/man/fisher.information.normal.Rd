@@ -13,5 +13,5 @@ fisher.information.normal(x)
 fisher.information.normal returns the Fisher Information per point for a normal regression model
 }
 \description{
-Fisher Information for Normal Regression Model
+The value returned is for sigma=1.  In general the FI must be divided by sigma^2.
 }

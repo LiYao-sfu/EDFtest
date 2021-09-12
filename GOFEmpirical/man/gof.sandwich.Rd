@@ -2,18 +2,31 @@
 % Please edit documentation in R/gof.sandwich.R
 \name{gof.sandwich}
 \alias{gof.sandwich}
-\title{gof.sandwich}
+\title{EDF Goodness-of-Fit tests for General Distributions using Sandwich Estimation of Covariance Function}
 \usage{
 gof.sandwich(y, x = NULL, Fdist, thetahat, Score, m = max(n, 100), ...)
 }
 \arguments{
-\item{...}{}
+\item{y}{data -- should be a numerical vector: sample or response of regression problem}
+
+\item{x}{matrix of covariates}
+
+\item{Fdist}{user supplied function to compute probability integral transform of y}
+
+\item{thetahat}{parameter estimates by mle}
+
+\item{Score}{user supplied function to compute3 components of the score function an n by p matrix with entries
+partial log f(y_i,\theta)/ partial theta_j}
+
+\item{m}{Eigenvalues are extracted for an m by m grid of the covariance ftn}
+
+\item{...}{other inputs passed to Fdist and Score when needed.}
 }
 \value{
 
 }
 \description{
-gof.sandwich
+EDF Goodness-of-Fit tests for General Distributions using Sandwich Estimation of Covariance Function
 }
 \examples{
 

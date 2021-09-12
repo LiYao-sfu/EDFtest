@@ -14,8 +14,6 @@
 #' Watson.normal(x)
 #' Watson.normal(x,c(0,1))
 Watson.normal = function(x,parameter=estimate.normal(x)){
-  xbar <- parameter[1]
-  s <- parameter[2]
-  z <- pnorm(x,mean=xbar,sd=s)
+  z <- cdf.normal(x, theta=parameter)
   Watson(z)
 }

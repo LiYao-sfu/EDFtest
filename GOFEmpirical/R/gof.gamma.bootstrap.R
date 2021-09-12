@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' x=rgamma(1000,1)
+#' x=rgamma(10,1)
 #' gof.gamma.bootstrap(x,M=1000)
 #' gof.gamma(x)
 gof.gamma.bootstrap<-function(x, M=10000){
@@ -23,6 +23,17 @@ gof.gamma.bootstrap<-function(x, M=10000){
   beta <- pars[2]
   dat <- rgamma(n*M,shape=alpha,scale=beta)
   dat <- matrix(dat,nrow=M)
+
+  # Make it efficient!
+
+  # ests <- apply(dat,1,estimate.gamma)
+  # pit <- lapply(dat,1,cdf.gamma,theta=ests)
+  # dim(pit)
+  # cdf.gamma(dat[1,],theta=ests[,1])
+  # cdf.gamma(dat[2,],theta=ests[,2])
+  # cdf.gamma(dat[2,],theta=ests[,1])
+  # pit[,1:2]
+
   a2vals <- apply(dat,1,AD.gamma)
   w2vals <- apply(dat,1,CvM.gamma)
   a.pv <- length(a2vals[a2vals>a2])/M

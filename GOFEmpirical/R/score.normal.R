@@ -6,7 +6,6 @@
 #' @param theta parameter of Normal distribution
 #'
 #' @return score.normal returns an n by 2 matrix whose ith row refers to the ith data point.
-#' @export
 #'
 #' @examples
 score.normal = function(x,theta){

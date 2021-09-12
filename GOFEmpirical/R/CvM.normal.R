@@ -14,8 +14,6 @@
 #' CvM.normal(x)
 #' CvM.normal(x,c(0,1))
 CvM.normal = function(x,parameter=estimate.normal(x)){
-  xbar <- parameter[1]
-  s <- parameter[2]
-  z <- pnorm(x,mean=xbar,sd=s)
+  z <- cdf.normal(x,parameter)
   CvM(z)
 }

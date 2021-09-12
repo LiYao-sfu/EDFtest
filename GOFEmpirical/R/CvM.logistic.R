@@ -14,8 +14,6 @@
 #' CvM.logistic(x)
 #' CvM.logistic(x,c(0,1))
 CvM.logistic <- function(x,parameter=estimate.logistic(x)){
-    alpha <- parameter[1]
-    beta <- parameter[2]
-    z <- plogis(x,location=alpha,scale=beta)
+    z <- cdf.logistic(x,parameter)
     CvM(z)
 }

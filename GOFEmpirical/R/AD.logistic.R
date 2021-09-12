@@ -14,8 +14,6 @@
 #' AD.logistic(x)
 #' AD.logistic(x,c(0,1))
 AD.logistic <- function(x,parameter=estimate.logistic(x)){
-    alpha <- parameter[1]
-    beta <- parameter[2]
-    z <- plogis(x,location=alpha,scale=beta)
+    z <- cdf.logistic(x,parameter)
     AD(z)
 }

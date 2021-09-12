@@ -16,6 +16,7 @@ estimated location and scale parameters of the Laplace distribution.
 Estimate location and scale parameters of the Laplace distribution by the method of maximum likelihood.
 }
 \examples{
-x=runif(10,-5,5)
+library(rmutil)
+x= rlaplace(1000,0,1)
 estimate.laplace(x)
 }

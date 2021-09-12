@@ -16,7 +16,3 @@ AD gives Anderson-Darling statistic of a uniform sample.
 Given probability integral transforms, compute the Anderson-Darling goodness-of-fit statistic
 for testing uniformity on the unit interval.
 }
-\examples{
-x = runif(10)
-AD(x)
-}

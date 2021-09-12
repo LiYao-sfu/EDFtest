@@ -22,8 +22,8 @@ parameters, compute probability integral transforms, and computes Cramer-von Mis
 and Anderson-Darling statistics and their P-values
 }
 \examples{
-library(L1pack)
-x= rlaplace(1000,0,1)
+library(rmutil)
+x= rmutil::rlaplace(1000,0,1)
 gof.laplace(x)
 gof.laplace(x,print=TRUE,verbose=TRUE)
 }

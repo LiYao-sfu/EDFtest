@@ -12,20 +12,20 @@
 #' @export
 #'
 #' @examples
-#' library(L1pack)
-#' x= rlaplace(1000,0,1)
+#' library(rmutil)
+#' x= rmutil::rlaplace(1000,0,1)
 #' gof.laplace(x)
 #' gof.laplace(x,print=TRUE,verbose=TRUE)
 gof.laplace=function(x,print=TRUE,verbose=FALSE){
   require("CompQuadForm")
-  require("L1pack")
+  require("rmutil")
 
   #  Estimate the parameters
   pars=estimate.laplace(x)
   if(verbose){cat("Laplace parameter estimates", pars, "\n")}
 
   #  Compute the pit
-  pit=plaplace(x,location=pars[1],scale=pars[2])
+  pit=rmutil::plaplace(x,m=pars[1],s=pars[2])
   if(verbose){cat("PITs are done \n \n")}
 
   #  Compute two gof statistics

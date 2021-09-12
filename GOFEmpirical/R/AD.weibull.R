@@ -14,8 +14,6 @@
 #' AD.weibull(x)
 #' AD.weibull(x,c(1,1))
 AD.weibull <- function(x,parameter=estimate.weibull(x)){
-    alpha <- parameter[1]
-    beta <- parameter[2]
-    z <- pweibull(x,shape=alpha,scale=beta)
+    z <- cdf.weibull(x,parameter)
     AD(z)
 }

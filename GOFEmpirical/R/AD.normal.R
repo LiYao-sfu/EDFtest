@@ -14,8 +14,6 @@
 #' AD.normal(x)
 #' AD.normal(x,c(0,1))
 AD.normal = function(x,parameter=estimate.normal(x)){
-  xbar <- parameter[1]
-  s <- parameter[2]
-  z <- pnorm(x,mean=xbar,sd=s)
+  z <- cdf.normal(x,parameter)
   AD(z)
 }

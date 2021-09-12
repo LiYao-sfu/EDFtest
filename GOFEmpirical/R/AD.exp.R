@@ -14,8 +14,6 @@
 #' AD.exp(x)
 #' AD.exp(x,1)
 AD.exp = function(x,parameter=estimate.exp(x)){
-  #theta = estimate.exp(x)
-  theta = parameter[1]
-  z = pexp(x/theta[1],rate=1)
+  z = cdf.exp(x,parameter)
   AD(z)
 }

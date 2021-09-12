@@ -4,7 +4,7 @@
 \alias{gof.statistics.only}
 \title{EDF Goodness-of-Fit tests for Statistics Only}
 \usage{
-gof.statistics.only(pit, a2 = TRUE, w2 = TRUE, u2 = TRUE)
+gof.statistics.only(pit, AD = TRUE, CvM = TRUE, Watson = TRUE)
 }
 \arguments{
 \item{pit}{a vector of probability integral transforms}

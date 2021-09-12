@@ -6,7 +6,6 @@
 #' @param theta parameter of Weibull distribution
 #'
 #' @return score.weibull returns an n by 2 matrix whose ith row refers to the ith data point.
-#' @export
 #'
 #' @examples
 score.weibull=function(x,theta){
