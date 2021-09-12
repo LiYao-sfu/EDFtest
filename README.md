@@ -32,10 +32,10 @@ install.packages("devtools")
 Step 2: Install the package of interest from GitHub
 ```R
 library(devtools)
-install_github("/GOF1.3")
+install_github("EigenEye/GOF1.3/GOFEmpirical")
 ```
 
 Step 3: Load the package
 ```R
-install.packages("devtools")
+library("GOFEmpirical")
 ```
