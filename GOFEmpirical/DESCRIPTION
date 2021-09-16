@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Richard Lockhart, Li Yao
 Maintainer: Richard Lockhart<lockhart@sfu.ca>, Li Yao <yaoliy@sfu.ca>
 Description: Compute a variety of goodness of fit statistics for several well-known distributions. 
-License: SFU
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
