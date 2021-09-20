@@ -26,7 +26,18 @@ partial log f(y_i,\theta)/ partial theta_j}
 
 }
 \description{
-EDF Goodness-of-Fit tests for General Distributions using Sandwich Estimation of Covariance Function
+This function tests the hypothesis that data y come from
+distribution Fdist with unknown parameter values theta
+}
+\details{
+Estimates of theta must be provided in thetahat.
+
+It uses a large sample approximation to the limit distribution
+based on the use of the score function components
+to estimate the Fisher information and the limiting covariance
+function of the empirical process.
+
+The estimates thetahat should be roots of the likelihood equations.
 }
 \examples{
 
