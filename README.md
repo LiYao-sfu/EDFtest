@@ -1,4 +1,4 @@
-# GOFEmpirical
+# EDFtest
 This repository contains software for the calculation of goodness-of-fit
 test statistics and their P-values.  The three statistics computed are the
 Empirical Distribution function statistics called Cramér-von Mises, Anderson-Darling,
@@ -33,11 +33,11 @@ Step 1: Install the `devtools` package
 install.packages("devtools")
 ```
 
-Step 2: Install our `GOFEmpirical` package and load it
+Step 2: Install our `EDFtest` package and load it
 ```R
 library(devtools)
-install_github("EigenEye/GOF1.3/GOFEmpirical")
-library("GOFEmpirical")
+install_github("LiYao-sfu/EDFtest")
+library("EDFtest")
 ```
 
 ## Troubleshooting
