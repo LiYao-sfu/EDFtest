@@ -4,13 +4,15 @@
 \alias{estimate.exp}
 \title{MLE for Exponential Distribution}
 \usage{
-estimate.exp(x)
+estimate.exp(x, use.rate = FALSE)
 }
 \arguments{
 \item{x}{random sample}
+
+\item{use.rate}{Logical, if TRUE use the rate instead of the scale}
 }
 \value{
-estimated scale parameter of the Exponential distribution.
+estimated scale (or rate) parameter of the Exponential distribution.
 }
 \description{
 Estimate scale parameter of the Exponential distribution by the method of maximum likelihood.

@@ -22,3 +22,13 @@ computes an n by p+1 matrix containing the components of the score function
 in a linear regression of y on the n x p covariate matrix x.
 The ith row of the output corresponds to the ith data point.
 }
+\examples{
+m = matrix(rnorm(20),10,2)
+X = cbind(rep(1,10),m)
+y = rnorm(10)
+fit = lm(y~X-1)
+sigma = sqrt(mean(fit$residual^2))
+theta.hat =  c(sigma,fit$coefficients)
+score.normal.regression(y,X,theta.hat=theta.hat)
+round(apply(.Last.value,2,sum))
+}

@@ -4,14 +4,15 @@
 #' Use the digamma and trigamma functions in Base R and do Newton-Raphson on the profile log-likelihood for alpha
 #'
 #' @param x random sample
+#' @param use.rate Logical, if TRUE use the rate instead of the scale
 #'
-#' @return estimated shape and scale parameters of the Gamma distribution.
+#' @return estimated shape and scale (or rate) parameters of the Gamma distribution.
 #' @export
 #'
 #' @examples
-#' x=rgamma(10,2,1)
+#' x=rgamma(100,2,1)
 #' estimate.gamma(x)
-estimate.gamma <- function(x){
+estimate.gamma <- function(x,use.rate=FALSE){
   n <- length(x)
   m1 <- mean(x)
   m2 <- var(x)
@@ -32,5 +33,8 @@ estimate.gamma <- function(x){
   }
   beta <- m1/anew
   alpha <- anew
+  if(use.rate){
+    return(c(alpha,1/beta))
+  }
   c(alpha, beta)
 }

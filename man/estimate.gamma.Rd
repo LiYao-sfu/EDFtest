@@ -4,19 +4,21 @@
 \alias{estimate.gamma}
 \title{MLE for Gamma Distribution}
 \usage{
-estimate.gamma(x)
+estimate.gamma(x, use.rate = FALSE)
 }
 \arguments{
 \item{x}{random sample}
+
+\item{use.rate}{Logical, if TRUE use the rate instead of the scale}
 }
 \value{
-estimated shape and scale parameters of the Gamma distribution.
+estimated shape and scale (or rate) parameters of the Gamma distribution.
 }
 \description{
 Estimate shape and scale parameters of the Gamma distribution by the method of maximum likelihood.
 Use the digamma and trigamma functions in Base R and do Newton-Raphson on the profile log-likelihood for alpha
 }
 \examples{
-x=rgamma(10,2,1)
+x=rgamma(100,2,1)
 estimate.gamma(x)
 }

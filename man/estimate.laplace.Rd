@@ -4,19 +4,24 @@
 \alias{estimate.laplace}
 \title{MLE for Laplace (double exponential) Distribution}
 \usage{
-estimate.laplace(x)
+estimate.laplace(x, use.sd = FALSE)
 }
 \arguments{
 \item{x}{random sample}
+
+\item{use.sd}{Logical, if TRUE use the sd instead of the scale}
 }
 \value{
-estimated location and scale parameters of the Laplace distribution.
+estimated location and scale (or sd) parameters of the Laplace distribution.
 }
 \description{
 Estimate location and scale parameters of the Laplace distribution by the method of maximum likelihood.
 }
 \examples{
 library(rmutil)
-x= rlaplace(1000,0,1)
+library(L1pack)
+x= rmutil::rlaplace(1000,0,1)
 estimate.laplace(x)
+x= L1pack::rlaplace(1000,0,1)
+estimate.laplace(x,use.sd=TRUE)
 }

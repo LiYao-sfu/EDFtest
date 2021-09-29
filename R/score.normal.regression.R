@@ -12,6 +12,14 @@
 #' are the components of the score corresponding to the regression coefficients.
 #'
 #' @examples
+#' m = matrix(rnorm(20),10,2)
+#' X = cbind(rep(1,10),m)
+#' y = rnorm(10)
+#' fit = lm(y~X-1)
+#' sigma = sqrt(mean(fit$residual^2))
+#' theta.hat =  c(sigma,fit$coefficients)
+#' score.normal.regression(y,X,theta.hat=theta.hat)
+#' round(apply(.Last.value,2,sum))
 score.normal.regression = function(y,x,theta.hat){
   #
   # As a check the column sums of the output should be 0 up to round off
@@ -30,9 +38,8 @@ score.normal.regression = function(y,x,theta.hat){
   yhat = x%*%coeff.hat
   n=dim(x)[1]
   p=dim(x)[2]
-  Score=matrix(0,nrow=n,ncol=p+1)       # nrow = m? might be a typo
+  Score=matrix(0,nrow=n,ncol=p+1)
   Score[,1]=-1/sig.hat +(y-yhat)^2/sig.hat^3
-  scaled.residual = sig.hat*(y-yhat)/yhat     # shape.hat might be sig.hat
-  Score[,2:(p+1)]= (y-yhat)/sig.hat^2
+  Score[,2:(p+1)]= x*(y-yhat)/sig.hat^2
   Score
 }
