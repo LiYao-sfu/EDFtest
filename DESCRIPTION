@@ -1,10 +1,15 @@
 Package: EDFtest
 Type: Package
 Title: Goodness of Fit Based on Empirical Distribution Function
-Version: 0.1.0
-Author: Richard Lockhart, Li Yao
-Maintainer: Richard Lockhart<lockhart@sfu.ca>, Li Yao <yaoliy@sfu.ca>
-Description: Compute a variety of goodness of fit statistics for several well-known distributions. 
+Version: 0.0.0.9000
+Description: This repository contains software for the calculation of goodness-of-fit test statistics 
+    and their P-values. The three statistics computed are the Empirical Distribution function statistics 
+    called Cramér-von Mises, Anderson-Darling, and Watson's statistic. The statistics and their P-values 
+    can be used to assess an assumed distribution.The following distirbutions are available: Normal, Gamma, 
+    Logistic, Laplace, Weibull and Exponential.
+Authors@R: c(
+    person("Li", "Yao", email = "yaoliy@sfu.ca", role = "cre"),
+    person("Richard", "Lockhart", email = "lockhart@sfu.ca", role = "aut"))
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -12,3 +17,5 @@ RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Imports: 
+    CompQuadForm (>= 1.4.3)
