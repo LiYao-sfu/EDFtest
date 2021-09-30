@@ -1,4 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+<<<<<<< HEAD
 ^README\.Rmd$
+=======
+^README\.Rmd$ 
+>>>>>>> 3f174ba718689587937b64339212d6e827a63416
 ^LICENSE\.md$
