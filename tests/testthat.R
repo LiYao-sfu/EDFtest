@@ -1,4 +1,4 @@
 library(testthat)
-library(GOFEmpirical)
+library(EDFtest)
 
-test_check("GOFEmpirical")
+test_check("EDFtest")
