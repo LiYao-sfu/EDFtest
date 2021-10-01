@@ -6,7 +6,7 @@
 #' @param neig number of eigenvalues
 #' @param verbose logical; if TRUE, print warning messages
 #'
-#' @return CvM.exp.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
+#' @return \code{\link{CvM.exp.pvalue}} gives p-value of the Cramer-von Mises statistic of a uniform sample.
 #' @export
 #'
 #' @examples

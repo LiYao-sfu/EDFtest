@@ -14,7 +14,7 @@ CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 \item{verbose}{logical; if TRUE, print warning messages}
 }
 \value{
-CvM.exp.pvalue gives p-value of the Cramer-von Mises statistic of a uniform sample.
+\code{\link{CvM.exp.pvalue}} gives p-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
 Compute p-value of the given Cramer-von Mises statistic W^2
