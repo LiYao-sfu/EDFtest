@@ -4,9 +4,6 @@
 #'
 #' @param x matrix of covariates, normally x will contain an intercept term, that is a column of 1s
 #'
-#' @return fisher.information.normal returns the Fisher Information per point for a normal regression model
-#'
-#' @examples
 fisher.information.normal=function(x){
   n=dim(x)[1]
   p=dim(x)[2]

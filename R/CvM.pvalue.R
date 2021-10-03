@@ -1,7 +1,7 @@
 #' P-value of the EDF Statistic W^2 for a Given Distribution
 #'
 #' @description
-#' Compute p-value of the given Cramer-von Mises statistic W^2
+#' Compute p-value of the given Cramer-von Mises statistic W^2.
 #'
 #' @details
 #'
