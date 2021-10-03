@@ -35,7 +35,6 @@
 #' x6=rexp(n=100,rate=1/2)
 #' AD.exp(x6)
 #' AD.exp(x6,parameter=2)
-#'
 AD.normal = function(x,parameter=estimate.normal(x)){
   z <- cdf.normal(x,parameter)
   AD(z)

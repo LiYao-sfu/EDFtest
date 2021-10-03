@@ -39,27 +39,26 @@ Estimate parameters by ML using \code{EDFtest} mle function by default.
 }
 \examples{
 x1=rnorm(n=100,mean=0,sd=1)
-CvM.normal(x1)
-CvM.normal(x1,c(0,1))
+AD.normal(x1)
+AD.normal(x1,c(0,1))
 
 x2=rgamma(n=100,shape=1,scale=1)
-CvM.gamma(x2)
-CvM.gamma(x2,parameter=c(1,1))
+AD.gamma(x2)
+AD.gamma(x2,parameter=c(1,1))
 
 x3=rlogis(n=100,location=0,scale=1)
-CvM.logistic(x3)
-CvM.logistic(x3,c(0,1))
+AD.logistic(x3)
+AD.logistic(x3,c(0,1))
 
 x4= rmutil::rlaplace(n=100,m=0,s=1)
-CvM.laplace(x4)
-CvM.laplace(x4,c(0,1))
+AD.laplace(x4)
+AD.laplace(x4,c(0,1))
 
 x5=rweibull(n=100,shape=1,scale=1)
-CvM.weibull(x5)
-CvM.weibull(x5,c(1,1))
+AD.weibull(x5)
+AD.weibull(x5,c(1,1))
 
 x6=rexp(n=100,rate=1/2)
-CvM.exp(x6)
-CvM.exp(x6,parameter=2)
-
+AD.exp(x6)
+AD.exp(x6,parameter=2)
 }
