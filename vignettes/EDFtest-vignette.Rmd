@@ -54,7 +54,7 @@ gof.gamma.bootstrap(x,M=10000) #bootstrap
 
 We calculated Anderson-Darling and Cramér-von Mises statistics and P-values of the sample by both Imhof and bootstrap methods. In `AD.gamma.pvalue` and `CvM.gamma.pvalue` functions, we use `imhof` function in `CompQuadForm` package to calculated 100 eigenvalues, by default, for the calculation of their P-values. Using Imhof method, P-value for $A^{2}$ is 0.057625 and for $W^{2}$ is 0.02859593. At the same time, p-values by 10,000 bootstrap are 0.0289 for $A^{2}$ and 0.0576 for $W^{2}$. Both methods are fairly consistent.
 
-According to rule of thumb, we will reject null hypothesis, which is $F$ is a member of gamma family when P-value of $A^{2}$ is greater than ??? or P-value of $W^{2}$ is greater than ???. Note that, both... In conclusion, the gamma distribution is a good model for this sample.
+
 
 Now, we can do similar tests for Normal model.
 
