@@ -9,7 +9,7 @@
 \alias{AD.exp.pvalue}
 \title{P-value of the EDF Statistic A^2 for a Given Distribution}
 \usage{
-AD.normal.pvalue(a, neig = 100, verbose = F)
+AD.normal.pvalue(a, neig = 100, verbose = FALSE)
 
 AD.gamma.pvalue(a, shape, neig = 100, verbose = FALSE)
 
@@ -17,7 +17,7 @@ AD.logistic.pvalue(a, neig = 100, verbose = FALSE)
 
 AD.laplace.pvalue(a, neig = 100, verbose = FALSE)
 
-AD.weibull.pvalue(a, neig = 100, verbose = F)
+AD.weibull.pvalue(a, neig = 100, verbose = FALSE)
 
 AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 }
@@ -34,7 +34,7 @@ AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 P-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
-Compute p-value of the given Anderson-Darling statistic A^2
+Compute p-value of the given Anderson-Darling statistic A^2.
 }
 \details{
 
@@ -50,7 +50,7 @@ AD.gamma.pvalue(asq2,1)
 
 x3=rlogis(n=100,location=0,scale=1)
 asq3 = AD.logistic(x)
-AD.logistic.pvalue(asq)
+AD.logistic.pvalue(asq3)
 
 x4= rmutil::rlaplace(n=100,m=0,s=1)
 asq4 = AD.laplace(x)

@@ -1,0 +1,203 @@
+#' P-value of EDF statistics U^2 for Normal Distribution
+#'
+#' @description
+#' Compute p-value of the given Anderson-Darling statistic A^2
+#'
+#' @details
+#'
+#' @param u Watson's statistic U^2 for a given distribution.
+#' @param neig Number of eigenvalues used for \code{imhof()}.
+#' @param verbose Logical; if TRUE, print warning messages.
+#' @param shape The shape parameter of Gamma distribution.
+#'
+#' @return P-value of the Watson's statistic of a uniform sample.
+#' @export
+#'
+#' @examples
+#' x1=rnorm(n=100,mean=0,sd=1)
+#' usq1 = Watson.normal(x1)
+#' Watson.normal.pvalue(usq1)
+#'
+#' x2=rgamma(n=100,shape=1,scale=1)
+#' usq2 = Watson.gamma(x)
+#' Watson.gamma.pvalue(usq2,1)
+#'
+#' x3=rlogis(n=100,location=0,scale=1)
+#' usq3 = Watson.logistic(x)
+#' Watson.logistic.pvalue(usq3)
+#'
+#' x4= rmutil::rlaplace(n=100,m=0,s=1)
+#' usq4 = Watson.laplace(x)
+#' Watson.laplace.pvalue(usq4)
+#'
+#' x5=rweibull(n=100,shape=1,scale=1)
+#' usq5 = Watson.weibull(x)
+#' Watson.weibull.pvalue(usq5)
+#'
+#' x6=rexp(n=100,rate=1/2)
+#' usq6 = Watson.exp(x)
+#' Watson.exp.pvalue(usq6)
+Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
+  e = Watson.normal.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
+  e = Watson.gamma.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
+  e = Watson.logistic.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
+  e = Watson.laplace.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
+  e = Watson.weibull.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
+  e = Watson.exp.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+# Helpers -----------------------------------------------------------------
+
+Watson.normal.eigen = function(n){
+  M=Watson.normal.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.normal.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.normal.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.gamma.eigen = function(n){
+  M=Watson.gamma.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.gamma.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.gamma.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.logistic.eigen = function(n){
+  M=Watson.logistic.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.logistic.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.logistic.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.laplace.eigen = function(n){
+  M=Watson.laplace.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.laplace.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.laplace.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.weibull.eigen = function(n){
+  M=Watson.weibull.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.weibull.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.weibull.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.exp.eigen = function(n){
+  M=Watson.exp.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.exp.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.exp.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+

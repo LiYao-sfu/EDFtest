@@ -9,9 +9,6 @@ fisher.information.normal(x)
 \arguments{
 \item{x}{matrix of covariates, normally x will contain an intercept term, that is a column of 1s}
 }
-\value{
-fisher.information.normal returns the Fisher Information per point for a normal regression model
-}
 \description{
 The value returned is for sigma=1.  In general the FI must be divided by sigma^2.
 }

@@ -34,7 +34,7 @@ CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 P-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
-Compute p-value of the given Cramer-von Mises statistic W^2
+Compute p-value of the given Cramer-von Mises statistic W^2.
 }
 \details{
 
