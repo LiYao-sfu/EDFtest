@@ -55,6 +55,8 @@ Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
   list(P=p,error=aerror)
 }
 
+#' @export
+#' @rdname Watson.normal.pvalue
 Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
   e = Watson.gamma.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -73,6 +75,8 @@ Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
   list(P=p,error=aerror)
 }
 
+#' @export
+#' @rdname Watson.normal.pvalue
 Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.logistic.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -91,6 +95,8 @@ Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
   list(P=p,error=aerror)
 }
 
+#' @export
+#' @rdname Watson.normal.pvalue
 Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.laplace.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -109,6 +115,8 @@ Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
   list(P=p,error=aerror)
 }
 
+#' @export
+#' @rdname Watson.normal.pvalue
 Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.weibull.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -127,6 +135,8 @@ Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
   list(P=p,error=aerror)
 }
 
+#' @export
+#' @rdname Watson.normal.pvalue
 Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.exp.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -156,13 +166,13 @@ Watson.normal.covmat=function(n){
   (diag(n)-matrix(1/n,n,n)) %*% CvM.normal.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
 }
 
-Watson.gamma.eigen = function(n){
-  M=Watson.gamma.covmat(n)
+Watson.gamma.eigen = function(n,shape){
+  M=Watson.gamma.covmat(n,shape)
   eigen(M)$values/n
 }
 
-Watson.gamma.covmat=function(n){
-  (diag(n)-matrix(1/n,n,n)) %*% CvM.gamma.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+Watson.gamma.covmat=function(n,shape){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.gamma.covmat(n,shape=shape) %*% (diag(n)-matrix(1/n,n,n))
 }
 
 Watson.logistic.eigen = function(n){

@@ -2,9 +2,24 @@
 % Please edit documentation in R/Watson.pvalue.R
 \name{Watson.normal.pvalue}
 \alias{Watson.normal.pvalue}
+\alias{Watson.gamma.pvalue}
+\alias{Watson.logistic.pvalue}
+\alias{Watson.laplace.pvalue}
+\alias{Watson.weibull.pvalue}
+\alias{Watson.exp.pvalue}
 \title{P-value of EDF statistics U^2 for Normal Distribution}
 \usage{
 Watson.normal.pvalue(u, neig = 100, verbose = FALSE)
+
+Watson.gamma.pvalue(u, shape, neig = 100, verbose = FALSE)
+
+Watson.logistic.pvalue(u, neig = 100, verbose = FALSE)
+
+Watson.laplace.pvalue(u, neig = 100, verbose = FALSE)
+
+Watson.weibull.pvalue(u, neig = 100, verbose = FALSE)
+
+Watson.exp.pvalue(u, neig = 100, verbose = FALSE)
 }
 \arguments{
 \item{u}{Watson's statistic U^2 for a given distribution.}
