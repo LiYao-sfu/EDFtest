@@ -11,6 +11,8 @@
 #' @param parameter Parameters of a given distribution.
 #'
 #' @return Cramer-von Mises statistic of a uniform sample.
+#' @export
+#'
 #' @examples
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' CvM.normal(x1)
