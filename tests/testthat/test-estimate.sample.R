@@ -6,22 +6,23 @@ test_that("mle estimates for normal distribution", {
 
   expect_equal(length(par),2)
   #mean
-  expect_lt(par[1],0.5)
-  expect_gt(par[1],-0.5)
+  expect_lt(par[1],qnorm(0.9999)/sqrt(100))
+  expect_gt(par[1],qnorm(0.0001)/sqrt(100))
   #sd
-  expect_lt(par[2],1.5)
-  expect_gt(par[2],0.5)
+  expect_lt(par[2],sqrt(qchisq(0.9999,df=99)/99))
+  expect_gt(par[2],sqrt(qchisq(0.0001,df=99)/99))
 })
 
 test_that("mle estimates for gamma distribution", {
+  set.seed(100)
   x = rgamma(n=100,shape=1,scale=2)
   par.scale = estimate.gamma(x)
   par.rate = estimate.gamma(x,use.rate = TRUE)
 
   expect_equal(length(par.scale),2)
 
-  expect_lt(par.scale[1],1.5)
-  expect_gt(par.scale[1],0.5)
+  expect_lt(par.scale[1],)
+  expect_gt(par.scale[1],0.)
 
   expect_lt(par.scale[2],2.5)
   expect_gt(par.scale[2],1.5)

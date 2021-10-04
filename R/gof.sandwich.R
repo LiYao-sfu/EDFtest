@@ -39,7 +39,7 @@
 #' }
 #' output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
 #' output
-#' #do a mc study;plot two pvalues for two methods. each pvalue use AD, E(AD)=1;
+#' #do a mc study;plot two pvalues for two methods. each pvalue use AD.uniform.pvalue=.05-0.95 ;
 #'
 gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   require(CompQuadForm)
@@ -87,3 +87,56 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   #
   list(CvM=list(W2=stat$CvM,P=P.CvM),AD=list(A2=stat$AD,P=P.AD),Watson=list(U2=stat$Watson,P=P.Watson))
 }
+
+
+# Helpers -----------------------------------------------------------------
+
+score.normal = function(x,theta){
+  sig=theta[2]
+  mu=theta[1]
+  s.mean= (x-mu)/sig
+  s.sd= s.mean^2/sig-length(x)/sig
+  cbind(s.mean/sig,s.sd)
+}
+
+score.gamma=function(x,theta){
+  scale=theta[2]
+  shape=theta[1]
+  s.shape= log(x/scale)-digamma(shape)
+  s.scale= x/scale^2 -shape/scale
+  cbind(s.shape,s.scale)
+}
+
+score.laplace = function(x,theta){
+  sig=theta[2]
+  mu=theta[1]
+  signum<-function(x){
+    y=x/abs(x)
+    y[is.na(y)]=0
+    return(y)
+  }
+  s.mean= signum(x-mu)/sig
+  s.sd= s.mean^2/sig-length(x)/sig
+  cbind(s.mean,s.sd)
+}
+
+score.weibull=function(x,theta){
+  scale=theta[2]
+  shape=theta[1]
+  r=x/scale
+  lr=log(r)
+  s.shape= 1/shape+lr-lr*r^shape
+  s.scale= shape*(r^shape-1)/scale
+  cbind(s.shape,s.scale)
+}
+
+
+
+
+
+
+
+
+
+
+
