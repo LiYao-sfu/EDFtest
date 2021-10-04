@@ -58,7 +58,7 @@ Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
 #' @export
 #' @rdname Watson.normal.pvalue
 Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
-  e = Watson.gamma.eigen(neig)
+  e = Watson.gamma.eigen(neig,shape=shape)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
   im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
