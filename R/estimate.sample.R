@@ -13,7 +13,7 @@
 #' @param use.rate Logical; if TRUE use the rate instead of the scale.
 #' @param use.sd Logical; if TRUE use the sd instead of the scale for Laplace distribution.
 #' @param eps Stopping criterion, 1e-7 by default.
-#' @param verbose Logical; if TRUE, print the warning message.
+#' @param verbose Logical; if TRUE, print estimates in each iteration.
 #'
 #' @return Estimated parameters of a given parametric family.
 #'

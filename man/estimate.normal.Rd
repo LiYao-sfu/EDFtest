@@ -28,7 +28,7 @@ estimate.exp(x, use.rate = FALSE)
 
 \item{eps}{Stopping criterion, 1e-7 by default.}
 
-\item{verbose}{Logical; if TRUE, print the warning message.}
+\item{verbose}{Logical; if TRUE, print estimates in each iteration.}
 
 \item{use.sd}{Logical; if TRUE use the sd instead of the scale for Laplace distribution.}
 }
