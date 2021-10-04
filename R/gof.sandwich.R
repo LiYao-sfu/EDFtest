@@ -25,6 +25,21 @@
 #' @export
 #'
 #' @examples
+#' sample = rnorm(n=100,mean=0,sd=1)
+#' mle = estimate.normal(sample)
+#' cdf.normal.user = function(x,theta){
+#'  pnorm(x,mean=theta[1],sd=theta[2])
+#' }
+#' score.normal.user = function(x,theta){
+#'  sig=theta[2]
+#'  mu=theta[1]
+#'  s.mean= (x-mu)/sig
+#'  s.sd= s.mean^2/sig-length(x)/sig
+#'  cbind(s.mean/sig,s.sd)
+#' }
+#' output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
+#' output
+#' #do a mc study;plot two pvalues for two methods. each pvalue use AD, E(AD)=1;
 #'
 gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   require(CompQuadForm)
@@ -37,9 +52,9 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
     pit=Fdist(y,x,thetahat,...)
   }
   if(is.null(x)){
-    u =t(Score(y,thetahat,...))   # Components of the score: n by p matrix
+    u =Score(y,thetahat,...)   # Components of the score: n by p matrix
   }else{
-    u =t(Score(y,x,thetahat,...)) # Components of the score: n by p matrix
+    u =Score(y,x,thetahat,...) # Components of the score: n by p matrix
   }
   Fisher = t(u)%*% u / n          # Estimate of Fisher information in 1 point.
   s=(1:m)/(m+1)                   # Grid on which to compute covariance matrix.

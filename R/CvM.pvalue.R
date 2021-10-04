@@ -37,7 +37,7 @@
 #' x6=rexp(n=100,rate=1/2)
 #' wsq6 = CvM.exp(x)
 #' CvM.exp.pvalue(wsq6)
-CvM.normal.pvalue = function(w,neig=100,verbose=F){
+CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.normal.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
@@ -77,7 +77,7 @@ CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
 
 #' @export
 #' @rdname CvM.normal.pvalue
-CvM.logistic.pvalue = function(w,neig=100,verbose=F){
+CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.logistic.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
@@ -97,7 +97,7 @@ CvM.logistic.pvalue = function(w,neig=100,verbose=F){
 
 #' @export
 #' @rdname CvM.normal.pvalue
-CvM.laplace.pvalue = function(w,neig=100,verbose=F){
+CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.laplace.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
@@ -152,6 +152,20 @@ CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 # Helpers -----------------------------------------------------------------
+
+CvM.uniform.eigen = function(n){
+  mean.wsq.uniform=1/6
+  M=CvM.uniform.covmat(n)
+  e=eigen(M)$values/n
+  e*mean.wsq.uniform/sum(e)
+}
+
+CvM.uniform.covmat=function(n){
+  s=1:n
+  s=s/(n+1)
+  M1=outer(s,s,pmin)-outer(s,s)
+  M1
+}
 
 CvM.normal.eigen = function(n){
   mean.wsq.normal=1/6 -7*sqrt(3)/(36*pi)

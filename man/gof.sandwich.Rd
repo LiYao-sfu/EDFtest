@@ -40,5 +40,20 @@ function of the empirical process.
 The estimates thetahat should be roots of the likelihood equations.
 }
 \examples{
+sample = rnorm(n=100,mean=0,sd=1)
+mle = estimate.normal(sample)
+cdf.normal.user = function(x,theta){
+ pnorm(x,mean=theta[1],sd=theta[2])
+}
+score.normal.user = function(x,theta){
+ sig=theta[2]
+ mu=theta[1]
+ s.mean= (x-mu)/sig
+ s.sd= s.mean^2/sig-length(x)/sig
+ cbind(s.mean,s.sd)
+}
+output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
+
+
 
 }

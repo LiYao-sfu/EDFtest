@@ -13,5 +13,5 @@ score.normal = function(x,theta){
   mu=theta[1]
   s.mean= (x-mu)/sig
   s.sd= s.mean^2/sig-length(x)/sig
-  cbind(s.mean,s.sd)
+  cbind(s.mean/sig,s.sd)
 }

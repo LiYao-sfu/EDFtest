@@ -9,13 +9,13 @@
 \alias{CvM.exp.pvalue}
 \title{P-value of the EDF Statistic W^2 for a Given Distribution}
 \usage{
-CvM.normal.pvalue(w, neig = 100, verbose = F)
+CvM.normal.pvalue(w, neig = 100, verbose = FALSE)
 
 CvM.gamma.pvalue(w, shape, neig = 100, verbose = FALSE)
 
-CvM.logistic.pvalue(w, neig = 100, verbose = F)
+CvM.logistic.pvalue(w, neig = 100, verbose = FALSE)
 
-CvM.laplace.pvalue(w, neig = 100, verbose = F)
+CvM.laplace.pvalue(w, neig = 100, verbose = FALSE)
 
 CvM.weibull.pvalue(w, neig = 100, verbose = FALSE)
 

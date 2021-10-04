@@ -154,6 +154,18 @@ AD.exp.pvalue = function(a,neig=100,verbose=FALSE){
 
 # Helpers -----------------------------------------------------------------
 
+AD.uniform.eigen = function(n){
+  M=AD.uniform.covmat(n)
+  e=eigen(M)$values/n
+  e/sum(e)
+}
+
+AD.uniform.covmat=function(n){
+  s=1:n
+  s=s/(n+1)
+  CvM.uniform.covmat(n)/sqrt(outer(s*(1-s),s*(1-s)))
+}
+
 AD.normal.eigen = function(n){
   M=AD.normal.covmat(n)
   e=eigen(M)$values/n
@@ -163,8 +175,7 @@ AD.normal.eigen = function(n){
 AD.normal.covmat=function(n){
   s=1:n
   s=s/(n+1)
-  t=s
-  CvM.normal.covmat(n)/sqrt(outer(s*(1-s),t*(1-t)))
+  CvM.normal.covmat(n)/sqrt(outer(s*(1-s),s*(1-s)))
 }
 
 AD.gamma.eigen=function(n,shape){
