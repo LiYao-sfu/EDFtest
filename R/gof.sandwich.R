@@ -1,10 +1,11 @@
 #' EDF Goodness-of-Fit tests for General Distributions using Sandwich Estimation of Covariance Function
 #'
+#' @description
 #' This function tests the hypothesis that data y come from
-#' distribution Fdist with unknown parameter values theta
-#'
+#' distribution Fdist with unknown parameter values theta.
 #' Estimates of theta must be provided in thetahat.
 #'
+#' @details
 #' It uses a large sample approximation to the limit distribution
 #' based on the use of the score function components
 #' to estimate the Fisher information and the limiting covariance
@@ -12,14 +13,14 @@
 #'
 #' The estimates thetahat should be roots of the likelihood equations.
 #'
-#' @param y data -- should be a numerical vector: sample or response of regression problem
-#' @param x matrix of covariates
-#' @param Fdist user supplied function to compute probability integral transform of y
-#' @param thetahat parameter estimates by mle
-#' @param Score user supplied function to compute3 components of the score function an n by p matrix with entries
-#' partial log f(y_i,\theta)/ partial theta_j
-#' @param m Eigenvalues are extracted for an m by m grid of the covariance ftn
-#' @param ... other inputs passed to Fdist and Score when needed.
+#' @param y A random sample or the response of regression problem.
+#' @param x The matrix of covariates.
+#' @param Fdist User supplied function to compute probability integral transform of y.
+#' @param thetahat Parameter estimates by mle.
+#' @param Score User supplied function to compute3 components of the score function an n by p matrix with entries
+#' partial log f(y_i,\theta)/ partial theta_j.
+#' @param m Eigenvalues are extracted for an m by m grid of the covariance function.
+#' @param ... Other inputs passed to Fdist and Score when needed.
 #'
 #' @return
 #' @export
@@ -52,9 +53,9 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
     pit=Fdist(y,x,thetahat,...)
   }
   if(is.null(x)){
-    u =Score(y,thetahat,...)   # Components of the score: n by p matrix
+    u =Score(y,thetahat,...)      # Components of the score: n by p matrix
   }else{
-    u =Score(y,x,thetahat,...) # Components of the score: n by p matrix
+    u =Score(y,x,thetahat,...)    # Components of the score: n by p matrix
   }
   Fisher = t(u)%*% u / n          # Estimate of Fisher information in 1 point.
   s=(1:m)/(m+1)                   # Grid on which to compute covariance matrix.
@@ -66,10 +67,8 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   }
   #
   Dfb = outer(pit,s,ind)
-  #
   #   Dfb is a matrix whose entry i,j is 1 if pit[i] > s[j]
   #       it is n by m
-  #
   Df=t(Dfb) %*% u/n  # This is an m by p matrix.
   m1 = outer(s,s,pmin)
   m2 = outer(s,s,"*")
@@ -129,14 +128,4 @@ score.weibull=function(x,theta){
   s.scale= shape*(r^shape-1)/scale
   cbind(s.shape,s.scale)
 }
-
-
-
-
-
-
-
-
-
-
 
