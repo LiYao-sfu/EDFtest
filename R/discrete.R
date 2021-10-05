@@ -7,7 +7,7 @@
 #' @param eps how much prob you are willing to omit
 #'
 #' @return CvM.poisson gives Cramer-von Mises statistic of a uniform sample.
-#' @export
+#'
 #'
 #' @examples
 #' x= rpois(100,2)
@@ -56,13 +56,13 @@ CvM.poisson = function(x,eps=10^(-9)){
 #' the conditional distribution of x given sum(x) for a Poisson distribution.
 #' This distribution is multinomial.
 #'
-#' @param x random sample
-#' @param nmc
-#' @param return.samples
-#' @param print logical, if True print the statistic and p-value
+#' @param x A random sample.
+#' @param nmc The size of Monte Carlo.
+#' @param return.samples Logical, if TRUE return the given sample.
+#' @param print Logical, if TRUE print the statistic and p-value.
 #'
 #' @return CvM.poisson.pvalue.bootstrap gives Cramer-von Mises statistic and its p-value.
-#' @export
+#'
 #'
 #' @examples
 #' x= rpois(100,2)

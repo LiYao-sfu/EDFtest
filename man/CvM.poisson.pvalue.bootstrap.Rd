@@ -12,9 +12,13 @@ CvM.poisson.pvalue.bootstrap(
 )
 }
 \arguments{
-\item{x}{random sample}
+\item{x}{A random sample.}
 
-\item{print}{logical, if True print the statistic and p-value}
+\item{nmc}{The size of Monte Carlo.}
+
+\item{return.samples}{Logical, if TRUE return the given sample.}
+
+\item{print}{Logical, if TRUE print the statistic and p-value.}
 }
 \value{
 CvM.poisson.pvalue.bootstrap gives Cramer-von Mises statistic and its p-value.

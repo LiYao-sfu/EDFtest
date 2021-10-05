@@ -7,21 +7,24 @@
 gof.statistics.only(pit, AD = TRUE, CvM = TRUE, Watson = TRUE)
 }
 \arguments{
-\item{pit}{a vector of probability integral transforms}
+\item{pit}{A vector of probability integral transforms.}
 
-\item{a2}{logical, if TRUE print Anderson-Darling statistic}
+\item{a2}{Logical; if TRUE print Anderson-Darling statistic}
 
-\item{w2}{logical, if TRUE print Cramer-von Mises statistic}
+\item{w2}{Logical; if TRUE print Cramer-von Mises statistic}
 
-\item{u2}{logical, if TRUE print Watson statistic}
+\item{u2}{Logical; if TRUE print Watson statistic}
 }
 \value{
-gof.statistics.only gives Anderson-Darling, Cramer-von Mises or Watson statistics
+`gof.statistics.only` gives Anderson-Darling, Cramer-von Mises or Watson statistics
 }
 \description{
 This function takes in a vector of probability integral transforms
 and computes whichever of the three statistics is asked for.
 By default A^2,W^2, and U^2 are computed
+}
+\details{
+
 }
 \examples{
 x= runif(100)

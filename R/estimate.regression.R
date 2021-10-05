@@ -12,7 +12,7 @@
 #'
 #' @return Estimated sigma and coefficients of a linear regression.
 #'
-#' @export
+#'
 #' @examples
 #' # OLS regression ------------------------------------
 #' n = 500
@@ -44,7 +44,7 @@ estimate.normal.regression=function(x,y,fit.intercept=TRUE){
   c(sigma.hat,coeff.hat)
 }
 
-#' @export
+#'
 #' @rdname estimate.normal.regression
 estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
   data=data.frame(y=y,x=x)
@@ -57,7 +57,7 @@ estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
   c(sigma.hat,coeff.hat)
 }
 
-#' @export
+#'
 #' @rdname estimate.normal.regression
 estimate.gamma.regression = function(fit,x,y,link = "log"){
   #

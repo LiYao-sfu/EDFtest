@@ -9,7 +9,6 @@
 #'
 #' @return cdf.normal.regression gives probability integral transforms for y in a ordinary linear regression model
 #'
-#' @examples
 cdf.normal.regression = function(y,x,theta.hat){
   coeff.hat=theta.hat[-1]
   sd.hat=theta.hat[1]
@@ -28,7 +27,6 @@ cdf.normal.regression = function(y,x,theta.hat){
 #'
 #' @return cdf.gamma.regression gives probability integral transforms for y in a gamma log-linear regression model
 #'
-#' @examples
 cdf.gamma.regression = function(y,x,thetahat,link="log"){
   n = length(y)
   pp = length(thetahat)
@@ -54,7 +52,6 @@ cdf.gamma.regression = function(y,x,thetahat,link="log"){
 #'
 #' @return cdf.laplace.regression gives probability integral transforms for y in a
 #'
-#' @examples
 cdf.laplace.regression = function(fit,data){
   coeff.hat=theta.hat[-1]
   sd.hat=theta.hat[1]
