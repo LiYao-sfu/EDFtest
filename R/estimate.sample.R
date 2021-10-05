@@ -39,12 +39,18 @@
 #'
 #' x7=rexp(n=100,rate=1/2)
 #' estimate.exp(x7,use.rate=TRUE)
+estimate.uniform = function(x){
+  c(min(x),max(x))
+}
+
+#' @export
+#' @rdname estimate.uniform
 estimate.normal = function(x){
   c(mean(x),sd(x))
 }
 
 #' @export
-#' @rdname estimate.normal
+#' @rdname estimate.uniform
 estimate.gamma <- function(x,use.rate=FALSE){
   # Estimate shape and scale parameters of the Gamma distribution
   # by the method of maximum likelihood.
@@ -77,7 +83,7 @@ estimate.gamma <- function(x,use.rate=FALSE){
 }
 
 #' @export
-#' @rdname estimate.normal
+#' @rdname estimate.uniform
 estimate.logistic <- function(x,eps=1e-7,verbose=FALSE){
   hessianscore.logistic=function(x,theta){
     #
@@ -165,7 +171,7 @@ estimate.logistic <- function(x,eps=1e-7,verbose=FALSE){
 }
 
 #' @export
-#' @rdname estimate.normal
+#' @rdname estimate.uniform
 estimate.laplace = function(x,use.sd=FALSE){
   med = median(x)
   MAD = mean(abs(x-med))
@@ -176,7 +182,7 @@ estimate.laplace = function(x,use.sd=FALSE){
 }
 
 #' @export
-#' @rdname estimate.normal
+#' @rdname estimate.uniform
 estimate.weibull <- function(x,eps=1e-7){
   n <- length(x)
   m1 <- mean(x)
@@ -204,7 +210,7 @@ estimate.weibull <- function(x,eps=1e-7){
 }
 
 #' @export
-#' @rdname estimate.normal
+#' @rdname estimate.uniform
 estimate.exp = function(x,use.rate=FALSE){
   if(use.rate){
     return(1/mean(x))

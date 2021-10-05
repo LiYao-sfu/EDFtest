@@ -4,7 +4,7 @@
 \alias{score.gamma.regression}
 \title{Score Function for Gamma Regression Model}
 \usage{
-score.gamma.regression(y, x, theta.hat)
+score.gamma.regression(y, x, thetahat, link = "log")
 }
 \arguments{
 \item{y}{the univariate response}

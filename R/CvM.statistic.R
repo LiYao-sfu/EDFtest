@@ -26,7 +26,7 @@
 #' CvM.logistic(x3)
 #' CvM.logistic(x3,c(0,1))
 #'
-#' x4= rmutil::rlaplace(n=100,m=0,s=1)
+#' x4= L1pack::rlaplace(n=100,location=0,scale=1)
 #' CvM.laplace(x4)
 #' CvM.laplace(x4,c(0,1))
 #'
@@ -37,41 +37,48 @@
 #' x6=rexp(n=100,rate=1/2)
 #' CvM.exp(x6)
 #' CvM.exp(x6,parameter=2)
+CvM.uniform = function(x,parameter=estimate.uniform(x)){
+  z <- cdf.uniform(x,parameter)
+  CvM(z)
+}
+
+#' @export
+#' @rdname CvM.uniform
 CvM.normal = function(x,parameter=estimate.normal(x)){
   z <- cdf.normal(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.normal
+#' @rdname CvM.uniform
 CvM.gamma <- function(x,parameter=estimate.gamma(x)){
   z <- cdf.gamma(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.normal
+#' @rdname CvM.uniform
 CvM.logistic <- function(x,parameter=estimate.logistic(x)){
   z <- cdf.logistic(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.normal
+#' @rdname CvM.uniform
 CvM.laplace = function(x,parameter=estimate.laplace(x)){
   z = cdf.laplace(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.normal
+#' @rdname CvM.uniform
 CvM.weibull <- function(x,parameter=estimate.weibull(x)){
   z <- cdf.weibull(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.normal
+#' @rdname CvM.uniform
 CvM.exp = function(x,parameter=estimate.exp(x)){
   z = cdf.exp(x,parameter)
   CvM(z)
@@ -88,6 +95,9 @@ CvM <- function(z){
 
 # Compute the probability integral transforms of
 # the random sample x in a given distribution
+cdf.uniform = function(x,theta){
+  punif(x,min=theta[1],max=theta[2])
+}
 
 cdf.normal = function(x,theta){
   pnorm(x,mean=theta[1],sd=theta[2])

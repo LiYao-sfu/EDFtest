@@ -10,7 +10,7 @@ estimate.normal.regression(x, y, fit.intercept = TRUE)
 
 estimate.laplace.regression(x, y, fit.intercept = TRUE)
 
-estimate.gamma.regression(x, y)
+estimate.gamma.regression(fit, x, y, link = "log")
 }
 \arguments{
 \item{x}{A design matrix which is not expected to have a column of 1s.}

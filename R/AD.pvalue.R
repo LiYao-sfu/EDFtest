@@ -37,6 +37,26 @@
 #' x6=rexp(n=100,rate=1/2)
 #' asq6 = AD.exp(x)
 #' AD.exp.pvalue(asq6)
+AD.uniform.pvalue = function(a,neig=100,verbose=FALSE){
+  e = AD.uniform.eigen(neig)
+  plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for A = ",a," and neig = ",neig,
+                      " imhof returned a negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for A = ",a," and neig = ",neig,
+                    " p was replaced by a lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+#' @export
+#' @rdname AD.uniform.pvalue
 AD.normal.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.normal.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -56,7 +76,7 @@ AD.normal.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.normal.pvalue
+#' @rdname AD.uniform.pvalue
 AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
   e = AD.gamma.eigen(neig,shape=shape)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -76,7 +96,7 @@ AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.normal.pvalue
+#' @rdname AD.uniform.pvalue
 AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.logistic.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -96,7 +116,7 @@ AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.normal.pvalue
+#' @rdname AD.uniform.pvalue
 AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.laplace.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -116,7 +136,7 @@ AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.normal.pvalue
+#' @rdname AD.uniform.pvalue
 AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.weibull.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -135,7 +155,7 @@ AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.normal.pvalue
+#' @rdname AD.uniform.pvalue
 AD.exp.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.exp.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)

@@ -4,7 +4,7 @@
 \alias{cdf.gamma.regression}
 \title{Probability Integral Transforms for Gamma Regression}
 \usage{
-cdf.gamma.regression(y, x, theta.hat)
+cdf.gamma.regression(y, x, thetahat, link = "log")
 }
 \arguments{
 \item{y}{response variable}

@@ -13,46 +13,34 @@
 #' @param verbose verbose Logical; if TRUE, print warning messages.
 #' @param M Number of bootstrap, 10000 by default.
 #' @param stat
-#' @param m
 #'
 #' @return Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
 #' @export
 #'
 #' @examples
-#' x1=rnorm(n=1000,mean=0,sd=1)
+#' x1=rnorm(n=100,mean=0,sd=1)
 #' gof.normal(x1)
 #' gof.normal.bootstrap(x1,M=1000)
 #'
-#' x2=rgamma(n=1000,shape=1,scale=1)
-#' gof.gamma(x)
+#' x2=rgamma(n=100,shape=1,scale=1)
+#' gof.gamma(x2)
 #' gof.gamma.bootstrap(x2,M=1000)
 #'
-#' x3=rlogis(n=1000,location=0,scale=1)
+#' x3=rlogis(n=100,location=0,scale=1)
 #' gof.logistic(x3)
 #' gof.logistic.bootstrap(x3,M=1000)
 #'
-#' x4= rmutil::rlaplace(n=1000,m=0,s=1) 
+#' x4= rmutil::rlaplace(n=100,m=0,s=1)
 #' gof.laplace(x4)
 #' gof.laplace.bootstrap(x4,M=1000)
-#' 
-#' x5 = rweibull(100,1)
+#'
+#' x5=rweibull(n=100,shape=1,scale=1)
 #' gof.weibull(x5)
-#' gof.weibull(x5,print=TRUE,verbose=TRUE)
-#' 
-#' x6=rweibull(1000,1)
-#' gof.weibull(x6)
-#' gof.weibull.bootstrap(x6,M=1000)
-#' 
-#' x7 = rexp(100,1/2)
-#' gof.exp(x7)
-#' gof.exp(x7,print=TRUE,verbose=TRUE)
-#' 
-#' x8=rexp(1000,1/2)
-#' gof.exp.bootstrap(x8,M=1000)
-#' gof.exp(x8)
-
-library(rmutil)
-
+#' gof.weibull.bootstrap(x5,M=1000)
+#'
+#' x6=rexp(n=100,rate=1/2)
+#' gof.exp(x6)
+#' gof.exp.bootstrap(x6,M=1000)
 gof.normal=function(x,print=TRUE,verbose=FALSE){
   #  Estimate the parameters
   pars=estimate.normal(x)
@@ -68,21 +56,21 @@ gof.normal=function(x,print=TRUE,verbose=FALSE){
   u = Watson(pit)
 
   #  Compute their p-values
-  w.p=CvM.normal.pvalue(w)$P
+  w.p=CvM.normal.pvalue(w,verbose=verbose)$P
   if(verbose){
-    cat("Cramer von Mises P value output \n")
+    cat("Cramer-von Mises P-value output \n")
     print(w.p)
     cat("\n\n")
   }
-  a.p=AD.normal.pvalue(a)$P
+  a.p=AD.normal.pvalue(a,verbose=verbose)$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(a.p)
     cat("\n\n")
   }
-  u.p=Watson.normal.pvalue(a)$P
+  u.p=Watson.normal.pvalue(u,verbose=verbose)$P
   if(verbose){
-    cat("Watson P value output \n")
+    cat("Watson P-value output \n")
     print(u.p)
     cat("\n\n")
   }
@@ -91,10 +79,8 @@ gof.normal=function(x,print=TRUE,verbose=FALSE){
     cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
     cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
   }
-  invisible(list(w=w,w.p=w.p,a=a,a.p=a.p,u=u,u.p=u.p))
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
 }
-
-# Make bootstrap functions efficient!
 
 #' @export
 #' @rdname gof.normal
@@ -123,11 +109,11 @@ gof.normal.bootstrap<-function(x, M=10000){
   cat(w2text)
   cat(a2text)
   cat(u2text)
-  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2, Usq=u2, Usq.pvalue = u2))
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
 
 #' @export
-#' @rdname gof.normal.bootstrap
+#' @rdname gof.normal
 gof.gamma=function(x,print=TRUE,verbose=FALSE){
   pars=estimate.gamma(x)
   if(verbose){cat("Gamma parameter estimates", pars, "\n")}
@@ -138,19 +124,19 @@ gof.gamma=function(x,print=TRUE,verbose=FALSE){
   u = Watson(pit)
   w.p=CvM.gamma.pvalue(w,shape=pars[1])$P
   if(verbose){
-    cat("Cramer von Mises P value output \n")
+    cat("Cramer-von Mises P-value output \n")
     print(w.p)
     cat("\n\n")
   }
   a.p=AD.gamma.pvalue(a,shape=pars[1])$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(a.p)
     cat("\n\n")
   }
-  u.p=AD.gamma.pvalue(u,shape=pars[1])$P
+  u.p=Watson.gamma.pvalue(u,shape=pars[1])$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(u.p)
     cat("\n\n")
   }
@@ -159,11 +145,11 @@ gof.gamma=function(x,print=TRUE,verbose=FALSE){
     cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
     cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
   }
-  invisible(list(w=w,w.p=w.p,a=a,a.p=a.p,u=u,u.p=u.p))
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
 }
 
 #' @export
-#' @rdname gof.gamma
+#' @rdname gof.normal
 gof.gamma.bootstrap<-function(x, M=10000){
   a2 <- AD.gamma(x)
   w2 <- CvM.gamma(x)
@@ -189,11 +175,11 @@ gof.gamma.bootstrap<-function(x, M=10000){
   cat(w2text)
   cat(a2text)
   cat(u2text)
-  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2, Usq=u2, Usq.pvalue = u2))
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
 
 #' @export
-#' @rdname gof.gamma.bootstrap
+#' @rdname gof.normal
 gof.logistic=function(x,print=TRUE,verbose=FALSE){
   pars=estimate.logistic(x)
   if(verbose){cat("log-Logistic parameter estimates", pars, "\n")}
@@ -203,37 +189,34 @@ gof.logistic=function(x,print=TRUE,verbose=FALSE){
   a = AD(pit)
   u = Watson(pit)
   if(verbose){cat("Statistics are ",w,a,u," \n \n")}
-  w.p=CvM.logistic.pvalue(w,verbose=verbose)
+  w.p=CvM.logistic.pvalue(w,verbose=verbose)$P
   if(verbose){
-    cat("Cramer von Mises P value output \n")
+    cat("Cramer-von Mises P-value output \n")
     print(w.p)
     cat("\n\n")
   }
-  w.p=w.p$P
-  a.p=AD.logistic.pvalue(a)$P
+  a.p=AD.logistic.pvalue(a,verbose=verbose)$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(a.p)
     cat("\n\n")
   }
-  a.p=a.p$P
-  u.p=Watson.logistic.pvalue(u)$P
+  u.p=Watson.logistic.pvalue(u,verbose=verbose)$P
   if(verbose){
-    cat("Watson P value output \n")
+    cat("Watson P-value output \n")
     print(u.p)
     cat("\n\n")
   }
-  u.p=u.p$P
   if(print){
     cat("Cramer-von Mises statistic is ",w,"with P-value is ",w.p,"\n")
     cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
     cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
   }
-  invisible(list(w=w,w.p=w.p,a=a,a.p=a.p,u=u,u.p=u.p))
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
 }
 
 #' @export
-#' @rdname gof.logistic
+#' @rdname gof.normal
 gof.logistic.bootstrap=function(x, M=10000){
   a2 <- AD.logistic(x)
   w2 <- CvM.logistic(x)
@@ -259,13 +242,12 @@ gof.logistic.bootstrap=function(x, M=10000){
   cat(w2text)
   cat(a2text)
   cat(u2text)
-  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2,Usq=u2,Usq.pvalue=u2))
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
-#' @export
-#' @rdname gof.logistic.bootstrap
 
+#' @export
+#' @rdname gof.normal
 gof.laplace=function(x,print=TRUE,verbose=FALSE){
-  
   pars=estimate.laplace(x)
   if(verbose){cat("Laplace parameter estimates", pars, "\n")}
   pit=rmutil::plaplace(x,m=pars[1],s=pars[2])
@@ -273,46 +255,43 @@ gof.laplace=function(x,print=TRUE,verbose=FALSE){
   w = CvM(pit)
   a = AD(pit)
   u = Watson(pit)
-  w.p=CvM.laplace.pvalue(w)$P
+  w.p=CvM.laplace.pvalue(w,verbose=verbose)$P
   if(verbose){
-    cat("Cramer von Mises P value output \n")
+    cat("Cramer-von Mises P-value output \n")
     print(w.p)
     cat("\n\n")
   }
-  w.p=w.p$P
-  a.p=AD.laplace.pvalue(a)$P
+  a.p=AD.laplace.pvalue(a,verbose=verbose)$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(a.p)
     cat("\n\n")
   }
-  a.p=a.p$P
-  u.p=Watson.logistic.pvalue(u)$P
+  u.p=Watson.logistic.pvalue(u,verbose=verbose)$P
   if(verbose){
-    cat("Watson P value output \n")
+    cat("Watson P-value output \n")
     print(u.p)
     cat("\n\n")
   }
-  u.p=u.p$P
   if(print){
     cat("Cramer-von Mises statistic is ",w,"with P-value is ",w.p,"\n")
     cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
     cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
   }
-  invisible(list(w=w,w.p=w.p,a=a,a.p=a.p,u=u,u.p=u.p))
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
 }
-#' @export
-#' @rdname gof.laplace
 
+#' @export
+#' @rdname gof.normal
 gof.laplace.bootstrap<-function(x, M=10000){
   a2 <- AD.laplace(x)
   w2 <- CvM.laplace(x)
   u2 <- Watson.laplace(x)
   n <- length(x)
-  pars <- estimate.laplace(x)
+  pars <- estimate.laplace(x,use.sd = FALSE)
   med <- pars[1]
   MAD <- pars[2]
-  dat <- rlaplace(n*M,location=med,scale=MAD)
+  dat <- L1pack::rlaplace(n*M,location=med,scale=MAD)
   dat <- matrix(dat,nrow=M)
   a2vals <- apply(dat,1,AD.laplace)
   w2vals <- apply(dat,1,CvM.laplace)
@@ -329,53 +308,47 @@ gof.laplace.bootstrap<-function(x, M=10000){
   cat(w2text)
   cat(a2text)
   cat(u2text)
-  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2, Usq=u2, Usq.pvalue = u2))
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
 
 #' @export
-#' @rdname gof.laplace.bootstrap
-
+#' @rdname gof.normal
 gof.weibull=function(x,print=TRUE,verbose=FALSE){
-  
   pars=estimate.weibull(x)
   if(verbose){cat("Weibull parameter estimates", pars, "\n")}
-  
   pit=pweibull(x,shape=pars[1],scale=pars[2])
   if(verbose){cat("PITs are done \n \n")}
   w = CvM(pit)
   a = AD(pit)
   u = Watson(pit)
-  w.p=CvM.weibull.pvalue(w)$P
+  w.p=CvM.weibull.pvalue(w,verbose=verbose)$P
   if(verbose){
-    cat("Cramer von Mises P value output \n")
+    cat("Cramer-von Mises P-value output \n")
     print(w.p)
     cat("\n\n")
   }
-  w.p=w.p$P
-  a.p=AD.weibull.pvalue(a)$P
+  a.p=AD.weibull.pvalue(a,verbose=verbose)$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(a.p)
     cat("\n\n")
   }
-  a.p=a.p$P
-  u.p=Watson.weibull.pvalue(u)$P
+  u.p=Watson.weibull.pvalue(u,verbose=verbose)$P
   if(verbose){
-    cat("Watson P value output \n")
+    cat("Watson P-value output \n")
     print(u.p)
     cat("\n\n")
   }
-  u.p=u.p$P
   if(print){
     cat("Cramer-von Mises statistic is ",w,"with P-value is ",w.p,"\n")
     cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
     cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
   }
-  invisible(list(w=w,w.p=w.p,a=a,a.p=a.p,u=u,u.p=u.p))
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
 }
-#' @export
-#' @rdname gof.weibull
 
+#' @export
+#' @rdname gof.normal
 gof.weibull.bootstrap<-function(x, M=10000){
   a2 <- AD.weibull(x)
   w2 <- CvM.weibull(x)
@@ -401,36 +374,34 @@ gof.weibull.bootstrap<-function(x, M=10000){
   cat(w2text)
   cat(a2text)
   cat(u2text)
-  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2, Usq=u2, Usq.pvalue = u2))
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
-#' @export
-#' @rdname gof.weibull.bootstrap
 
+#' @export
+#' @rdname gof.normal
 gof.exp=function(x,print=TRUE,verbose=FALSE){
   pars=estimate.exp(x)
   if(verbose){cat("Exponential parameter estimates", pars, "\n")}
-
   pit=pexp(x,rate=1/pars)
   if(verbose){cat("PITs are done \n \n")}
   w = CvM(pit)
   a = AD(pit)
   u = Watson(pit)
-  
-  w.p=CvM.exp.pvalue(w)$P
+  w.p=CvM.exp.pvalue(w,verbose=verbose)$P
   if(verbose){
-    cat("Cramer von Mises P value output \n")
+    cat("Cramer-von Mises P-value output \n")
     print(w.p)
     cat("\n\n")
   }
-  a.p=AD.exp.pvalue(a)$P
+  a.p=AD.exp.pvalue(a,verbose=verbose)$P
   if(verbose){
-    cat("Anderson-Darling P value output \n")
+    cat("Anderson-Darling P-value output \n")
     print(a.p)
     cat("\n\n")
   }
-  u.p=Watson.exp.pvalue(a)$P
+  u.p=Watson.exp.pvalue(a,verbose=verbose)$P
   if(verbose){
-    cat("Watson P value output \n")
+    cat("Watson P-value output \n")
     print(u.p)
     cat("\n\n")
   }
@@ -438,13 +409,12 @@ gof.exp=function(x,print=TRUE,verbose=FALSE){
     cat("Cramer-von Mises statistic is ",w,"with P-value is ",w.p,"\n")
     cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
     cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
-    
   }
-  invisible(list(w=w,w.p=w.p,a=a,a.p=a.p,u=u,u.p=u.p))
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
 }
-#' @export
-#' @rdname gof.exp
 
+#' @export
+#' @rdname gof.normal
 gof.exp.bootstrap<-function(x, M=10000){
   a2 <- AD.exp(x)
   w2 <- CvM.exp(x)
@@ -469,36 +439,36 @@ gof.exp.bootstrap<-function(x, M=10000){
   cat(w2text)
   cat(a2text)
   cat(u2text)
-  invisible(list(Asq = a2,Asq.pvalue =a.pv, Wsq=w2, Wsq.pvalue = w2, Usq=u2, Usq.pvalue = u2))
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
-#' @export
-#' @rdname gof.exp.bootstrap
 
-gof.uniform.bootstrap=function(x,stat=y,m=10000){
+#' @export
+#' @rdname gof.normal
+gof.uniform.bootstrap=function(x,stat=y,M=10000){
   Z=sort(x)
   n=length(Z)
-  r=matrix(runif(n*m),nrow=m)
+  r=matrix(runif(n*M),nrow=M)
   r = t(apply(r,1,sort))
   print(dim(r))
   if(stat==1)
   {
     Wsq=CvM(Z)
     Wsq_r=apply(r,1,CvM)
-    pval=sum(Wsq_r>=Wsq)/m
+    pval=sum(Wsq_r>=Wsq)/M
   }
   else if(stat==2)
   {
     Usq=usq(Z)
     Usq_r=apply(r,1,usq)
-    pval=sum(Usq_r>=Usq)/m
+    pval=sum(Usq_r>=Usq)/M
   }
   else
   {
     Asq=AD(Z)
     Asq_r=apply(r,1,AD)
-    pval=sum(Asq_r>=Asq)/m
+    pval=sum(Asq_r>=Asq)
   }
   return(pval)
 }
-#' @export
-#' @rdname gof.uniform.bootstrap
+
+

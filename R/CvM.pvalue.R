@@ -26,7 +26,7 @@
 #' wsq3 = CvM.logistic(x)
 #' CvM.logistic.pvalue(wsq)
 #'
-#' x4= rmutil::rlaplace(n=100,m=0,s=1)
+#' x4= L1pack::rlaplace(n=100,location=0,scale=1)
 #' wsq4 = CvM.laplace(x)
 #' CvM.laplace.pvalue(wsq4)
 #'
@@ -37,6 +37,26 @@
 #' x6=rexp(n=100,rate=1/2)
 #' wsq6 = CvM.exp(x)
 #' CvM.exp.pvalue(wsq6)
+CvM.uniform.pvalue = function(w,neig=100,verbose=FALSE){
+  e = CvM.uniform.eigen(neig)
+  plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for W = ",w," and neig = ",neig,
+                      " imhof returned a negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for W = ",w," and neig = ",neig,
+                    " p was replaced by a lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+#' @export
+#' @rdname CvM.uniform.pvalue
 CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.normal.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -56,7 +76,7 @@ CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.normal.pvalue
+#' @rdname CvM.uniform.pvalue
 CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
   e = CvM.gamma.eigen(neig,shape=shape)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -76,7 +96,7 @@ CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.normal.pvalue
+#' @rdname CvM.uniform.pvalue
 CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.logistic.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -96,7 +116,7 @@ CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.normal.pvalue
+#' @rdname CvM.uniform.pvalue
 CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.laplace.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -116,7 +136,7 @@ CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.normal.pvalue
+#' @rdname CvM.uniform.pvalue
 CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.weibull.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -134,7 +154,7 @@ CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.normal.pvalue
+#' @rdname CvM.uniform.pvalue
 CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.exp.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)

@@ -29,12 +29,18 @@ cdf.normal.regression = function(y,x,theta.hat){
 #' @return cdf.gamma.regression gives probability integral transforms for y in a gamma log-linear regression model
 #'
 #' @examples
-cdf.gamma.regression = function(y,x,theta.hat){
-  coeff.hat=theta.hat[-1]
-  shape.hat=theta.hat[1]
-  linearpredictor = x%*%coeff.hat
-  yhat=exp(linearpredictor)
-  pgamma(y,shape=shape.hat,scale=yhat/shape.hat)
+cdf.gamma.regression = function(y,x,thetahat,link="log"){
+  n = length(y)
+  pp = length(thetahat)
+  coefs = thetahat[-pp]
+  alpha=thetahat[pp]
+  if( link == "log") invlink = exp
+  if( link == "inverse" ) invlink = function(w) 1/w
+  if( link == "identity" ) invlink = function(w) 1
+
+  eta = x %*% as.matrix(coefs,nrow=pp-1)
+  mu = invlink( eta )
+  pgamma(y,shape=alpha,scale = mu/alpha)
 }
 
 #' Probability Integral Transforms for Laplace Regression
@@ -144,7 +150,8 @@ score.normal.regression = function(y,x,theta.hat){
 #' theta.hat = estimate.gamma.regression(x,y)
 #'
 
-score.gamma.regression = function(y,x,theta.hat){
+
+score.gamma.regression = function(y,x,thetahat,link="log"){
   #
   # This computes a p+1 by n matrix containing the components of the
   #  score function in a Gamma regression of y on the n x p covariate matrix x
@@ -156,16 +163,79 @@ score.gamma.regression = function(y,x,theta.hat){
   # As a check the row sums of the output should be 0 up to round off
   #  when the inputs labelled "?.hat" are the MLEs of those parameters.
   #
-  coeff.hat=theta.hat[-1]
-  shape.hat=theta.hat[1]
-  linearpredictor = x%*%coeff.hat
-  yhat=exp(linearpredictor)
-  n=dim(x)[1]
-  p=dim(x)[2]
-  Score=matrix(0,nrow=p+1,ncol=n)
-  Score[1,]=1+log(shape.hat)-digamma(shape.hat)-y/yhat +log(y/yhat)
-  scaled.residual = shape.hat*(y-yhat)/yhat
-  Score[2:(p+1),]= t(c(scaled.residual)*x)
-  Score
+    n = length(y)
+    pp = length(thetahat)
+    coefs = thetahat[-pp]
+    alpha=thetahat[pp]
+    if( link == "log") {
+      invlink = exp
+      invlinkder = exp
+    }
+    if( link == "inverse" ) {
+      invlink = function(w) 1/w
+      invlinkder = function(w) -1/w^2
+    }
+    if( link == "identity" ) {
+      invlink = function(w) w
+      invlinkder = function(w) 1
+    }
+    eta = x%*%coefs
+    mu = invlink( eta)
+    w =  alpha * (y -  mu) * invlinkder(eta) / mu^2
+    score.coef = x*rep(w,pp-1)
+    score.disp = (1-y/mu) +log(alpha*y/mu) - digamma(alpha)
+    cbind(score.coef,score.disp)
 }
 
+CvM.gamma.regression.covmat=function(x,theta,link="log"){
+  fisher.information.gamma=function(x,theta){
+    #
+    # returns the estimated Fisher Information per point
+    # for a gamma regression model in which the log mean is predicted
+    # linearly from a matrix of covariates x
+    # Normally x will contain an intercept term
+    #
+    pp=length(theta)
+    p=pp-1
+    shape.hat = theta[pp]
+    coefs = theta[-pp]
+    eta = x %*% coefs
+    if( link == "log") {
+      invlink = exp
+      linkder = exp
+    }
+    if( link == "inverse" ) {
+      invlink = function(w) 1/w
+      linkder = function(w) -1/w^2
+    }
+    if( link == "identity" ) {
+      invlink = function(w) w
+      lindker = function(w) 1
+    }
+    mu = invlink(eta)
+    deriv = linkder(eta)
+    W = x * rep(deriv,p)
+    M = t(W)%*%W/n  # should be p by p
+    print(dim(M))
+    FI=matrix(0,nrow=pp,ncol=pp)
+    FI[pp,pp]=trigamma(shape.hat)-1/shape.hat
+    FI[1:p,1:p]=(shape.hat/mu^2) * M
+    FI
+  }
+  g = gamma(shape)
+  dg = digamma(shape)
+  FI = fisher.information.gamma(shape.hat = shape)
+  s=1:n
+  s=s/(n+1)
+  M1=outer(s,s,pmin)-outer(s,s)
+  G1 = s*0
+  Q = qgamma(s,shape=shape)
+  D = dgamma(Q,shape=shape)
+  G2 = - Q * D
+  g1.integrand = function(x,shape){log(x)*x^(shape-1)*exp(-x)}
+  for(i in 1:n){
+    G1[i] = integrate(g1.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
+  }
+  M2 = cbind(G1,G2)
+  M1-M2%*%solve(FI,t(M2))
+}

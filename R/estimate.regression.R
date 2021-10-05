@@ -59,25 +59,44 @@ estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
 
 #' @export
 #' @rdname estimate.normal.regression
-estimate.gamma.regression=function(x,y){
-  xx=x[,-1]
-  fit=glm(y~xx,family=Gamma(link="log"))
-  coeff.hat=coefficients(fit)
-  yhat=fitted(fit)
-  scaled.response=y/yhat
-  target = mean(log(scaled.response))
-  aold=1/var((y-yhat)/yhat)
-  old.score=log(aold)-digamma(aold)+target
-  old.score.derivative= 1/aold - trigamma(aold)
-  anew <- aold - old.score/old.score.derivative
-  if( anew < 0) anew <- aold/2
-  while ( abs(anew-aold) > 1e-8){
-    aold <- anew
-    old.score = log(aold)-digamma(aold)+target
-    old.score.derivative = 1/aold-trigamma(aold)
-    anew <- aold - old.score/old.score.derivative
-    if( anew < 0) anew <- aold/2
+estimate.gamma.regression = function(fit,x,y,link = "log"){
+  #
+  #  This function uses glm to get initial values for maximum
+  #   likelihood fits of a model in which link(E(y)) =x %*% coefs
+  #  We will test that the $y$ have gamma distributions with mean
+  #    invlink(x %*% coefs)
+  #  and shape alpha.  GLM gives us initial estimates of coefs and of
+  #  the dispersion which is 1/alpha.
+  #  Then optim is used to find the mle.
+  #
+  #  We allow the three link functions used by glm for the Gamma family
+  #  So far we don't check that one of the possibilities is actually called.
+  #  The code will crash if not.
+  #
+  if(missing(fit)){
+    if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
+    fit = glm(y~x, family = Gamma(link = link))
   }
-  shape.hat=anew
-  c(shape.hat, coeff.hat)
+  xx = model.matrix(fit)
+  betastart = coef(fit)
+  sigmastart = summary(fit)$dispersion
+  thetastart = c(betastart,sigmastart)
+  cat("Initial values ",thetastart,"\n")
+  if( link == "log" ) invlink = exp
+  if( link == "inverse" ) invlink = function(w) 1/w
+  if( link == "identity" ) invlink = function(w) w
+  ell = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    pp = length(th)
+    coefs = th[-pp]
+    alpha=1/th[pp]
+    mu = invlink(xx %*% coefs)
+    ell = alpha*log(y)+alpha*log(alpha/mu) -alpha*y/mu -lgamma(alpha)
+    -sum(ell)
+  }
+  w = optim(par = thetastart, ell, xx=xx,y=y,invlink=invlink)
+  thetahat = w$par
+  pp = length(thetahat)
+  thetahat[pp] = 1/thetahat[pp]
+  list(thetahat = thetahat, model.matrix = xx,optim.output = w)
 }

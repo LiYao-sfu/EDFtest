@@ -7,31 +7,30 @@
 gof.sandwich(y, x = NULL, Fdist, thetahat, Score, m = max(n, 100), ...)
 }
 \arguments{
-\item{y}{data -- should be a numerical vector: sample or response of regression problem}
+\item{y}{A random sample or the response of regression problem.}
 
-\item{x}{matrix of covariates}
+\item{x}{The matrix of covariates.}
 
-\item{Fdist}{user supplied function to compute probability integral transform of y}
+\item{Fdist}{User supplied function to compute probability integral transform of y.}
 
-\item{thetahat}{parameter estimates by mle}
+\item{thetahat}{Parameter estimates by mle.}
 
-\item{Score}{user supplied function to compute3 components of the score function an n by p matrix with entries
-partial log f(y_i,\theta)/ partial theta_j}
+\item{Score}{User supplied function to compute3 components of the score function an n by p matrix with entries
+partial log f(y_i,\theta)/ partial theta_j.}
 
-\item{m}{Eigenvalues are extracted for an m by m grid of the covariance ftn}
+\item{m}{Eigenvalues are extracted for an m by m grid of the covariance function.}
 
-\item{...}{other inputs passed to Fdist and Score when needed.}
+\item{...}{Other inputs passed to Fdist and Score when needed.}
 }
 \value{
 
 }
 \description{
 This function tests the hypothesis that data y come from
-distribution Fdist with unknown parameter values theta
+distribution Fdist with unknown parameter values theta.
+Estimates of theta must be provided in thetahat.
 }
 \details{
-Estimates of theta must be provided in thetahat.
-
 It uses a large sample approximation to the limit distribution
 based on the use of the score function components
 to estimate the Fisher information and the limiting covariance
