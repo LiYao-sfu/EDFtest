@@ -26,7 +26,7 @@
 #' asq3 = AD.logistic(x)
 #' AD.logistic.pvalue(asq3)
 #'
-#' x4= rmutil::rlaplace(n=100,m=0,s=1)
+#' x4=rmutil::rlaplace(n=100,m=0,s=1)
 #' asq4 = AD.laplace(x)
 #' AD.laplace.pvalue(asq4)
 #'

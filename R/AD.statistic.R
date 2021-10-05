@@ -26,7 +26,7 @@
 #' AD.logistic(x3)
 #' AD.logistic(x3,c(0,1))
 #'
-#' x4= L1pack::rlaplace(n=100,location=0,scale=1)
+#' x4= rmutil::rlaplace(n=100,m=0,s=1)
 #' AD.laplace(x4)
 #' AD.laplace(x4,c(0,1))
 #'

@@ -26,7 +26,7 @@
 #' wsq3 = CvM.logistic(x)
 #' CvM.logistic.pvalue(wsq)
 #'
-#' x4= L1pack::rlaplace(n=100,location=0,scale=1)
+#' x4= rmutil::rlaplace(n=100,m=0,s=1)
 #' wsq4 = CvM.laplace(x)
 #' CvM.laplace.pvalue(wsq4)
 #'

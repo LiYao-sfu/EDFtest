@@ -248,7 +248,7 @@ gof.logistic.bootstrap=function(x, M=10000){
 #' @export
 #' @rdname gof.normal
 gof.laplace=function(x,print=TRUE,verbose=FALSE){
-  pars=estimate.laplace(x)
+  pars=estimate.laplace(x,use.sd=FALSE)
   if(verbose){cat("Laplace parameter estimates", pars, "\n")}
   pit=rmutil::plaplace(x,m=pars[1],s=pars[2])
   if(verbose){cat("PITs are done \n \n")}
@@ -288,10 +288,10 @@ gof.laplace.bootstrap<-function(x, M=10000){
   w2 <- CvM.laplace(x)
   u2 <- Watson.laplace(x)
   n <- length(x)
-  pars <- estimate.laplace(x,use.sd = FALSE)
+  pars <- estimate.laplace(x)
   med <- pars[1]
   MAD <- pars[2]
-  dat <- L1pack::rlaplace(n*M,location=med,scale=MAD)
+  dat <- rmutil::rlaplace(n*M,m=med,s=MAD)
   dat <- matrix(dat,nrow=M)
   a2vals <- apply(dat,1,AD.laplace)
   w2vals <- apply(dat,1,CvM.laplace)
@@ -399,7 +399,7 @@ gof.exp=function(x,print=TRUE,verbose=FALSE){
     print(a.p)
     cat("\n\n")
   }
-  u.p=Watson.exp.pvalue(a,verbose=verbose)$P
+  u.p=Watson.exp.pvalue(u,verbose=verbose)$P
   if(verbose){
     cat("Watson P-value output \n")
     print(u.p)
