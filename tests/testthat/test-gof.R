@@ -33,11 +33,11 @@ test_that("gof imhof method for gamma sample", {
   result = gof.gamma(x)
 
   expect_equal(result$Wsq,0.029695982)
-  expect_equal(result$Wsq.pvalue,0.49021528) #start from here!
-  expect_equal(result$Asq,0.380504793)
-  expect_equal(result$Asq.pvalue,0.39529586)
-  expect_equal(result$Usq,0.044353005)
-  expect_equal(result$Usq.pvalue,0.56491446)
+  expect_equal(result$Wsq.pvalue,0.86256808) #start from here!
+  expect_equal(result$Asq, 0.201390974)
+  expect_equal(result$Asq.pvalue, 0.87227726)
+  expect_equal(result$Usq,0.027784624)
+  expect_equal(result$Usq.pvalue,0.8644457)
 
   expect_output(str(result), "List of 6")
 })
@@ -48,8 +48,118 @@ test_that("gof bootstrap method for gamma sample", {
   result = gof.gamma.bootstrap(x,M=100)
 
   expect_equal(result$Wsq,0.029695982)
-  expect_equal(result$Asq,0.380504793)
-  expect_equal(result$Usq,0.044353005)
+  expect_equal(result$Asq,0.201390974)
+  expect_equal(result$Usq,0.027784624)
 
   expect_output(str(result), "List of 6")
 })
+
+
+test_that("gof imhof method for logistic sample", {
+  x = c(-1.1263960,  0.9562103, -3.3860294,  0.1980448,  0.7667096,
+        -0.8461510, -0.4524666,  1.0070690,  3.2450939,  1.1559508)
+  result = gof.logistic(x)
+
+  expect_equal(result$Wsq,0.039618567)
+  expect_equal(result$Wsq.pvalue, 0.54949935)
+  expect_equal(result$Asq,0.27184557)
+  expect_equal(result$Asq.pvalue,0.61998034)
+  expect_equal(result$Usq,0.039618567)
+  expect_equal(result$Usq.pvalue, 0.5569662)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof bootstrap method for logistic sample", {
+  x = c(-1.1263960,  0.9562103, -3.3860294,  0.1980448,  0.7667096,
+        -0.8461510, -0.4524666,  1.0070690,  3.2450939,  1.1559508)
+  result = gof.logistic.bootstrap(x,M=100)
+
+  expect_equal(result$Wsq,0.039618567)
+  expect_equal(result$Asq,0.27184557)
+  expect_equal(result$Usq,0.039618567)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof imhof method for laplace sample", {
+  x = c(-0.23539279,  0.16009027,  2.84634962,  0.35710312, -0.40466195,
+        -0.41113889,  2.16169132, -0.27151351,  0.13770907,  0.02330074)
+  result = gof.laplace(x)
+
+  expect_equal(result$Wsq,0.094653627)
+  expect_equal(result$Wsq.pvalue,  0.170485275)
+  expect_equal(result$Asq,0.8983146)
+  expect_equal(result$Asq.pvalue,0.070593058)
+  expect_equal(result$Usq,0.085748922)
+  expect_equal(result$Usq.pvalue,0.086042181)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof bootstrap method for Laplace sample", {
+  x = c(-0.23539279,  0.16009027,  2.84634962,  0.35710312, -0.40466195,
+        -0.41113889,  2.16169132, -0.27151351,  0.13770907,  0.02330074)
+  result = gof.laplace.bootstrap(x,M=100)
+
+  expect_equal(result$Wsq, 0.147393763)
+  expect_equal(result$Asq, 0.91031712)
+  expect_equal(result$Usq, 0.131789187)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof imhof method for Weibull sample", {
+  x = c(0.36218715, 0.16506700, 0.16757965, 0.93681048, 1.87396510,
+        0.44718470, 1.24767735, 0.07435952, 1.86023456, 0.03682825)
+  result = gof.weibull(x)
+
+  expect_equal(result$Wsq,0.046013393)
+  expect_equal(result$Wsq.pvalue,0.56603163)
+  expect_equal(result$Asq,0.30993253)
+  expect_equal(result$Asq.pvalue,0.57984488)
+  expect_equal(result$Usq,0.04571839)
+  expect_equal(result$Usq.pvalue, 0.540243891)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof bootstrap method for Weibull sample", {
+  x = c(0.36218715, 0.16506700, 0.16757965, 0.93681048, 1.87396510,
+        0.44718470, 1.24767735, 0.07435952, 1.86023456, 0.03682825)
+  result = gof.weibull.bootstrap(x,M=100)
+
+  expect_equal(result$Wsq,0.046013393)
+  expect_equal(result$Asq,0.30993253)
+  expect_equal(result$Usq, 0.045718390)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof imhof method for exp sample", {
+  x = c(13.0581121,  0.8301048,  0.5207504,  1.0923122,  0.7086793,
+        0.1271974,  3.9326089,  0.0510448,  4.3839846,  3.4396530)
+  result = gof.exp(x)
+
+  expect_equal(result$Wsq,0.141736477)
+  expect_equal(result$Wsq.pvalue,  0.1653965)
+  expect_equal(result$Asq,0.93011782)
+  expect_equal(result$Asq.pvalue, 0.14574441)
+  expect_equal(result$Usq,0.088244806)
+  expect_equal(result$Usq.pvalue, 0.26282068)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof bootstrap method for exp sample", {
+  x = c(13.0581121,  0.8301048,  0.5207504,  1.0923122,  0.7086793,
+        0.1271974,  3.9326089,  0.0510448,  4.3839846,  3.4396530)
+  result = gof.exp.bootstrap(x,M=100)
+
+  expect_equal(result$Wsq,0.141736477)
+  expect_equal(result$Asq,0.93011782)
+  expect_equal(result$Usq,0.088244806)
+
+  expect_output(str(result), "List of 6")
+})
+
