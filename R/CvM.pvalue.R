@@ -41,7 +41,7 @@ CvM.uniform.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.uniform.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -61,7 +61,7 @@ CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.normal.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -81,7 +81,7 @@ CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
   e = CvM.gamma.eigen(neig,shape=shape)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -101,7 +101,7 @@ CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.logistic.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -121,7 +121,7 @@ CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.laplace.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -141,7 +141,7 @@ CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.weibull.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -159,7 +159,7 @@ CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.exp.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq

@@ -41,7 +41,7 @@ Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.normal.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -61,7 +61,7 @@ Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
   e = Watson.gamma.eigen(neig,shape=shape)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -81,7 +81,7 @@ Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.logistic.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -101,7 +101,7 @@ Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.laplace.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -121,7 +121,7 @@ Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.weibull.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -141,7 +141,7 @@ Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.exp.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq

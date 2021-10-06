@@ -41,7 +41,7 @@ AD.uniform.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.uniform.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -61,7 +61,7 @@ AD.normal.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.normal.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -81,7 +81,7 @@ AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
   e = AD.gamma.eigen(neig,shape=shape)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -101,7 +101,7 @@ AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.logistic.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -121,7 +121,7 @@ AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.laplace.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -141,7 +141,7 @@ AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.weibull.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -160,7 +160,7 @@ AD.exp.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.exp.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7) #play with eps and limit
+  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7) #play with eps and limit
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
