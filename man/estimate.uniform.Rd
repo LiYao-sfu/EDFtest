@@ -40,10 +40,10 @@ Estimated parameters of a given parametric family.
 }
 \description{
 Estimate parameters of various distributions by the method of maximum likelihood.
-The following families are available: N(location=$\mu$,scale=$\sigma^{2}$),
-Gamma(shape=$\alpha$,scale=$\beta$), Logistic(location=$\mu$,scale=s),
-Laplace(location=$\mu$,scale=b), Weibull(shape=$\alpha$,scale=$\beta$),
-and Exponential(scale=$\theta$).
+The following families are available: Normal(location=\eqn{\mu},scale=\eqn{\sigma^2}),
+Gamma(shape=\eqn{\alpha},scale=\eqn{\beta}), Logistic(location=\eqn{\mu},scale=s),
+Laplace(location=\eqn{\mu},scale=b), Weibull(shape=\eqn{\alpha},scale=\eqn{\beta}),
+and Exponential(scale=\eqn{\theta}).
 }
 \details{
 

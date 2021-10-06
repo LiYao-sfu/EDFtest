@@ -19,29 +19,29 @@
 #' AD.normal.pvalue(asq1)
 #'
 #' x2=rgamma(n=100,shape=1,scale=1)
-#' asq2 = AD.gamma(x)
+#' asq2 = AD.gamma(x2)
 #' AD.gamma.pvalue(asq2,1)
 #'
 #' x3=rlogis(n=100,location=0,scale=1)
-#' asq3 = AD.logistic(x)
+#' asq3 = AD.logistic(x3)
 #' AD.logistic.pvalue(asq3)
 #'
 #' x4=rmutil::rlaplace(n=100,m=0,s=1)
-#' asq4 = AD.laplace(x)
+#' asq4 = AD.laplace(x4)
 #' AD.laplace.pvalue(asq4)
 #'
 #' x5=rweibull(n=100,shape=1,scale=1)
-#' asq5 = AD.weibull(x)
+#' asq5 = AD.weibull(x5)
 #' AD.weibull.pvalue(asq5)
 #'
 #' x6=rexp(n=100,rate=1/2)
-#' asq6 = AD.exp(x)
+#' asq6 = AD.exp(x6)
 #' AD.exp.pvalue(asq6)
 AD.uniform.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.uniform.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -61,7 +61,7 @@ AD.normal.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.normal.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -81,7 +81,7 @@ AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
   e = AD.gamma.eigen(neig,shape=shape)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -89,7 +89,7 @@ AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
                       " imhof returned a negative probability\n")
   if(p<plb){
     p=plb
-    if(verbose) cat("forA = ",a," and neig = ",neig,
+    if(verbose) cat("for A = ",a," and neig = ",neig,
                     " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
@@ -101,7 +101,7 @@ AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.logistic.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -121,7 +121,7 @@ AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.laplace.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -141,16 +141,17 @@ AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.weibull.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p < 0 ) cat("Imhof returned a negative probability\n")
-  if(p < plb){
+  if(p<0&&verbose)cat("for A = ",a," and neig = ",neig,
+                      " imhof returned a negative probability\n")
+  if(p<plb){
     p=plb
-    if(verbose) cat(" p =",p[i]," was replaced by a lower bound on p:",plb, "\n")
+    if(verbose) cat("for A = ",a," and neig = ",neig,
+                    " p was replaced by a lower bound on p: ",plb, "\n")
   }
-
   list(P=p,error=aerror)
 }
 
@@ -160,14 +161,16 @@ AD.exp.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.exp.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(a,lambda=e,epsabs = 1e-9,limit=2^7) #play with eps and limit
+  im = imhof(a,lambda=e,epsabs = 1e-9,limit=2^7) #play with eps and limit
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p < 0 ) cat("Imhof returned a negative probability\n")
-  if(p < plb){
+  if(p<0&&verbose)cat("for A = ",a," and neig = ",neig,
+                      " imhof returned a negative probability\n")
+  if(p<plb){
     p=plb
-    if(verbose) cat(" p =",p[i]," was replaced by a lower bound on p:",plb, "\n")
+    if(verbose) cat("for A = ",a," and neig = ",neig,
+                    " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }

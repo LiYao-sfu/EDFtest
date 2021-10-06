@@ -21,5 +21,6 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     CompQuadForm (>= 1.4.3),
-    rmutil (>= 1.1.5)
+    rmutil (>= 1.1.5),
+    stats
 VignetteBuilder: knitr

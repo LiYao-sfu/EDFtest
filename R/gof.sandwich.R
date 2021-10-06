@@ -18,11 +18,11 @@
 #' @param Fdist User supplied function to compute probability integral transform of y.
 #' @param thetahat Parameter estimates by mle.
 #' @param Score User supplied function to compute3 components of the score function an n by p matrix with entries
-#' partial log f(y_i,\theta)/ partial theta_j.
+#' partial log f(y_i,\eqn{\theta})/ partial theta_j.
 #' @param m Eigenvalues are extracted for an m by m grid of the covariance function.
 #' @param ... Other inputs passed to Fdist and Score when needed.
 #'
-#' @return
+#' @return Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
 #' @export
 #'
 #' @examples

@@ -11,6 +11,8 @@
 #' @param shape The shape parameter of Gamma distribution.
 #'
 #' @return P-value of the Cramer-von Mises statistic of a uniform sample.
+#' @import stats
+#' @importFrom CompQuadForm imhof
 #' @export
 #'
 #' @examples
@@ -41,7 +43,7 @@ CvM.uniform.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.uniform.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -61,7 +63,7 @@ CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.normal.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
@@ -81,15 +83,15 @@ CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
   e = CvM.gamma.eigen(neig,shape=shape)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p<0&&verbose)cat("for w = ",w," and neig = ",neig,
+  if(p<0&&verbose)cat("for W = ",w," and neig = ",neig,
                       " imhof returned a negative probability\n")
   if(p<plb){
     p=plb
-    if(verbose) cat("for w = ",w," and neig = ",neig,
+    if(verbose) cat("for W = ",w," and neig = ",neig,
                     " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
@@ -101,15 +103,15 @@ CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.logistic.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p<0&&verbose)cat("for w = ",w," and neig = ",neig,
+  if(p<0&&verbose)cat("for W = ",w," and neig = ",neig,
                       " imhof returned a negative probability\n")
   if(p<plb){
     p=plb
-    if(verbose) cat("for w = ",w," and neig = ",neig,
+    if(verbose) cat("for W = ",w," and neig = ",neig,
                     " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
@@ -121,15 +123,15 @@ CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.laplace.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p<0&&verbose)cat("for w = ",w," and neig = ",neig,
+  if(p<0&&verbose)cat("for W = ",w," and neig = ",neig,
                       " imhof returned a negative probability\n")
   if(p<plb){
     p=plb
-    if(verbose) cat("for w = ",w," and neig = ",neig,
+    if(verbose) cat("for W = ",w," and neig = ",neig,
                     " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
@@ -141,14 +143,16 @@ CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.weibull.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p < 0 ) cat("Imhof returned a negative probability\n")
-  if(p < plb){
+  if(p<0&&verbose)cat("for W = ",w," and neig = ",neig,
+                      " imhof returned a negative probability\n")
+  if(p<plb){
     p=plb
-    if(verbose) cat(" p =",p[i]," was replaced by a lower bound on p:",plb, "\n")
+    if(verbose) cat("for W = ",w," and neig = ",neig,
+                    " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -159,14 +163,16 @@ CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.exp.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
-  im = CompQuadForm::imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
   options(warn=warn)
   aerror=im$abserr
   p=im$Qq
-  if(p < 0 ) cat("Imhof returned a negative probability\n")
-  if(p < plb){
+  if(p<0&&verbose)cat("for W = ",w," and neig = ",neig,
+                      " imhof returned a negative probability\n")
+  if(p<plb){
     p=plb
-    if(verbose) cat(" p =",p[i]," was replaced by a lower bound on p:",plb, "\n")
+    if(verbose) cat("for W = ",w," and neig = ",neig,
+                    " p was replaced by a lower bound on p: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }

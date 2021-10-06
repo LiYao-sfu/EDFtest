@@ -48,22 +48,22 @@ asq1 = AD.normal(x1)
 AD.normal.pvalue(asq1)
 
 x2=rgamma(n=100,shape=1,scale=1)
-asq2 = AD.gamma(x)
+asq2 = AD.gamma(x2)
 AD.gamma.pvalue(asq2,1)
 
 x3=rlogis(n=100,location=0,scale=1)
-asq3 = AD.logistic(x)
+asq3 = AD.logistic(x3)
 AD.logistic.pvalue(asq3)
 
 x4=rmutil::rlaplace(n=100,m=0,s=1)
-asq4 = AD.laplace(x)
+asq4 = AD.laplace(x4)
 AD.laplace.pvalue(asq4)
 
 x5=rweibull(n=100,shape=1,scale=1)
-asq5 = AD.weibull(x)
+asq5 = AD.weibull(x5)
 AD.weibull.pvalue(asq5)
 
 x6=rexp(n=100,rate=1/2)
-asq6 = AD.exp(x)
+asq6 = AD.exp(x6)
 AD.exp.pvalue(asq6)
 }

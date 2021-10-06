@@ -8,11 +8,12 @@
 #' @details
 #'
 #' @param pit A vector of probability integral transforms.
-#' @param a2 Logical; if TRUE print Anderson-Darling statistic
-#' @param w2 Logical; if TRUE print Cramer-von Mises statistic
-#' @param u2 Logical; if TRUE print Watson statistic
+#' @param AD Logical; if TRUE print Anderson-Darling statistic
+#' @param CvM Logical; if TRUE print Cramer-von Mises statistic
+#' @param Watson Logical; if TRUE print Watson statistic
 #'
 #' @return `gof.statistics.only` gives Anderson-Darling, Cramer-von Mises or Watson statistics
+#' of a given probability integral transforms
 #' @export
 #'
 #' @examples

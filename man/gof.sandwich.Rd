@@ -16,14 +16,14 @@ gof.sandwich(y, x = NULL, Fdist, thetahat, Score, m = max(n, 100), ...)
 \item{thetahat}{Parameter estimates by mle.}
 
 \item{Score}{User supplied function to compute3 components of the score function an n by p matrix with entries
-partial log f(y_i,\theta)/ partial theta_j.}
+partial log f(y_i,\eqn{\theta})/ partial theta_j.}
 
 \item{m}{Eigenvalues are extracted for an m by m grid of the covariance function.}
 
 \item{...}{Other inputs passed to Fdist and Score when needed.}
 }
 \value{
-
+Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
 }
 \description{
 This function tests the hypothesis that data y come from
