@@ -37,6 +37,26 @@
 #' x6=rexp(n=100,rate=1/2)
 #' usq6 = Watson.exp(x6)
 #' Watson.exp.pvalue(usq6)
+Watson.uniform.pvalue = function(u,neig=100,verbose=FALSE){
+  e = Watson.uniform.eigen(neig)
+  plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(u,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for U = ",u," and neig = ",neig,
+                      " imhof returned u negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for U = ",u," and neig = ",neig,
+                    " p was replaced by u lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+#' @export
+#' @rdname Watson.uniform.pvalue
 Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.normal.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -56,7 +76,7 @@ Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.normal.pvalue
+#' @rdname Watson.uniform.pvalue
 Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
   e = Watson.gamma.eigen(neig,shape=shape)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -76,7 +96,7 @@ Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.normal.pvalue
+#' @rdname Watson.uniform.pvalue
 Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.logistic.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -96,7 +116,7 @@ Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.normal.pvalue
+#' @rdname Watson.uniform.pvalue
 Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.laplace.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -116,7 +136,7 @@ Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.normal.pvalue
+#' @rdname Watson.uniform.pvalue
 Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.weibull.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -136,7 +156,7 @@ Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.normal.pvalue
+#' @rdname Watson.uniform.pvalue
 Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.exp.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -156,6 +176,15 @@ Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 # Helpers -----------------------------------------------------------------
+
+Watson.uniform.eigen = function(n){
+  M=Watson.uniform.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.uniform.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.uniform.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
 
 Watson.normal.eigen = function(n){
   M=Watson.normal.covmat(n)

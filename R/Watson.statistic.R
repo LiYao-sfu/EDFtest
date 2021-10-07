@@ -14,6 +14,10 @@
 #' @export
 #'
 #' @examples
+#' x0=runif(n=100,min=-1,max=1)
+#' Watson.uniform(x0)
+#' Watson.uniform(x0,parameter=c(-1,1))
+#'
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' Watson.normal(x1)
 #' Watson.normal(x1,parameter=c(0,1))
@@ -37,41 +41,48 @@
 #' x6=rexp(n=100,rate=1/2)
 #' Watson.exp(x6)
 #' Watson.exp(x6,parameter=2)
+Watson.uniform <- function(x,parameter=estimate.uniform(x)){
+    z <- cdf.uniform(x,parameter)
+    Watson(z)
+}
+
+#' @export
+#' @rdname Watson.uniform
 Watson.normal = function(x,parameter=estimate.normal(x)){
     z <- cdf.normal(x, theta=parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.normal
+#' @rdname Watson.uniform
 Watson.gamma = function(x,parameter=estimate.gamma(x)){
     z <- cdf.gamma(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.normal
+#' @rdname Watson.uniform
 Watson.logistic = function(x,parameter=estimate.logistic(x)){
     z <- cdf.logistic(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.normal
+#' @rdname Watson.uniform
 Watson.laplace = function(x,parameter=estimate.laplace(x)){
     z <- cdf.laplace(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.normal
+#' @rdname Watson.uniform
 Watson.weibull = function(x,parameter=estimate.weibull(x)){
     z <- cdf.weibull(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.normal
+#' @rdname Watson.uniform
 Watson.exp = function(x,parameter=estimate.exp(x)){
     z <- cdf.exp(x,parameter)
     Watson(z)

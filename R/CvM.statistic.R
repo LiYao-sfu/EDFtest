@@ -14,6 +14,10 @@
 #' @export
 #'
 #' @examples
+#' x0=runif(n=100,min=-1,max=1)
+#' CvM.uniform(x0)
+#' CvM.uniform(x0,parameter=c(-1,1))
+#'
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' CvM.normal(x1)
 #' CvM.normal(x1,parameter=c(0,1))
