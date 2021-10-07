@@ -61,12 +61,9 @@ estimate.logistic(x3)
 x4= rmutil::rlaplace(n=100,m=0,s=1)
 estimate.laplace(x4)
 
-x5= L1pack::rlaplace(n=100,location=0,scale=1)
-estimate.laplace(x5,use.sd=TRUE)
+x5=rweibull(n=100,shape=1,scale=1)
+estimate.weibull(x5)
 
-x6=rweibull(n=100,shape=1,scale=1)
-estimate.weibull(x6)
-
-x7=rexp(n=100,rate=1/2)
-estimate.exp(x7,use.rate=TRUE)
+x6=rexp(n=100,rate=1/2)
+estimate.exp(x6,use.rate=TRUE)
 }

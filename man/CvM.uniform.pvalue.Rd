@@ -48,22 +48,22 @@ wsq1 = CvM.normal(x1)
 CvM.normal.pvalue(wsq1)
 
 x2=rgamma(n=100,shape=1,scale=1)
-wsq2 = CvM.gamma(x)
+wsq2 = CvM.gamma(x2)
 CvM.gamma.pvalue(wsq2,1)
 
 x3=rlogis(n=100,location=0,scale=1)
-wsq3 = CvM.logistic(x)
-CvM.logistic.pvalue(wsq)
+wsq3 = CvM.logistic(x3)
+CvM.logistic.pvalue(wsq3)
 
 x4= rmutil::rlaplace(n=100,m=0,s=1)
-wsq4 = CvM.laplace(x)
+wsq4 = CvM.laplace(x4)
 CvM.laplace.pvalue(wsq4)
 
 x5=rweibull(n=100,shape=1,scale=1)
-wsq5 = CvM.weibull(x)
+wsq5 = CvM.weibull(x5)
 CvM.weibull.pvalue(wsq5)
 
 x6=rexp(n=100,rate=1/2)
-wsq6 = CvM.exp(x)
+wsq6 = CvM.exp(x6)
 CvM.exp.pvalue(wsq6)
 }

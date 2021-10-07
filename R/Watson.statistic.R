@@ -11,10 +11,12 @@
 #' @param parameter Parameters of a given distribution.
 #'
 #' @return Watson's statistic of a uniform sample.
+#' @export
+#'
 #' @examples
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' Watson.normal(x1)
-#' Watson.normal(x1,c(0,1))
+#' Watson.normal(x1,parameter=c(0,1))
 #'
 #' x2=rgamma(n=100,shape=1,scale=1)
 #' Watson.gamma(x2)
@@ -22,15 +24,15 @@
 #'
 #' x3=rlogis(n=100,location=0,scale=1)
 #' Watson.logistic(x3)
-#' Watson.logistic(x3,c(0,1))
+#' Watson.logistic(x3,parameter=c(0,1))
 #'
 #' x4= rmutil::rlaplace(n=100,m=0,s=1)
 #' Watson.laplace(x4)
-#' Watson.laplace(x4,c(0,1))
+#' Watson.laplace(x4,parameter=c(0,1))
 #'
 #' x5=rweibull(n=100,shape=1,scale=1)
 #' Watson.weibull(x5)
-#' Watson.weibull(x5,c(1,1))
+#' Watson.weibull(x5,parameter=c(1,1))
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' Watson.exp(x6)

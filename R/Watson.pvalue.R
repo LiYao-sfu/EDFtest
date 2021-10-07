@@ -19,23 +19,23 @@
 #' Watson.normal.pvalue(usq1)
 #'
 #' x2=rgamma(n=100,shape=1,scale=1)
-#' usq2 = Watson.gamma(x)
+#' usq2 = Watson.gamma(x2)
 #' Watson.gamma.pvalue(usq2,1)
 #'
 #' x3=rlogis(n=100,location=0,scale=1)
-#' usq3 = Watson.logistic(x)
+#' usq3 = Watson.logistic(x3)
 #' Watson.logistic.pvalue(usq3)
 #'
 #' x4= rmutil::rlaplace(n=100,m=0,s=1)
-#' usq4 = Watson.laplace(x)
+#' usq4 = Watson.laplace(x4)
 #' Watson.laplace.pvalue(usq4)
 #'
 #' x5=rweibull(n=100,shape=1,scale=1)
-#' usq5 = Watson.weibull(x)
+#' usq5 = Watson.weibull(x5)
 #' Watson.weibull.pvalue(usq5)
 #'
 #' x6=rexp(n=100,rate=1/2)
-#' usq6 = Watson.exp(x)
+#' usq6 = Watson.exp(x6)
 #' Watson.exp.pvalue(usq6)
 Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.normal.eigen(neig)
