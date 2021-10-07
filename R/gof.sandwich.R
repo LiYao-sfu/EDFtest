@@ -80,11 +80,11 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   Evals.AD = eigen(Sigma.AD)$values/m
   Evals.Watson = eigen(Sigma.Watson)$values/m
   stat=gof.statistics.only(pit)
-  P.CvM = CompQuadForm::imhof(stat$CvM,Evals.CvM)$Qq
-  P.AD = CompQuadForm::imhof(stat$AD,Evals.AD)$Qq
+  P.CvM = imhof(stat$CvM,Evals.CvM)$Qq
+  P.AD = imhof(stat$AD,Evals.AD)$Qq
   P.Watson = imhof(stat$Watson,Evals.Watson)$Qq
   #
-  list(CvM=list(W2=stat$CvM,P=P.CvM),AD=list(A2=stat$AD,P=P.AD),Watson=list(U2=stat$Watson,P=P.Watson))
+  list(CvM=list(W2=stat$CvM,P=P.CvM),AD=list(A2=stat$AD,P=P.AD),Watson=list(U2=stat$Watson,P=P.Watson),UU= u)
 }
 
 

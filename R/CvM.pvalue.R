@@ -16,6 +16,10 @@
 #' @export
 #'
 #' @examples
+#' x0=runif(n=100,min=-1,max=1)
+#' wsq0 = CvM.uniform(x0)
+#' CvM.uniform.pvalue(wsq0)
+#'
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' wsq1 = CvM.normal(x1)
 #' CvM.normal.pvalue(wsq1)

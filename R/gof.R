@@ -18,6 +18,10 @@
 #' @export
 #'
 #' @examples
+#' x0=runif(n=100,min=-1,max=1)
+#' gof.uniform(x0)
+#' gof.uniform.bootstrap(x0,M=1000)
+#'
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' gof.normal(x1)
 #' gof.normal.bootstrap(x1,M=1000)
@@ -44,7 +48,7 @@
 gof.uniform=function(x,print=TRUE,verbose=FALSE){
   #  Estimate the parameters
   pars=estimate.uniform(x)
-  if(verbose){cat("Normal parameter estimates", pars, "\n")}
+  if(verbose){cat("Uniform parameter estimates", pars, "\n")}
 
   #  Compute the pit
   pit=punif(x,min=pars[1],max=pars[2])
@@ -158,18 +162,20 @@ gof.normal=function(x,print=TRUE,verbose=FALSE){
 #' @export
 #' @rdname gof.uniform
 gof.normal.bootstrap<-function(x, M=10000){
-  a2 <- AD.normal(x)
-  w2 <- CvM.normal(x)
-  u2 <- Watson.normal(x)
-  n <- length(x)
   pars <- estimate.normal(x)
+  u <- cdf.normal(x,parameter=pars)
+  a2 <- AD(u)
+  w2 <- CvM(u)
+  u2 <- Watson(u)
+  n <- length(x)
   xbar <- pars[1]
   s <- pars[2]
   dat <- rnorm(n*M,mean=xbar,sd=s)
   dat <- matrix(dat,nrow=M)
-  a2vals <- apply(dat,1,AD.normal)
-  w2vals <- apply(dat,1,CvM.normal)
-  u2vals <- apply(dat,1,Watson.normal)
+  uvales <- apply(dat,1,function(x){cdf.normal(x,parameter=estimate.normal(x))})
+  a2vals <- apply(uvales,1,AD)
+  w2vals <- apply(uvales,1,CvM)
+  u2vals <- apply(uvales,1,Watson)
   a.pv <- length(a2vals[a2vals>a2])/M
   w.pv <- length(w2vals[w2vals>w2])/M
   u.pv <- length(u2vals[u2vals>u2])/M
@@ -323,7 +329,7 @@ gof.logistic.bootstrap=function(x, M=10000){
 gof.laplace=function(x,print=TRUE,verbose=FALSE){
   pars=estimate.laplace(x,use.sd=FALSE)
   if(verbose){cat("Laplace parameter estimates", pars, "\n")}
-  pit=rmutil::plaplace(x,m=pars[1],s=pars[2])
+  pit=cdf.laplace(x,theta =pars)
   if(verbose){cat("PITs are done \n \n")}
   w = CvM(pit)
   a = AD(pit)

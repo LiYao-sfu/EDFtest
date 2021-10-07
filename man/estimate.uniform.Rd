@@ -49,6 +49,9 @@ and Exponential(scale=\eqn{\theta}).
 
 }
 \examples{
+x0=runif(n=100,min=-1,max=1)
+estimate.uniform(x0)
+
 x1=rnorm(n=100,mean=0,sd=1)
 estimate.normal(x1)
 

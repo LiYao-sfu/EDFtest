@@ -14,6 +14,10 @@
 #' @export
 #'
 #' @examples
+#' x0=runif(n=100,min=-1,max=1)
+#' usq0 = Watson.uniform(x0)
+#' Watson.uniform.pvalue(usq0)
+#'
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' usq1 = Watson.normal(x1)
 #' Watson.normal.pvalue(usq1)
