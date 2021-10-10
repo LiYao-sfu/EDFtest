@@ -1,4 +1,4 @@
-#' EDF Goodness-of-Fit tests for General Distributions using Sandwich Estimation of Covariance Function
+#' Goodness-of-Fit tests for general distributions using Sandwich estimation of covariance function
 #'
 #' @description
 #' This function tests the hypothesis that data y come from
@@ -43,8 +43,6 @@
 #' #do a mc study;plot two pvalues for two methods. each pvalue use AD.uniform.pvalue=.05-0.95 ;
 #'
 gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
-  require(CompQuadForm)
-
   n = length(y)                   # Sample size
   p=length(thetahat)              # Number of parameters
   if(is.null(x)){

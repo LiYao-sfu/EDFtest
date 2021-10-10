@@ -1,9 +1,7 @@
-#' P-value of EDF statistics U^2 for Normal Distribution
+#' P-value of U^2
 #'
 #' @description
 #' Compute p-value of the given Anderson-Darling statistic A^2
-#'
-#' @details
 #'
 #' @param u Watson's statistic U^2 for a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.

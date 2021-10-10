@@ -1,11 +1,9 @@
-#' EDF Statistic A^2 for a Given Distribution
+#' GOF statistic A^2
 #'
 #' @description
 #' Compute the Anderson-Darling goodness-of-fit statistic A^2 for an iid sample,
 #' x, to test for the given distribution with parameters unknown.
 #' Estimate parameters by ML using \code{EDFtest} mle function by default.
-#'
-#' @details
 #'
 #' @param x A random sample.
 #' @param parameter Parameters of a given distribution.

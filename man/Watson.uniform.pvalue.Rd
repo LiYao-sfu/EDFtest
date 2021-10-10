@@ -8,7 +8,7 @@
 \alias{Watson.laplace.pvalue}
 \alias{Watson.weibull.pvalue}
 \alias{Watson.exp.pvalue}
-\title{P-value of EDF statistics U^2 for Normal Distribution}
+\title{P-value of U^2}
 \usage{
 Watson.uniform.pvalue(u, neig = 100, verbose = FALSE)
 
@@ -38,9 +38,6 @@ P-value of the Watson's statistic of a uniform sample.
 }
 \description{
 Compute p-value of the given Anderson-Darling statistic A^2
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

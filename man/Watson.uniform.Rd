@@ -8,7 +8,7 @@
 \alias{Watson.laplace}
 \alias{Watson.weibull}
 \alias{Watson.exp}
-\title{EDF Statistic U^2 for a Given Distribution}
+\title{GOF statistic U^2}
 \usage{
 Watson.uniform(x, parameter = estimate.uniform(x))
 
@@ -36,9 +36,6 @@ Watson's statistic of a uniform sample.
 Compute the Watson goodness-of-fit statistic U^2 for an iid sample,
 x, to test for the given distribution with parameters unknown.
 Estimate parameters by ML using \code{EDFtest} mle function by default.
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

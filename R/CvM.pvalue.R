@@ -1,9 +1,7 @@
-#' P-value of the EDF Statistic W^2 for a Given Distribution
+#' P-value of W^2
 #'
 #' @description
 #' Compute p-value of the given Cramer-von Mises statistic W^2.
-#'
-#' @details
 #'
 #' @param w Cramer-von Mises statistic W^2 for a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gof.sandwich.R
 \name{gof.sandwich}
 \alias{gof.sandwich}
-\title{EDF Goodness-of-Fit tests for General Distributions using Sandwich Estimation of Covariance Function}
+\title{Goodness-of-Fit tests for general distributions using Sandwich estimation of covariance function}
 \usage{
 gof.sandwich(y, x = NULL, Fdist, thetahat, Score, m = max(n, 100), ...)
 }

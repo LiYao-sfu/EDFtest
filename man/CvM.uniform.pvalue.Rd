@@ -8,7 +8,7 @@
 \alias{CvM.laplace.pvalue}
 \alias{CvM.weibull.pvalue}
 \alias{CvM.exp.pvalue}
-\title{P-value of the EDF Statistic W^2 for a Given Distribution}
+\title{P-value of W^2}
 \usage{
 CvM.uniform.pvalue(w, neig = 100, verbose = FALSE)
 
@@ -38,9 +38,6 @@ P-value of the Cramer-von Mises statistic of a uniform sample.
 }
 \description{
 Compute p-value of the given Cramer-von Mises statistic W^2.
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

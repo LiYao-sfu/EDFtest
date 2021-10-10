@@ -8,7 +8,7 @@
 \alias{CvM.laplace}
 \alias{CvM.weibull}
 \alias{CvM.exp}
-\title{EDF Statistic W^2 for a Given Distribution}
+\title{GOF statistic W^2}
 \usage{
 CvM.uniform(x, parameter = estimate.uniform(x))
 
@@ -36,9 +36,6 @@ Cramer-von Mises statistic of a uniform sample.
 Compute Cramer-von Mises goodness-of-fit statistic W^2 for an iid sample, x, to test for
 the given distribution with parameters unknown. Estimate parameters by ML
 using \code{EDFtest} mle function by default.
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

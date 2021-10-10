@@ -15,7 +15,7 @@
 \alias{gof.weibull.bootstrap}
 \alias{gof.exp}
 \alias{gof.exp.bootstrap}
-\title{EDF Goodness-of-Fit Tests for a Given Distribution}
+\title{Goodness-of-Fit tests based on EDF}
 \usage{
 gof.uniform(x, print = TRUE, verbose = FALSE)
 
@@ -62,9 +62,6 @@ This function takes in an i.i.d. random sample, use MLE to estimate Normal
 parameters, compute probability integral transforms, and computes Cramer-von Mises,
 Anderson-Darling and Watson's statistics and their P-values using either `imhof`
 method or bootstrap.
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

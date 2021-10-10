@@ -8,7 +8,7 @@
 \alias{estimate.laplace}
 \alias{estimate.weibull}
 \alias{estimate.exp}
-\title{MLE for Univariate Sample}
+\title{MLE for univariate sample}
 \usage{
 estimate.uniform(x)
 
@@ -44,9 +44,6 @@ The following families are available: Normal(location=\eqn{\mu},scale=\eqn{\sigm
 Gamma(shape=\eqn{\alpha},scale=\eqn{\beta}), Logistic(location=\eqn{\mu},scale=s),
 Laplace(location=\eqn{\mu},scale=b), Weibull(shape=\eqn{\alpha},scale=\eqn{\beta}),
 and Exponential(scale=\eqn{\theta}).
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

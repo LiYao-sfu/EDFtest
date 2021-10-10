@@ -1,12 +1,10 @@
-#' EDF Goodness-of-Fit Tests for a Given Distribution
+#' Goodness-of-Fit tests based on EDF
 #'
 #' @description
 #' This function takes in an i.i.d. random sample, use MLE to estimate Normal
 #' parameters, compute probability integral transforms, and computes Cramer-von Mises,
 #' Anderson-Darling and Watson's statistics and their P-values using either `imhof`
 #' method or bootstrap.
-#'
-#' @details
 #'
 #' @param x A random sample.
 #' @param print Logical; if TRUE print both statistics and P-values.

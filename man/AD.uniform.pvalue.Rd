@@ -8,7 +8,7 @@
 \alias{AD.laplace.pvalue}
 \alias{AD.weibull.pvalue}
 \alias{AD.exp.pvalue}
-\title{P-value of the EDF Statistic A^2 for a Given Distribution}
+\title{P-value A^2}
 \usage{
 AD.uniform.pvalue(a, neig = 100, verbose = FALSE)
 
@@ -38,9 +38,6 @@ P-value of the Anderson-Darling statistic of a uniform sample.
 }
 \description{
 Compute p-value of the given Anderson-Darling statistic A^2.
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

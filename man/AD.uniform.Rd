@@ -8,7 +8,7 @@
 \alias{AD.laplace}
 \alias{AD.weibull}
 \alias{AD.exp}
-\title{EDF Statistic A^2 for a Given Distribution}
+\title{GOF statistic A^2}
 \usage{
 AD.uniform(x, parameter = estimate.uniform(x))
 
@@ -36,9 +36,6 @@ Anderson-Darling statistic of a uniform sample.
 Compute the Anderson-Darling goodness-of-fit statistic A^2 for an iid sample,
 x, to test for the given distribution with parameters unknown.
 Estimate parameters by ML using \code{EDFtest} mle function by default.
-}
-\details{
-
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

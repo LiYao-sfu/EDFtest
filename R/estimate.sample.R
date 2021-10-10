@@ -1,4 +1,4 @@
-#' MLE for Univariate Sample
+#' MLE for univariate sample
 #'
 #' @description
 #' Estimate parameters of various distributions by the method of maximum likelihood.
@@ -6,8 +6,6 @@
 #' Gamma(shape=\eqn{\alpha},scale=\eqn{\beta}), Logistic(location=\eqn{\mu},scale=s),
 #' Laplace(location=\eqn{\mu},scale=b), Weibull(shape=\eqn{\alpha},scale=\eqn{\beta}),
 #' and Exponential(scale=\eqn{\theta}).
-#'
-#' @details
 #'
 #' @param x A random sample.
 #' @param use.rate Logical; if TRUE use the rate instead of the scale.

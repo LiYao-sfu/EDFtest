@@ -2,7 +2,7 @@
 % Please edit documentation in R/gof.statistics.only.R
 \name{gof.statistics.only}
 \alias{gof.statistics.only}
-\title{EDF Goodness-of-Fit tests for Statistics Only}
+\title{Goodness-of-Fit tests for statistics only}
 \usage{
 gof.statistics.only(pit, AD = TRUE, CvM = TRUE, Watson = TRUE)
 }
@@ -23,9 +23,6 @@ of a given probability integral transforms
 This function takes in a vector of probability integral transforms
 and computes whichever of the three statistics is asked for.
 By default A^2,W^2, and U^2 are computed
-}
-\details{
-
 }
 \examples{
 x= runif(100)

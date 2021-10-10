@@ -1,9 +1,7 @@
-#' P-value of the EDF Statistic A^2 for a Given Distribution
+#' P-value A^2
 #'
 #' @description
 #' Compute p-value of the given Anderson-Darling statistic A^2.
-#'
-#' @details
 #'
 #' @param a Anderson-Darling statistic W^2 for a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.

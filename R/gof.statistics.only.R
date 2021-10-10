@@ -1,11 +1,9 @@
-#' EDF Goodness-of-Fit tests for Statistics Only
+#' Goodness-of-Fit tests for statistics only
 #'
 #' @description
 #' This function takes in a vector of probability integral transforms
 #' and computes whichever of the three statistics is asked for.
 #' By default A^2,W^2, and U^2 are computed
-#'
-#' @details
 #'
 #' @param pit A vector of probability integral transforms.
 #' @param AD Logical; if TRUE print Anderson-Darling statistic
