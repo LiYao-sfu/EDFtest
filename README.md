@@ -5,27 +5,40 @@ Empirical Distribution function statistics called Cramér-von Mises, Anderson-Da
 and Watson's statistic.  
 
 The statistics and their P-values can be used to assess an assumed distribution. In the simplest situation
-you have an iid sample from some distribution <img src="https://render.githubusercontent.com/render/math?math=F"> and want to test the hypothesis that <img src="https://render.githubusercontent.com/render/math?math=F"> is a member of 
+you have an i.i.d. sample from some distribution F and want to test the hypothesis that F is a member of 
 some specific parametric family. The following families are available:
 
-<img src="https://render.githubusercontent.com/render/math?math=Normal(location=\mu,scale=\sigma^2)">,
-<img src="https://render.githubusercontent.com/render/math?math=Gamma(shape=\alpha,scale=\beta)">,
-<img src="https://render.githubusercontent.com/render/math?math=Logistic(location=\mu,scale=\beta)">,
-<img src="https://render.githubusercontent.com/render/math?math=Laplace(location=\mu,scale=\beta)">,
-<img src="https://render.githubusercontent.com/render/math?math=Weibull(shape=\alpha,scale=\beta)">, and
-<img src="https://render.githubusercontent.com/render/math?math=Extreme Value(location=\mu,scale=\beta)">
+Uniform(min,max)
+Normal(location,scale),
+Gamma(shape,scale),
+Logistic(location,scale),
+Laplace(location,scale),
+Weibull(shape,scale), and
+Exponential(scale).
 
-The package also includes regression models in which a response <img src="https://render.githubusercontent.com/render/math?math=Y"> is related to predictors <img src="https://render.githubusercontent.com/render/math?math=X">. 
-The model specifies the conditional distribution of <img src="https://render.githubusercontent.com/render/math?math=Y"> given <img src="https://render.githubusercontent.com/render/math?math=X">.  The package contains code
+The package also includes regression models in which a response Y is related to predictors X. 
+The model specifies the conditional distribution of Y given X.  The package contains code
 for situations where the conditional distribution is one of the list given above.  The 
 following models are handled:
 
 Linear regression with homosecdastic errors: <img src="https://render.githubusercontent.com/render/math?math=Y_i"> has a N(<img src="https://render.githubusercontent.com/render/math?math=X_i \beta, \sigma^2">) distribution given <img src="https://render.githubusercontent.com/render/math?math=X_i">.
 
+Authors:
+
+-   [Li Yao](https://github.com/LiYao-sfu),
+    <yaoliy@sfu.ca> (Maintainer)
+-   [Richard Lockhart](http://www.sfu.ca/~lockhart/),
+    <lockhart@sfu.ca>
+
+Papers:
+
+-   [Paper Title 1](https:) *Journal a*
+
+
 
 ## Installation
 There are several ways you can install GitHub packages into R. For example,
-You can install our package by using `devtools`. You need to install `devtools` package in R if you have not.
+You can install our package by using `devtools`. You need to install `devtools` package first if you have not.
 
 
 Step 1: Install the `devtools` package
@@ -41,6 +54,8 @@ library("EDFtest")
 ```
 
 ## Troubleshooting
-This package is still under development. EDF test for regression models are not available yet.
+This package is still under development. EDF test for regression models and discrete discrete distributions 
+will be available for the next minor release.
 
-
+If you encounter a clear bug, please create an issue on github. For questions and other discussion, please 
+contact Li Yao by his email.
