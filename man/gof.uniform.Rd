@@ -53,8 +53,6 @@ gof.exp.bootstrap(x, M = 10000)
 \item{verbose}{verbose Logical; if TRUE, print warning messages.}
 
 \item{M}{Number of bootstrap, 10000 by default.}
-
-\item{stat}{}
 }
 \value{
 Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
@@ -71,29 +69,29 @@ method or bootstrap.
 \examples{
 x0=runif(n=100,min=-1,max=1)
 gof.uniform(x0)
-gof.uniform.bootstrap(x0,M=1000)
+gof.uniform.bootstrap(x0,M=100)
 
 x1=rnorm(n=100,mean=0,sd=1)
 gof.normal(x1)
-gof.normal.bootstrap(x1,M=1000)
+gof.normal.bootstrap(x1,M=100)
 
 x2=rgamma(n=100,shape=1,scale=1)
 gof.gamma(x2)
-gof.gamma.bootstrap(x2,M=1000)
+gof.gamma.bootstrap(x2,M=100)
 
 x3=rlogis(n=100,location=0,scale=1)
 gof.logistic(x3)
-gof.logistic.bootstrap(x3,M=1000)
+gof.logistic.bootstrap(x3,M=100)
 
 x4= rmutil::rlaplace(n=100,m=0,s=1)
 gof.laplace(x4)
-gof.laplace.bootstrap(x4,M=1000)
+gof.laplace.bootstrap(x4,M=100)
 
 x5=rweibull(n=100,shape=1,scale=1)
 gof.weibull(x5)
-gof.weibull.bootstrap(x5,M=1000)
+gof.weibull.bootstrap(x5,M=100)
 
 x6=rexp(n=100,rate=1/2)
 gof.exp(x6)
-gof.exp.bootstrap(x6,M=1000)
+gof.exp.bootstrap(x6,M=100)
 }

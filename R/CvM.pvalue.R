@@ -11,7 +11,6 @@
 #' @param shape The shape parameter of Gamma distribution.
 #'
 #' @return P-value of the Cramer-von Mises statistic of a uniform sample.
-#' @import stats
 #' @importFrom CompQuadForm imhof
 #' @export
 #'

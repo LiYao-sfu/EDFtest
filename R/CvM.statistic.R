@@ -12,6 +12,7 @@
 #'
 #' @return Cramer-von Mises statistic of a uniform sample.
 #' @export
+#' @import stats
 #'
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)

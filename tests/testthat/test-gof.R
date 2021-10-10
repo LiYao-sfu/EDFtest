@@ -87,12 +87,12 @@ test_that("gof imhof method for laplace sample", {
         -0.41113889,  2.16169132, -0.27151351,  0.13770907,  0.02330074)
   result = gof.laplace(x)
 
-  expect_equal(result$Wsq,0.094653627)
-  expect_equal(result$Wsq.pvalue,  0.170485275)
-  expect_equal(result$Asq,0.8983146)
-  expect_equal(result$Asq.pvalue,0.070593058)
-  expect_equal(result$Usq,0.085748922)
-  expect_equal(result$Usq.pvalue,0.086042181)
+  expect_equal(result$Wsq,0.147393763)
+  expect_equal(result$Wsq.pvalue,0.046049247)
+  expect_equal(result$Asq,0.91031712)
+  expect_equal(result$Asq.pvalue,0.067560437)
+  expect_equal(result$Usq,0.131789187)
+  expect_equal(result$Usq.pvalue,0.01246731)
 
   expect_output(str(result), "List of 6")
 })
