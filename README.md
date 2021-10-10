@@ -20,7 +20,7 @@ Users can add their own distributions by providing two functions
 
 * `Fdist(x,thetahat, ...)` which takes parameter estimates and a data set `x` and computes the probability integral transform for each element of `x`. `Fdist` must return a vector of n probabilities
 
-* `Score(x,thetahat, ...)` which takes parameter estimates and a data set `x` and computes, for each entry in `x`, the component of the score function due to observation `x`. These must be returned in an $n$ by $p$ matrix with 1 row for each observation and 1 column for each parameter.
+* `Score(x,thetahat, ...)` which takes parameter estimates and a data set `x` and computes, for each entry in `x`, the component of the score function due to observation `x`. These must be returned in an n by p matrix with 1 row for each observation and 1 column for each parameter.
 
 The user is also expected to supply the value `thetahat` of the maximum likelihood estimate.
 
