@@ -122,17 +122,11 @@ gof.normal=function(x,print=TRUE,verbose=FALSE){
   #  Estimate the parameters
   pars=estimate.normal(x)
   if(verbose){cat("Normal parameter estimates", pars, "\n")}
-
-  #  Compute the pit
   pit=pnorm(x,mean=pars[1],sd=pars[2])
   if(verbose){cat("PITs are done \n \n")}
-
-  #  Compute two gof statistics
   w = CvM(pit)
   a = AD(pit)
   u = Watson(pit)
-
-  #  Compute their p-values
   w.p=CvM.normal.pvalue(w,verbose=verbose)$P
   if(verbose){
     cat("Cramer-von Mises P-value output \n")
@@ -162,23 +156,21 @@ gof.normal=function(x,print=TRUE,verbose=FALSE){
 #' @export
 #' @rdname gof.uniform
 gof.normal.bootstrap<-function(x, M=10000){
-  pars <- estimate.normal(x)
-  u <- cdf.normal(x,parameter=pars)
-  a2 <- AD(u)
-  w2 <- CvM(u)
-  u2 <- Watson(u)
+  a2 <- AD.normal(x)
+  w2 <- CvM.normal(x)
+  u2 <- Watson.normal(x)
   n <- length(x)
+  pars <- estimate.normal(x)
   xbar <- pars[1]
   s <- pars[2]
   dat <- rnorm(n*M,mean=xbar,sd=s)
   dat <- matrix(dat,nrow=M)
-  uvales <- apply(dat,1,function(x){cdf.normal(x,parameter=estimate.normal(x))})
-  a2vals <- apply(uvales,1,AD)
-  w2vals <- apply(uvales,1,CvM)
-  u2vals <- apply(uvales,1,Watson)
+  a2vals <- apply(dat,1,AD.normal)
+  w2vals <- apply(dat,1,CvM.normal)
+  u2vals <- apply(dat,1,Watson.normal)
   a.pv <- length(a2vals[a2vals>a2])/M
   w.pv <- length(w2vals[w2vals>w2])/M
-  u.pv <- length(u2vals[u2vals>u2])/M
+  u.pv <- length(u2vals[w2vals>u2])/M
   w2text <- paste("Cramer-von Mises statistic is ", as.character(round(w2,7)))
   w2text <- paste(w2text,"with P-value is ", as.character(round(w.pv,7)),"\n")
   a2text <- paste("Anderson-Darling statistic is ", as.character(round(a2,7)))
@@ -190,6 +182,37 @@ gof.normal.bootstrap<-function(x, M=10000){
   cat(u2text)
   invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
 }
+
+# gof.normal.bootstrap2<-function(x, M=10000){
+#   pars <- estimate.normal(x)
+#   u <- cdf.normal(x,theta = pars)
+#   a2 <- AD(u)
+#   w2 <- CvM(u)
+#   u2 <- Watson(u)
+#   n <- length(x)
+#   xbar <- pars[1]
+#   s <- pars[2]
+#   dat <- rnorm(n*M,mean=xbar,sd=s)
+#   dat <- matrix(dat,nrow=M)
+#   uvales <- apply(dat,1,function(x){cdf.normal(x,theta = pars)})
+#   a2vals <- apply(uvales,1,AD)
+#   w2vals <- apply(uvales,1,CvM)
+#   u2vals <- apply(uvales,1,Watson)
+#   a.pv <- length(a2vals[a2vals>a2])/M
+#   w.pv <- length(w2vals[w2vals>w2])/M
+#   u.pv <- length(u2vals[u2vals>u2])/M
+#   w2text <- paste("Cramer-von Mises statistic is ", as.character(round(w2,7)))
+#   w2text <- paste(w2text,"with P-value is ", as.character(round(w.pv,7)),"\n")
+#   a2text <- paste("Anderson-Darling statistic is ", as.character(round(a2,7)))
+#   a2text <- paste(a2text,"with P-value is ", as.character(round(a.pv,7)),"\n")
+#   u2text <- paste("Watson statistic is ", as.character(round(u2,7)))
+#   u2text <- paste(u2text,"with P-value is ", as.character(round(u.pv,7)),"\n")
+#   cat(w2text)
+#   cat(a2text)
+#   cat(u2text)
+#   invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
+# }
+
 
 #' @export
 #' @rdname gof.uniform
