@@ -40,8 +40,6 @@
 #' }
 #' output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
 #' output
-#' #do a mc study;plot two pvalues for two methods. each pvalue use AD.uniform.pvalue=.05-0.95 ;
-#'
 gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   n = length(y)                   # Sample size
   p=length(thetahat)              # Number of parameters
@@ -82,7 +80,9 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   P.AD = imhof(stat$AD,Evals.AD)$Qq
   P.Watson = imhof(stat$Watson,Evals.Watson)$Qq
   #
-  list(CvM=list(W2=stat$CvM,P=P.CvM),AD=list(A2=stat$AD,P=P.AD),Watson=list(U2=stat$Watson,P=P.Watson),UU= u)
+  list(CvM=list(W2=stat$CvM,P_value=P.CvM),
+       AD=list(A2=stat$AD,P_value=P.AD),
+       Watson=list(U2=stat$Watson,P_value=P.Watson))
 }
 
 

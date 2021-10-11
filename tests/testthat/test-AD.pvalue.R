@@ -1,5 +1,14 @@
 context("test-AD.pvalue.R")
 
+test_that("AD P-value for uniform sample", {
+  x = c(0.3103205, -0.1386720, -0.5988813,  0.9483934, -0.5213117,
+        0.7555062, -0.6821612,  0.7957394, -0.7387161,  0.1910647)
+  asq = AD.uniform(x)
+  p_value = AD.uniform.pvalue(a=asq)$P
+
+  expect_equal(p_value,0.68906061)
+})
+
 test_that("AD P-value for normal sample", {
   x = c(0.25024690, -0.33712454, -0.11335370, -0.09888291, 0.26408682,
         0.13898369, -0.24226950, 0.05903138, -0.17727187, 0.79468027)

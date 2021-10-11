@@ -1,5 +1,32 @@
 context("test-gof.R")
 
+test_that("gof imhof method for uniform sample", {
+  x = c(0.3103205, -0.1386720, -0.5988813,  0.9483934, -0.5213117,
+        0.7555062, -0.6821612,  0.7957394, -0.7387161,  0.1910647)
+  result = gof.uniform(x)
+
+  expect_equal(result$Wsq,0.135374876)
+  expect_equal(result$Wsq.pvalue,0.43739209)
+  expect_equal(result$Asq,0.55305697)
+  expect_equal(result$Asq.pvalue,0.68906061)
+  expect_equal(result$Usq,0.1168008)
+  expect_equal(result$Usq.pvalue,0.199231835)
+
+  expect_output(str(result), "List of 6")
+})
+
+test_that("gof bootstrap method for uniform sample", {
+  x = c(0.3103205, -0.1386720, -0.5988813,  0.9483934, -0.5213117,
+        0.7555062, -0.6821612,  0.7957394, -0.7387161,  0.1910647)
+  result = gof.uniform.bootstrap(x,M=100)
+
+  expect_equal(result$Wsq,0.135374876)
+  expect_equal(result$Asq,0.55305697)
+  expect_equal(result$Usq,0.1168008)
+
+  expect_output(str(result), "List of 6")
+})
+
 test_that("gof imhof method for normal sample", {
   x = c(0.25024690, -0.33712454, -0.11335370, -0.09888291, 0.26408682,
         0.13898369, -0.24226950, 0.05903138, -0.17727187, 0.79468027)
