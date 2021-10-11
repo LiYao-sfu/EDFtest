@@ -16,12 +16,13 @@ test_that("Statistics and P-value by sandwich estimator", {
    cbind(s.mean/sig,s.sd)
   }
   output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
-  output
 
   expect_equal(output$CvM$W2,0.03635126)
-  expect_equal(output$CvM$P,0.2083474)
+  expect_equal(output$CvM$P,0.20834738)
   expect_equal(output$AD$A2,0.268198)
-  expect_equal(output$AD$P,0.43739209)
-  expect_equal(output$Watson$U2,0.43739209)
-  expect_equal(output$CvM$P,0.43739209)
+  expect_equal(output$AD$P,0.14796185)
+  expect_equal(output$Watson$U2,0.031802664)
+  expect_equal(output$Watson$P,0.34516474)
+  expect_output(str(output), "List of 3")
 })
+
