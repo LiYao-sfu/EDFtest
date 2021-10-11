@@ -53,6 +53,4 @@ score.normal.user = function(x,theta){
 }
 output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
 output
-#do a mc study;plot two pvalues for two methods. each pvalue use AD.uniform.pvalue=.05-0.95 ;
-
 }
