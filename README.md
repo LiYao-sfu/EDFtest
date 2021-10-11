@@ -8,7 +8,7 @@ The statistics and their P-values can be used to assess an assumed distribution.
 you have an i.i.d. sample from some distribution F and want to test the hypothesis that the sample is drawn from
 a distribution F which belongs to a specified parametric family of distributions against the alternative that 
 F is not equal to any member of that parametric family. The following families are available:
-Uniform(min, max)
+Uniform(min, max),
 Normal(location, scale),
 Gamma(shape, scale),
 Logistic(location, scale),
@@ -16,7 +16,7 @@ Laplace(location, scale),
 Weibull(shape, scale), and
 Exponential(scale).
 
-This package also contains funtion 'gof.sandwich' which performs Goodness-of-Fit tests for general distributions 
+This package also contains funtion `gof.sandwich` which performs Goodness-of-Fit tests for general distributions 
 using Sandwich estimation of covariance function. This function tests the hypothesis that data y come from 
 distribution `Fdist` with unknown parameter values theta. Estimates of theta must be provided.
 It uses a large sample approximation to the limit distribution based on the use of the score function components
