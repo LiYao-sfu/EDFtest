@@ -2,8 +2,8 @@
 #'
 #' @description
 #' This function tests the hypothesis that data y come from
-#' distribution Fdist with unknown parameter values theta.
-#' Estimates of theta must be provided in thetahat.
+#' distribution \code{Fdist} with unknown parameter values theta.
+#' Estimates of theta must be provided in \code{thetahat}.
 #'
 #' @details
 #' It uses a large sample approximation to the limit distribution
@@ -11,18 +11,18 @@
 #' to estimate the Fisher information and the limiting covariance
 #' function of the empirical process.
 #'
-#' The estimates thetahat should be roots of the likelihood equations.
+#' The estimates \code{thetahat} should be roots of the likelihood equations.
 #'
 #' @param y A random sample or the response of regression problem.
 #' @param x The matrix of covariates.
 #' @param Fdist User supplied function to compute probability integral transform of y.
-#' @param thetahat Parameter estimates by mle.
-#' @param Score User supplied function to compute3 components of the score function an n by p matrix with entries
-#' partial log f(y_i,\eqn{\theta})/ partial theta_j.
+#' @param thetahat Parameter estimates by MLE.
+#' @param Score User supplied function to compute 3 components of the score function
+#' an n by p matrix with entries partial log f(y_i,\eqn{\theta})/ partial theta_j.
 #' @param m Eigenvalues are extracted for an m by m grid of the covariance function.
-#' @param ... Other inputs passed to Fdist and Score when needed.
+#' @param ... Other inputs passed to \code{Fdist} and \code{Score} when needed.
 #'
-#' @return Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
+#' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 #' @export
 #'
 #' @examples

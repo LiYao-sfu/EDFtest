@@ -13,7 +13,7 @@
 #' @param eps Stopping criterion, 1e-7 by default.
 #' @param verbose Logical; if TRUE, print estimates in each iteration.
 #'
-#' @return Estimated parameters of a given parametric family.
+#' @return Estimated parameters of the assumed distribution by MLE.
 #'
 #' @export
 #' @examples

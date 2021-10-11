@@ -1,14 +1,14 @@
-#' GOF statistic W^2
+#' GOF statistic \eqn{W^2}
 #'
 #' @description
-#' Compute Cramer-von Mises goodness-of-fit statistic W^2 for an iid sample, x, to test for
+#' Compute Cramér-von Mises goodness-of-fit statistic \eqn{W^2} for an i.i.d. sample, x, to test for
 #' the given distribution with parameters unknown. Estimate parameters by ML
-#' using \code{EDFtest} mle function by default.
+#' using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
 #' @param parameter Parameters of a given distribution.
 #'
-#' @return Cramer-von Mises statistic of a uniform sample.
+#' @return Cramér-von Mises statistic of a given sample.
 #' @export
 #' @import stats
 #'

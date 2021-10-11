@@ -1,14 +1,14 @@
-#' P-value of U^2
+#' P-value of \eqn{U^2}
 #'
 #' @description
-#' Compute p-value of the given Anderson-Darling statistic A^2
+#' Compute P-value of the given Watson statistic \eqn{U^2}
 #'
-#' @param u Watson's statistic U^2 for a given distribution.
+#' @param u Watson statistic \eqn{U^2} for a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.
 #' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
-#' @return P-value of the Watson's statistic of a uniform sample.
+#' @return P-value of the Watson statistic of a given sample.
 #' @export
 #'
 #' @examples

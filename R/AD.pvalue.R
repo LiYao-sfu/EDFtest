@@ -1,14 +1,14 @@
-#' P-value A^2
+#' P-value \eqn{A^2}
 #'
 #' @description
-#' Compute p-value of the given Anderson-Darling statistic A^2.
+#' Compute P-value of the given Anderson-Darling statistic \eqn{A^2}.
 #'
-#' @param a Anderson-Darling statistic W^2 for a given distribution.
+#' @param a Anderson-Darling statistic \eqn{A^2} for a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.
 #' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
-#' @return P-value of the Anderson-Darling statistic of a uniform sample.
+#' @return P-value of the Anderson-Darling statistic of a given sample.
 #' @export
 #'
 #' @examples

@@ -1,9 +1,9 @@
 #' Goodness-of-Fit tests based on EDF
 #'
 #' @description
-#' This function takes in an i.i.d. random sample, use MLE to estimate Normal
-#' parameters, compute probability integral transforms, and computes Cramer-von Mises,
-#' Anderson-Darling and Watson's statistics and their P-values using either `imhof`
+#' This function takes in an i.i.d. random sample, use MLE to estimate parameters of
+#' the assumed distribution, compute probability integral transforms, and computes Cramér-von Mises,
+#' Anderson-Darling and Watson statistics and their P-values using either \code{imhof()}
 #' method or bootstrap.
 #'
 #' @param x A random sample.
@@ -11,7 +11,7 @@
 #' @param verbose verbose Logical; if TRUE, print warning messages.
 #' @param M Number of bootstrap, 10000 by default.
 #'
-#' @return Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
+#' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 #' @export
 #'
 #' @examples

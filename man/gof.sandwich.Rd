@@ -13,22 +13,22 @@ gof.sandwich(y, x = NULL, Fdist, thetahat, Score, m = max(n, 100), ...)
 
 \item{Fdist}{User supplied function to compute probability integral transform of y.}
 
-\item{thetahat}{Parameter estimates by mle.}
+\item{thetahat}{Parameter estimates by MLE.}
 
-\item{Score}{User supplied function to compute3 components of the score function an n by p matrix with entries
-partial log f(y_i,\eqn{\theta})/ partial theta_j.}
+\item{Score}{User supplied function to compute 3 components of the score function
+an n by p matrix with entries partial log f(y_i,\eqn{\theta})/ partial theta_j.}
 
 \item{m}{Eigenvalues are extracted for an m by m grid of the covariance function.}
 
-\item{...}{Other inputs passed to Fdist and Score when needed.}
+\item{...}{Other inputs passed to \code{Fdist} and \code{Score} when needed.}
 }
 \value{
-Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
+Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 }
 \description{
 This function tests the hypothesis that data y come from
-distribution Fdist with unknown parameter values theta.
-Estimates of theta must be provided in thetahat.
+distribution \code{Fdist} with unknown parameter values theta.
+Estimates of theta must be provided in \code{thetahat}.
 }
 \details{
 It uses a large sample approximation to the limit distribution
@@ -36,7 +36,7 @@ based on the use of the score function components
 to estimate the Fisher information and the limiting covariance
 function of the empirical process.
 
-The estimates thetahat should be roots of the likelihood equations.
+The estimates \code{thetahat} should be roots of the likelihood equations.
 }
 \examples{
 sample = rnorm(n=100,mean=0,sd=1)

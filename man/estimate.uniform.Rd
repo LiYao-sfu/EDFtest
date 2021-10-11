@@ -36,7 +36,7 @@ estimate.exp(x, use.rate = FALSE)
 \item{use.sd}{Logical; if TRUE use the sd instead of the scale for Laplace distribution.}
 }
 \value{
-Estimated parameters of a given parametric family.
+Estimated parameters of the assumed distribution by MLE.
 }
 \description{
 Estimate parameters of various distributions by the method of maximum likelihood.

@@ -55,12 +55,12 @@ gof.exp.bootstrap(x, M = 10000)
 \item{M}{Number of bootstrap, 10000 by default.}
 }
 \value{
-Cramer-von Mises, Anderson-Darling and Watson's statistics and their P-values.
+Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 }
 \description{
-This function takes in an i.i.d. random sample, use MLE to estimate Normal
-parameters, compute probability integral transforms, and computes Cramer-von Mises,
-Anderson-Darling and Watson's statistics and their P-values using either `imhof`
+This function takes in an i.i.d. random sample, use MLE to estimate parameters of
+the assumed distribution, compute probability integral transforms, and computes Cramér-von Mises,
+Anderson-Darling and Watson statistics and their P-values using either \code{imhof()}
 method or bootstrap.
 }
 \examples{
