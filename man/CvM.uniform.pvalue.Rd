@@ -8,7 +8,7 @@
 \alias{CvM.laplace.pvalue}
 \alias{CvM.weibull.pvalue}
 \alias{CvM.exp.pvalue}
-\title{P-value of Cramrr-von Mises statistic}
+\title{P-value of Cramer-von Mises statistic}
 \usage{
 CvM.uniform.pvalue(w, neig = 100, verbose = FALSE)
 

@@ -1,4 +1,4 @@
-#' P-value of Cramrr-von Mises statistic
+#' P-value of Cramer-von Mises statistic
 #'
 #' @description
 #' Compute the P-value of the given Cramér-von Mises statistic \eqn{W^2}

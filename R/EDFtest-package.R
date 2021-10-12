@@ -17,7 +17,7 @@
 #'   \item Li Yao
 #' }
 #'
-#' @references  \url{}.
+#' @references Name.(Year). Title. \url{}.
 #' @references  \url{}.
 #'
 #' @seealso
