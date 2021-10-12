@@ -3,7 +3,7 @@
 #' @description
 #' This function takes in an i.i.d. random sample, use MLE to estimate parameters of
 #' the assumed distribution, compute probability integral transforms, and computes Cramér-von Mises,
-#' Anderson-Darling and Watson statistics and their P-values using \code{imhof()}
+#' Anderson-Darling and Watson statistics and their P-values using \code{\link[CompQuadForm]{imhof}}
 #' function in \code{CompQuadForm}.
 #'
 #' @param x A random sample.
@@ -12,6 +12,9 @@
 #'
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 #' @export
+#'
+#' @seealso \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+#' of covariance function, \code{\link{gof.uniform.bootstrap()}} for using bootstrap method
 #'
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)

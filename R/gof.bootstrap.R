@@ -11,6 +11,10 @@
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 #' @export
 #'
+#' @seealso \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+#' of covariance function, \code{\link{gof.uniform.bootstrap()}} for using
+#' \code{\link[CompQuadForm]{imhof}} function
+#'
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' gof.uniform.bootstrap(x0,M=100)

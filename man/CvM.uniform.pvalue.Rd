@@ -27,7 +27,7 @@ CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 \arguments{
 \item{w}{Cramér-von Mises statistic \eqn{W^2} with a given distribution.}
 
-\item{neig}{Number of eigenvalues used for \code{imhof()}.}
+\item{neig}{Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.}
 
 \item{verbose}{Logical; if TRUE, print warning messages.}
 
@@ -37,8 +37,8 @@ CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 P-value of the given Cramér-von Mises statistic.
 }
 \description{
-Compute P-value of the given Cramér-von Mises statistic \eqn{W^2}
-using \code{imhof()} function in \code{CompQuadForm}.
+Compute the P-value of the given Cramér-von Mises statistic \eqn{W^2}
+using \code{\link[CompQuadForm]{imhof}} function in \code{CompQuadForm}.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

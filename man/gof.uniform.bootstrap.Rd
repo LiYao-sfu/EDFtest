@@ -59,3 +59,8 @@ gof.weibull.bootstrap(x5,M=100)
 x6=rexp(n=100,rate=1/2)
 gof.exp.bootstrap(x6,M=100)
 }
+\seealso{
+\code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+of covariance function, \code{\link{gof.uniform.bootstrap()}} for using
+\code{\link[CompQuadForm]{imhof}} function
+}

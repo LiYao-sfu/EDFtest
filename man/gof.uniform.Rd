@@ -37,7 +37,7 @@ Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 \description{
 This function takes in an i.i.d. random sample, use MLE to estimate parameters of
 the assumed distribution, compute probability integral transforms, and computes Cramér-von Mises,
-Anderson-Darling and Watson statistics and their P-values using \code{imhof()}
+Anderson-Darling and Watson statistics and their P-values using \code{\link[CompQuadForm]{imhof}}
 function in \code{CompQuadForm}.
 }
 \examples{
@@ -61,4 +61,8 @@ gof.weibull(x5)
 
 x6=rexp(n=100,rate=1/2)
 gof.exp(x6)
+}
+\seealso{
+\code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+of covariance function, \code{\link{gof.uniform.bootstrap()}} for using bootstrap method
 }

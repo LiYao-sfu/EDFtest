@@ -34,8 +34,8 @@ Watson statistic of the given sample.
 }
 \description{
 Compute the Watson goodness-of-fit statistic \eqn{U^2} for an i.i.d. sample,
-x, to test for the given distribution with parameters unknown.
-Estimate parameters by ML using \code{EDFtest} MLE function by default.
+x, to test for the given distribution with parameters unknown. Estimate parameters by ML
+using \code{EDFtest} MLE function by default.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

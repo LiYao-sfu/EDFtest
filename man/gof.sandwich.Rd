@@ -54,3 +54,7 @@ score.normal.user = function(x,theta){
 output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
 output
 }
+\seealso{
+\code{\link{gof.uniform()}} for generic functions using \code{\link[CompQuadForm]{imhof}} function,
+\code{\link{gof.uniform.bootstrap()}} for using bootstrap method
+}

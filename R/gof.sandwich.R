@@ -25,6 +25,9 @@
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 #' @export
 #'
+#' @seealso \code{\link{gof.uniform()}} for generic functions using \code{\link[CompQuadForm]{imhof}} function,
+#' \code{\link{gof.uniform.bootstrap()}} for using bootstrap method
+#'
 #' @examples
 #' sample = rnorm(n=100,mean=0,sd=1)
 #' mle = estimate.normal(sample)

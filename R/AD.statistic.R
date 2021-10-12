@@ -2,8 +2,8 @@
 #'
 #' @description
 #' Compute the Anderson-Darling goodness-of-fit statistic \eqn{A^2} for an i.i.d sample,
-#' x, to test for the given distribution with parameters unknown.
-#' Estimate parameters by ML using \code{EDFtest} MLE function by default.
+#' x, to test for the given distribution with parameters unknown.Estimate parameters by ML
+#' using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
 #' @param parameter Parameters of the given distribution, MLE by default.

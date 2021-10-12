@@ -37,8 +37,8 @@ Watson.exp.pvalue(u, neig = 100, verbose = FALSE)
 P-value of the given Watson statistic.
 }
 \description{
-Compute P-value of the given Watson statistic \eqn{U^2}
-using \code{imhof()} function in \code{CompQuadForm}.
+Compute the P-value of the given Watson statistic \eqn{U^2}
+using \code{\link[CompQuadForm]{imhof}} function in \code{CompQuadForm}.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)
