@@ -1,9 +1,10 @@
-#' P-value \eqn{A^2}
+#' P-value of Anderson-Darling statistic
 #'
 #' @description
-#' Compute P-value of the given Anderson-Darling statistic \eqn{A^2}.
+#' Compute P-value of the given Anderson-Darling statistic \eqn{A^2}
+#' using \code{imhof()} function in \code{CompQuadForm}.
 #'
-#' @param a Anderson-Darling statistic \eqn{A^2} for a given distribution.
+#' @param a Anderson-Darling statistic \eqn{A^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.
 #' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.

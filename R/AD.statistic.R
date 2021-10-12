@@ -1,4 +1,4 @@
-#' GOF statistic \eqn{A^2}
+#' GOF Anderson-Darling statistic
 #'
 #' @description
 #' Compute the Anderson-Darling goodness-of-fit statistic \eqn{A^2} for an i.i.d sample,
@@ -6,7 +6,7 @@
 #' Estimate parameters by ML using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
-#' @param parameter Parameters of a given distribution.
+#' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Anderson-Darling statistic of the given sample.
 #' @export

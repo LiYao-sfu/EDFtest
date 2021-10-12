@@ -8,7 +8,7 @@
 \alias{AD.laplace}
 \alias{AD.weibull}
 \alias{AD.exp}
-\title{GOF statistic \eqn{A^2}}
+\title{GOF Anderson-Darling statistic}
 \usage{
 AD.uniform(x, parameter = estimate.uniform(x))
 
@@ -27,7 +27,7 @@ AD.exp(x, parameter = estimate.exp(x))
 \arguments{
 \item{x}{A random sample.}
 
-\item{parameter}{Parameters of a given distribution.}
+\item{parameter}{Parameters of the given distribution, MLE by default.}
 }
 \value{
 Anderson-Darling statistic of the given sample.

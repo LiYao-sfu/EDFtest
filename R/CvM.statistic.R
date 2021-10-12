@@ -1,4 +1,4 @@
-#' GOF statistic \eqn{W^2}
+#' GOF Cramer-von Mises statistic
 #'
 #' @description
 #' Compute Cramér-von Mises goodness-of-fit statistic \eqn{W^2} for an i.i.d. sample, x, to test for
@@ -6,11 +6,10 @@
 #' using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
-#' @param parameter Parameters of a given distribution.
+#' @param parameter Parameters of the given distribution, MLE by default.
 #'
-#' @return Cramér-von Mises statistic of a given sample.
+#' @return Cramér-von Mises statistic of the given sample.
 #' @export
-#' @import stats
 #'
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)

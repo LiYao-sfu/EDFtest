@@ -1,15 +1,15 @@
-#' P-value of \eqn{W^2}
+#' P-value of Cramrr-von Mises statistic
 #'
 #' @description
-#' Compute P-value of the given Cramér-von Mises statistic \eqn{W^2}.
+#' Compute P-value of the given Cramér-von Mises statistic \eqn{W^2}
+#' using \code{imhof()} function in \code{CompQuadForm}.
 #'
-#' @param w Cramér-von Mises statistic \eqn{W^2} for a given distribution.
+#' @param w Cramér-von Mises statistic \eqn{W^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.
 #' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
-#' @return P-value of the Cramér-von Mises statistic of a given sample.
-#' @importFrom CompQuadForm imhof
+#' @return P-value of the given Cramér-von Mises statistic.
 #' @export
 #'
 #' @examples

@@ -8,7 +8,7 @@
 \alias{CvM.laplace}
 \alias{CvM.weibull}
 \alias{CvM.exp}
-\title{GOF statistic \eqn{W^2}}
+\title{GOF Cramer-von Mises statistic}
 \usage{
 CvM.uniform(x, parameter = estimate.uniform(x))
 
@@ -27,10 +27,10 @@ CvM.exp(x, parameter = estimate.exp(x))
 \arguments{
 \item{x}{A random sample.}
 
-\item{parameter}{Parameters of a given distribution.}
+\item{parameter}{Parameters of the given distribution, MLE by default.}
 }
 \value{
-Cramér-von Mises statistic of a given sample.
+Cramér-von Mises statistic of the given sample.
 }
 \description{
 Compute Cramér-von Mises goodness-of-fit statistic \eqn{W^2} for an i.i.d. sample, x, to test for

@@ -8,7 +8,7 @@
 \alias{CvM.laplace.pvalue}
 \alias{CvM.weibull.pvalue}
 \alias{CvM.exp.pvalue}
-\title{P-value of \eqn{W^2}}
+\title{P-value of Cramrr-von Mises statistic}
 \usage{
 CvM.uniform.pvalue(w, neig = 100, verbose = FALSE)
 
@@ -25,7 +25,7 @@ CvM.weibull.pvalue(w, neig = 100, verbose = FALSE)
 CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{w}{Cramér-von Mises statistic \eqn{W^2} for a given distribution.}
+\item{w}{Cramér-von Mises statistic \eqn{W^2} with a given distribution.}
 
 \item{neig}{Number of eigenvalues used for \code{imhof()}.}
 
@@ -34,10 +34,11 @@ CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 \item{shape}{The shape parameter of Gamma distribution.}
 }
 \value{
-P-value of the Cramér-von Mises statistic of a given sample.
+P-value of the given Cramér-von Mises statistic.
 }
 \description{
-Compute P-value of the given Cramér-von Mises statistic \eqn{W^2}.
+Compute P-value of the given Cramér-von Mises statistic \eqn{W^2}
+using \code{imhof()} function in \code{CompQuadForm}.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

@@ -8,7 +8,7 @@
 \alias{Watson.laplace.pvalue}
 \alias{Watson.weibull.pvalue}
 \alias{Watson.exp.pvalue}
-\title{P-value of \eqn{U^2}}
+\title{P-value of Watson statistic}
 \usage{
 Watson.uniform.pvalue(u, neig = 100, verbose = FALSE)
 
@@ -25,7 +25,7 @@ Watson.weibull.pvalue(u, neig = 100, verbose = FALSE)
 Watson.exp.pvalue(u, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{u}{Watson statistic \eqn{U^2} for a given distribution.}
+\item{u}{Watson statistic \eqn{U^2} with a given distribution.}
 
 \item{neig}{Number of eigenvalues used for \code{imhof()}.}
 
@@ -34,10 +34,11 @@ Watson.exp.pvalue(u, neig = 100, verbose = FALSE)
 \item{shape}{The shape parameter of Gamma distribution.}
 }
 \value{
-P-value of the Watson statistic of a given sample.
+P-value of the given Watson statistic.
 }
 \description{
 Compute P-value of the given Watson statistic \eqn{U^2}
+using \code{imhof()} function in \code{CompQuadForm}.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

@@ -1,4 +1,4 @@
-#' GOF statistic \eqn{U^2}
+#' GOF Watson statistic
 #'
 #' @description
 #' Compute the Watson goodness-of-fit statistic \eqn{U^2} for an i.i.d. sample,
@@ -6,9 +6,9 @@
 #' Estimate parameters by ML using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
-#' @param parameter Parameters of a given distribution.
+#' @param parameter Parameters of the given distribution, MLE by default.
 #'
-#' @return Watson statistic of a given sample.
+#' @return Watson statistic of the given sample.
 #' @export
 #'
 #' @examples

@@ -1,4 +1,4 @@
-#' Goodness-of-Fit tests for general distributions using Sandwich estimation of covariance function
+#' GOF tests for general distributions using Sandwich estimation of covariance function
 #'
 #' @description
 #' This function tests the hypothesis that data y come from
@@ -87,6 +87,16 @@ gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
 
 
 # Helpers -----------------------------------------------------------------
+gof.statistics.only=function(pit,AD=TRUE,CvM=TRUE,Watson=TRUE){
+  if(any(pit<0))stop("Negative Probability Integral Transforms Not Allowed")
+  if(any(pit>1))stop("Probability Integral Transforms More than 1 Not Allowed")
+  p=sort(pit)
+  out=list()
+  if(AD){out$AD = AD(p)}
+  if(CvM){out$CvM = CvM(p)}
+  if(Watson){out$Watson = Watson(p)}
+  return(out)
+}
 
 score.normal = function(x,theta){
   sig=theta[2]

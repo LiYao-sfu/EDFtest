@@ -8,7 +8,7 @@
 \alias{AD.laplace.pvalue}
 \alias{AD.weibull.pvalue}
 \alias{AD.exp.pvalue}
-\title{P-value \eqn{A^2}}
+\title{P-value of Anderson-Darling statistic}
 \usage{
 AD.uniform.pvalue(a, neig = 100, verbose = FALSE)
 
@@ -25,7 +25,7 @@ AD.weibull.pvalue(a, neig = 100, verbose = FALSE)
 AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 }
 \arguments{
-\item{a}{Anderson-Darling statistic \eqn{A^2} for a given distribution.}
+\item{a}{Anderson-Darling statistic \eqn{A^2} with a given distribution.}
 
 \item{neig}{Number of eigenvalues used for \code{imhof()}.}
 
@@ -37,7 +37,8 @@ AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 P-value of the Anderson-Darling statistic of a given sample.
 }
 \description{
-Compute P-value of the given Anderson-Darling statistic \eqn{A^2}.
+Compute P-value of the given Anderson-Darling statistic \eqn{A^2}
+using \code{imhof()} function in \code{CompQuadForm}.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)

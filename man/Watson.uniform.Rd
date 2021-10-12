@@ -8,7 +8,7 @@
 \alias{Watson.laplace}
 \alias{Watson.weibull}
 \alias{Watson.exp}
-\title{GOF statistic \eqn{U^2}}
+\title{GOF Watson statistic}
 \usage{
 Watson.uniform(x, parameter = estimate.uniform(x))
 
@@ -27,10 +27,10 @@ Watson.exp(x, parameter = estimate.exp(x))
 \arguments{
 \item{x}{A random sample.}
 
-\item{parameter}{Parameters of a given distribution.}
+\item{parameter}{Parameters of the given distribution, MLE by default.}
 }
 \value{
-Watson statistic of a given sample.
+Watson statistic of the given sample.
 }
 \description{
 Compute the Watson goodness-of-fit statistic \eqn{U^2} for an i.i.d. sample,
