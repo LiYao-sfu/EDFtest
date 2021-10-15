@@ -8,7 +8,7 @@
 \alias{AD.laplace}
 \alias{AD.weibull}
 \alias{AD.exp}
-\title{GOF Anderson-Darling statistic}
+\title{Anderson-Darling statistic}
 \usage{
 AD.uniform(x, parameter = estimate.uniform(x))
 

@@ -7,7 +7,8 @@
 #' function in \code{CompQuadForm}.
 #'
 #' @param x A random sample.
-#' @param print Logical; if TRUE print both statistics and P-values.
+#' @param print Logical; if TRUE print both statistics and P-values; if FALSE the results are
+#' returned invisibly.
 #' @param verbose verbose Logical; if TRUE, print warning messages.
 #'
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
@@ -18,7 +19,7 @@
 #'
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
-#' gof.uniform(x0)
+#' gof.uniform(x0,print=FALSE)
 #'
 #' x1=rnorm(n=100,mean=0,sd=1)
 #' gof.normal(x1)
@@ -37,7 +38,7 @@
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' gof.exp(x6)
-gof.uniform=function(x,print=TRUE,verbose=FALSE){
+gof.uniform=function(x,print=FALSE,verbose=FALSE){
   #  Compute three gof statistics
   w = CvM.uniform(x)
   a = AD.uniform(x)
@@ -72,7 +73,7 @@ gof.uniform=function(x,print=TRUE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
-gof.normal=function(x,print=TRUE,verbose=FALSE){
+gof.normal=function(x,print=FALSE,verbose=FALSE){
   #  Estimate the parameters
   pars=estimate.normal(x)
   if(verbose){cat("Normal parameter estimates", pars, "\n")}
@@ -109,7 +110,7 @@ gof.normal=function(x,print=TRUE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
-gof.gamma=function(x,print=TRUE,verbose=FALSE){
+gof.gamma=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.gamma(x)
   if(verbose){cat("Gamma parameter estimates", pars, "\n")}
   pit=pgamma(x,shape=pars[1],scale=pars[2])
@@ -145,7 +146,7 @@ gof.gamma=function(x,print=TRUE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
-gof.logistic=function(x,print=TRUE,verbose=FALSE){
+gof.logistic=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.logistic(x)
   if(verbose){cat("log-Logistic parameter estimates", pars, "\n")}
   pit=plogis(x,location=pars[1],scale=pars[2])
@@ -182,7 +183,7 @@ gof.logistic=function(x,print=TRUE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
-gof.laplace=function(x,print=TRUE,verbose=FALSE){
+gof.laplace=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.laplace(x,use.sd=FALSE)
   if(verbose){cat("Laplace parameter estimates", pars, "\n")}
   pit=cdf.laplace(x,theta =pars)
@@ -218,7 +219,7 @@ gof.laplace=function(x,print=TRUE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
-gof.weibull=function(x,print=TRUE,verbose=FALSE){
+gof.weibull=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.weibull(x)
   if(verbose){cat("Weibull parameter estimates", pars, "\n")}
   pit=pweibull(x,shape=pars[1],scale=pars[2])
@@ -254,7 +255,7 @@ gof.weibull=function(x,print=TRUE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
-gof.exp=function(x,print=TRUE,verbose=FALSE){
+gof.exp=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.exp(x)
   if(verbose){cat("Exponential parameter estimates", pars, "\n")}
   pit=pexp(x,rate=1/pars)

@@ -1,4 +1,4 @@
-#' GOF Anderson-Darling statistic
+#' Anderson-Darling statistic
 #'
 #' @description
 #' Compute the Anderson-Darling goodness-of-fit statistic \eqn{A^2} for an i.i.d sample,

@@ -10,7 +10,7 @@ and their P-values. The three statistics computed are the Empirical Distribution
 function statistics called Cramér-von Mises, Anderson-Darling, and Watson statistic.
 }
 \references{
-\url{}.
+Name.(Year). Title. \url{}.
 
 \url{}.
 }

@@ -10,24 +10,25 @@
 \alias{gof.exp}
 \title{Generic GOF tests based on EDF}
 \usage{
-gof.uniform(x, print = TRUE, verbose = FALSE)
+gof.uniform(x, print = FALSE, verbose = FALSE)
 
-gof.normal(x, print = TRUE, verbose = FALSE)
+gof.normal(x, print = FALSE, verbose = FALSE)
 
-gof.gamma(x, print = TRUE, verbose = FALSE)
+gof.gamma(x, print = FALSE, verbose = FALSE)
 
-gof.logistic(x, print = TRUE, verbose = FALSE)
+gof.logistic(x, print = FALSE, verbose = FALSE)
 
-gof.laplace(x, print = TRUE, verbose = FALSE)
+gof.laplace(x, print = FALSE, verbose = FALSE)
 
-gof.weibull(x, print = TRUE, verbose = FALSE)
+gof.weibull(x, print = FALSE, verbose = FALSE)
 
-gof.exp(x, print = TRUE, verbose = FALSE)
+gof.exp(x, print = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{A random sample.}
 
-\item{print}{Logical; if TRUE print both statistics and P-values.}
+\item{print}{Logical; if TRUE print both statistics and P-values; if FALSE the results are
+returned invisibly.}
 
 \item{verbose}{verbose Logical; if TRUE, print warning messages.}
 }
@@ -42,7 +43,7 @@ function in \code{CompQuadForm}.
 }
 \examples{
 x0=runif(n=100,min=-1,max=1)
-gof.uniform(x0)
+gof.uniform(x0,print=FALSE)
 
 x1=rnorm(n=100,mean=0,sd=1)
 gof.normal(x1)
