@@ -255,6 +255,44 @@ gof.weibull=function(x,print=FALSE,verbose=FALSE){
 
 #' @export
 #' @rdname gof.uniform
+gof.extremevalue=function(x,print=FALSE,verbose=FALSE){
+  xx=(x-mean(x))/sd(x)
+  ww=exp(xx)
+  pars=estimate.weibull(ww)
+  # if(verbose){cat("Weibull parameter estimates", pars, "\n")}
+  pit=pweibull(ww,shape=pars[1],scale=pars[2])
+  # if(verbose){cat("PITs are done \n \n")}
+  w = CvM(pit)
+  a = AD(pit)
+  u = Watson(pit)
+  w.p=CvM.weibull.pvalue(w,verbose=verbose)$P
+  if(verbose){
+    cat("Cramer-von Mises P-value output \n")
+    print(w.p)
+    cat("\n\n")
+  }
+  a.p=AD.weibull.pvalue(a,verbose=verbose)$P
+  if(verbose){
+    cat("Anderson-Darling P-value output \n")
+    print(a.p)
+    cat("\n\n")
+  }
+  u.p=Watson.weibull.pvalue(u,verbose=verbose)$P
+  if(verbose){
+    cat("Watson P-value output \n")
+    print(u.p)
+    cat("\n\n")
+  }
+  if(print){
+    cat("Cramer-von Mises statistic is ",w,"with P-value is ",w.p,"\n")
+    cat("Anderson-Darling statistic is ",a,"with P-value is ",a.p,"\n")
+    cat("Watson statistic is ",u,"with P-value is ",u.p,"\n")
+  }
+  invisible(list(Wsq=w,Wsq.pvalue=w.p,Asq=a,Asq.pvalue=a.p,Usq=u,Usq.pvalue=u.p))
+}
+
+#' @export
+#' @rdname gof.uniform
 gof.exp=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.exp(x)
   if(verbose){cat("Exponential parameter estimates", pars, "\n")}
