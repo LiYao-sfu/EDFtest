@@ -17,8 +17,8 @@
 #'   \item Li Yao
 #' }
 #'
-#' @references Name.(Year). Title. \url{}.
-#' @references  \url{}.
+#' @references Stephens, M.A. (1974). EDF Statistics for Goodness of Fit and Some Comparisons. Journal of the American Statistical Association, Vol. 69, 730-737. Available at \url{https://www.jstor.org/stable/2286009?seq=4#metadata_info_tab_contents}.
+#' @references Stephens, M.A. (1976). Asymptotic results for goodness-of-fit statistics with unknown parameters. Annals of Statistics, Vol. 4, 357-369. Available at \url{https://projecteuclid.org/journals/annals-of-statistics/volume-4/issue-2/Asymptotic-Results-for-Goodness-of-Fit-Statistics-with-Unknown-Parameters/10.1214/aos/1176343411.full}
 #'
 #' @seealso
 #' Useful links:

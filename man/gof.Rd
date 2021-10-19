@@ -128,7 +128,7 @@ x6=rexp(n=100,rate=1/2)
 gof.exp(x6)
 }
 \seealso{
-\code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+\code{\link{gof.sandwich}} for general distributions using Sandwich estimation
   of covariance function;
 \code{\link{gof.bootstrap}} for generic functions using bootstrap method.
 }

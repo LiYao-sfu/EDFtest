@@ -11,7 +11,7 @@
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
 #'
 #' @seealso
-#' \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+#' \code{\link{gof.sandwich}} for general distributions using Sandwich estimation
 #'   of covariance function;
 #' \code{\link{gof}} for generic functions using \code{\link[CompQuadForm]{imhof}} function.
 #'
