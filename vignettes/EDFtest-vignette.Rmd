@@ -177,8 +177,8 @@ AD.gamma.pvalue(a=asq,shape=shape)$P
 (wsq=CvM.gamma(x))
 CvM.gamma.pvalue(w=wsq,shape=shape)$P
 #You can also use following generic functions
-gof.gamma(x) #Imhof
-#gof.gamma.bootstrap(x,M=10000) #bootstrap
+gof.gamma(x,print=TRUE) #Imhof
+gof.gamma.bootstrap(x,M=10000) #bootstrap
 ```
 
 We calculated Anderson-Darling and Cramér-von Mises statistics and $p$-values of the sample by both `imhof` and bootstrap methods. In `AD.gamma.pvalue` and `CvM.gamma.pvalue` functions, we use `imhof` function in `CompQuadForm` package to calculated 100 eigenvalues, by default, for the calculation of their $p$-values. Using `imhof` method, $p$-value for $A^{2}$ is 0.057625 and for $W^{2}$ is 0.02859593. At the same time, $p$-values by 10,000 bootstrap are 0.0289 for $A^{2}$ and 0.0576 for $W^{2}$. Both methods are fairly consistent.
@@ -194,8 +194,8 @@ AD.normal.pvalue(a=asq)$P
 (wsq=CvM.normal(x))
 CvM.normal.pvalue(w=wsq)$P
 #You can also use following generic functions
-gof.normal(x) #Imhof
-#gof.normal.bootstrap(x,M=10000) #bootstrap
+gof.normal(x,print=TRUE) #Imhof
+gof.normal.bootstrap(x,M=10000) #bootstrap
 ```
 
 We can see that $p$-value for $A^{2}$ is 0.02037737 and for $W^{2}$ is 0.009486189. At the same time, $p$-values by 10,000 bootstrap are 0.0205 for $A^{2}$ and 0.0105  for $W^{2}$. Both methods are fairly consistent.
