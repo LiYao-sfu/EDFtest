@@ -6,9 +6,16 @@
 #' using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
+#' @param z A standard uniform random sample.
 #' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Cramér-von Mises statistic of the given sample.
+#'
+#' @seealso
+#' \code{\link{estimate}} for estimating distribution parameters by ML;
+#' \code{\link{AD}} for calculating Anderson-Darling statistic;
+#' \code{\link{Watson}} for calculating Watson statistic;
+#' \code{\link{CvM.pvalue}} for calculating P-value of Cramér-von Mises statistic.
 #'
 #' @name CvM
 #' @examples
@@ -85,6 +92,8 @@ CvM.exp = function(x,parameter=estimate.exp(x)){
 
 # Helpers -----------------------------------------------------------------
 
+#' @export
+#' @rdname CvM
 CvM <- function(z){
     n <- length(z)
     u <- sort(z)

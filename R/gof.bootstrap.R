@@ -9,12 +9,13 @@
 #' @param M Number of bootstrap, 10000 by default.
 #'
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
-#' @export
 #'
-#' @seealso \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
-#' of covariance function, \code{\link{gof.uniform.bootstrap()}} for using
-#' \code{\link[CompQuadForm]{imhof}} function
+#' @seealso
+#' \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+#'   of covariance function;
+#' \code{\link{gof}} for generic functions using \code{\link[CompQuadForm]{imhof}} function.
 #'
+#' @name gof.bootstrap
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' gof.uniform.bootstrap(x0,M=100)
@@ -36,6 +37,10 @@
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' gof.exp.bootstrap(x6,M=100)
+NULL
+
+#' @export
+#' @rdname gof.bootstrap
 gof.uniform.bootstrap<-function(x, M=10000){
   a2 <- AD.uniform(x)
   w2 <- CvM.uniform(x)
@@ -65,7 +70,7 @@ gof.uniform.bootstrap<-function(x, M=10000){
 }
 
 #' @export
-#' @rdname gof.uniform.bootstrap
+#' @rdname gof.bootstrap
 gof.normal.bootstrap<-function(x, M=10000){
   a2 <- AD.normal(x)
   w2 <- CvM.normal(x)
@@ -95,7 +100,7 @@ gof.normal.bootstrap<-function(x, M=10000){
 }
 
 #' @export
-#' @rdname gof.uniform.bootstrap
+#' @rdname gof.bootstrap
 gof.gamma.bootstrap<-function(x, M=10000){
   a2 <- AD.gamma(x)
   w2 <- CvM.gamma(x)
@@ -125,7 +130,7 @@ gof.gamma.bootstrap<-function(x, M=10000){
 }
 
 #' @export
-#' @rdname gof.uniform.bootstrap
+#' @rdname gof.bootstrap
 gof.logistic.bootstrap=function(x, M=10000){
   a2 <- AD.logistic(x)
   w2 <- CvM.logistic(x)
@@ -155,7 +160,7 @@ gof.logistic.bootstrap=function(x, M=10000){
 }
 
 #' @export
-#' @rdname gof.uniform.bootstrap
+#' @rdname gof.bootstrap
 gof.laplace.bootstrap<-function(x, M=10000){
   a2 <- AD.laplace(x)
   w2 <- CvM.laplace(x)
@@ -185,7 +190,7 @@ gof.laplace.bootstrap<-function(x, M=10000){
 }
 
 #' @export
-#' @rdname gof.uniform.bootstrap
+#' @rdname gof.bootstrap
 gof.weibull.bootstrap<-function(x, M=10000){
   a2 <- AD.weibull(x)
   w2 <- CvM.weibull(x)
@@ -215,7 +220,7 @@ gof.weibull.bootstrap<-function(x, M=10000){
 }
 
 #' @export
-#' @rdname gof.uniform.bootstrap
+#' @rdname gof.bootstrap
 gof.exp.bootstrap<-function(x, M=10000){
   a2 <- AD.exp(x)
   w2 <- CvM.exp(x)

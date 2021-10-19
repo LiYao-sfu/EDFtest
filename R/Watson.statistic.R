@@ -6,9 +6,16 @@
 #' using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
+#' @param z A standard uniform random sample.
 #' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Watson statistic of the given sample.
+#'
+#' @seealso
+#' \code{\link{estimate}} for estimating distribution parameters by ML;
+#' \code{\link{CvM}} for calculating Cramér-von Mises statistic;
+#' \code{\link{AD}} for calculating Anderson-Darling statistic;
+#' \code{\link{Watson.pvalue}} for calculating P-value of Watson statistic.
 #'
 #' @name Watson
 #' @examples
@@ -83,6 +90,8 @@ Watson.exp = function(x,parameter=estimate.exp(x)){
     Watson(z)
 }
 
+#' @export
+#' @rdname Watson
 Watson <- function(z){
     # Given probability integral transforms, compute the Watson goodness-of-fit statistic
     # for testing uniformity on the unit interval.

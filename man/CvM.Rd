@@ -24,18 +24,22 @@ CvM.laplace(x, parameter = estimate.laplace(x))
 CvM.weibull(x, parameter = estimate.weibull(x))
 
 CvM.exp(x, parameter = estimate.exp(x))
+
+CvM(z)
 }
 \arguments{
 \item{x}{A random sample.}
 
 \item{parameter}{Parameters of the given distribution, MLE by default.}
+
+\item{z}{A standard uniform random sample.}
 }
 \value{
 Cramér-von Mises statistic of the given sample.
 }
 \description{
 Compute the Cramér-von Mises goodness-of-fit statistic \eqn{W^2} for an i.i.d. sample,
-`x`, to test for the given distribution with parameters unknown. Estimate parameters by ML
+x, to test for the given distribution with parameters unknown. Estimate parameters by ML
 using \code{EDFtest} MLE function by default.
 }
 \examples{
@@ -59,4 +63,10 @@ CvM.weibull(x5)
 
 x6=rexp(n=100,rate=1/2)
 CvM.exp(x6)
+}
+\seealso{
+\code{\link{estimate}} for estimating distribution parameters by ML;
+\code{\link{AD}} for calculating Anderson-Darling statistic;
+\code{\link{Watson}} for calculating Watson statistic;
+\code{\link{CvM.pvalue}} for calculating P-value of Cramér-von Mises statistic.
 }

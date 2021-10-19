@@ -4,14 +4,21 @@
 #' Compute the P-value of the given Watson statistic \eqn{U^2}
 #' using \code{\link[CompQuadForm]{imhof}} function in \code{CompQuadForm}.
 #'
+#' @inherit AD.pvalue details
+#'
 #' @param u Watson statistic \eqn{U^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{imhof()}.
-#' @param verbose Logical; if `TRUE`, print warning messages.
+#' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
 #' @return P-value of the given Watson statistic.
-#' @export
 #'
+#' @seealso
+#' \code{\link{Watson}} for calculating Watson statistic;
+#' \code{\link{CvM.pvalue}} for calculating P-value of Cramér-von Mises statistic;
+#' \code{\link{AD.pvalue}} for calculating P-value of Anderson-Darling statistic.
+#'
+#' @name Watson.pvalue
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' usq0 = Watson.uniform(x0)
@@ -40,6 +47,10 @@
 #' x6=rexp(n=100,rate=1/2)
 #' usq6 = Watson.exp(x6)
 #' Watson.exp.pvalue(usq6)
+NULL
+
+#' @export
+#' @rdname Watson.pvalue
 Watson.uniform.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.uniform.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -59,7 +70,7 @@ Watson.uniform.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.uniform.pvalue
+#' @rdname Watson.pvalue
 Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.normal.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -79,7 +90,7 @@ Watson.normal.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.uniform.pvalue
+#' @rdname Watson.pvalue
 Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
   e = Watson.gamma.eigen(neig,shape=shape)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -99,7 +110,7 @@ Watson.gamma.pvalue = function(u,shape,neig = 100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.uniform.pvalue
+#' @rdname Watson.pvalue
 Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.logistic.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -119,7 +130,7 @@ Watson.logistic.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.uniform.pvalue
+#' @rdname Watson.pvalue
 Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.laplace.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -139,7 +150,7 @@ Watson.laplace.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.uniform.pvalue
+#' @rdname Watson.pvalue
 Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.weibull.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)
@@ -159,7 +170,7 @@ Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname Watson.uniform.pvalue
+#' @rdname Watson.pvalue
 Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.exp.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)

@@ -6,9 +6,16 @@
 #' using \code{EDFtest} MLE function by default.
 #'
 #' @param x A random sample.
+#' @param z A standard uniform random sample.
 #' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Anderson-Darling statistic of the given sample.
+#'
+#' @seealso
+#' \code{\link{estimate}} for estimating distribution parameters by ML;
+#' \code{\link{CvM}} for calculating Cramér-von Mises statistic;
+#' \code{\link{Watson}} for calculating Watson statistic;
+#' \code{\link{AD.pvalue}} for calculating P-value of Anderson-Darling statistic.
 #'
 #' @name AD
 #' @examples
@@ -71,7 +78,7 @@ AD.laplace = function(x,parameter=estimate.laplace(x)){
 }
 
 #' @export
-#' @rdname AD.uniform
+#' @rdname AD
 AD.weibull <- function(x,parameter=estimate.weibull(x)){
   z <- cdf.weibull(x,parameter)
   AD(z)
@@ -84,6 +91,8 @@ AD.exp = function(x,parameter=estimate.exp(x)){
   AD(z)
 }
 
+#' @export
+#' @rdname AD
 AD <- function(z){
   n <- length(z)
   u <- sort(z)

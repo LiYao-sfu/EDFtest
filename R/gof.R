@@ -8,15 +8,17 @@
 #'
 #' @param x A random sample.
 #' @param print Logical; if TRUE print both statistics and P-values; if FALSE the results are
-#' returned invisibly.
+#'   returned invisibly.
 #' @param verbose verbose Logical; if TRUE, print warning messages.
 #'
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
-#' @export
 #'
-#' @seealso \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
-#' of covariance function, \code{\link{gof.uniform.bootstrap()}} for using bootstrap method
+#' @seealso
+#' \code{\link{gof.sandwich()}} for general distributions using Sandwich estimation
+#'   of covariance function;
+#' \code{\link{gof.bootstrap}} for generic functions using bootstrap method.
 #'
+#' @name gof
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' gof.uniform(x0,print=FALSE)
@@ -38,6 +40,10 @@
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' gof.exp(x6)
+NULL
+
+#' @export
+#' @rdname gof
 gof.uniform=function(x,print=FALSE,verbose=FALSE){
   #  Compute three gof statistics
   w = CvM.uniform(x)
@@ -72,7 +78,7 @@ gof.uniform=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.normal=function(x,print=FALSE,verbose=FALSE){
   #  Estimate the parameters
   pars=estimate.normal(x)
@@ -109,7 +115,7 @@ gof.normal=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.gamma=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.gamma(x)
   if(verbose){cat("Gamma parameter estimates", pars, "\n")}
@@ -145,7 +151,7 @@ gof.gamma=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.logistic=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.logistic(x)
   if(verbose){cat("log-Logistic parameter estimates", pars, "\n")}
@@ -182,7 +188,7 @@ gof.logistic=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.laplace=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.laplace(x,use.sd=FALSE)
   if(verbose){cat("Laplace parameter estimates", pars, "\n")}
@@ -218,7 +224,7 @@ gof.laplace=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.weibull=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.weibull(x)
   if(verbose){cat("Weibull parameter estimates", pars, "\n")}
@@ -254,7 +260,7 @@ gof.weibull=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.extremevalue=function(x,print=FALSE,verbose=FALSE){
   xx=(x-mean(x))/sd(x)
   ww=exp(xx)
@@ -292,7 +298,7 @@ gof.extremevalue=function(x,print=FALSE,verbose=FALSE){
 }
 
 #' @export
-#' @rdname gof.uniform
+#' @rdname gof
 gof.exp=function(x,print=FALSE,verbose=FALSE){
   pars=estimate.exp(x)
   if(verbose){cat("Exponential parameter estimates", pars, "\n")}

@@ -4,14 +4,79 @@
 #' Compute the P-value of the given Anderson-Darling statistic \eqn{A^2}
 #' using \code{\link[CompQuadForm]{imhof}} function in \code{CompQuadForm}.
 #'
+#' @details
+#' Parameters must be estimated by maximum likelihood (ML) in order
+#' for the P-values computed here to be asymptotically valid.
+#' They are computed using the fact that when parameters are
+#' are estimated by maximum likelihood and the null hypothesis
+#' is true, the asymptotic distribution of the GOF statistic
+#' is the distribution of an infinite weighted sum
+#' of weighted chi-square random variables on 1 degree of freedom.
+#' The weights are eigenvalues of an integral equation. They
+#' depend on the distribution being tested, the statistic being used,
+#' and in some cases on the actual parameter values. These weights
+#' are then computed approximately by discretization of the integral
+#' equation; when that equation depends on one or more parameter
+#' values we use the MLE in the equation.
+#'
+#' Some notes on the specific distributions. For the Normal, Logistic,
+#' Laplace, Extreme Value, Weibull and Exponential distributions, the
+#' limiting distributions do not depend on the parameters. For the
+#' Gamma distribution, the shape parameter affects the limiting
+#' distribution. The tests remain asymptotically valid when the MLE
+#' is used to approximate the limit distribution.
+#'
+#' The Exponential distribution is a special case of the Weibull and
+#' Gamma families arising when the shape is known to be 1. Knowing a
+#' parameter and therefore not estimating it affects the distribution
+#' of the test statistic and the functions provided for the Exponential
+#' distribution allow for this.
+#'
+#' If a data set X_1,...,X_n follows the Weibull distribution then
+#' Y_1 = log(X_1), ... ,Y_n = log(X_n) follows the Extreme Value
+#' distribution and vice versa. The two procedures give identical
+#' test statistics and P-values, in principal.
+#'
+#' Some of the models have more than one common parametrization. For
+#' the Exponential, Gamma, and Weibull distributions, some writers
+#' use a rate parameter and some use the scale parameter which is
+#' the inverse of the rate. Our code uses the scale parameter.
+#'
+#' For the Laplace distribution, some writers use the density
+#' \eqn{f(x)= exp(-|x-\mu|/beta)/(2\beta)} in which \eqn{\beta}
+#' is a scale parameter. Others use the
+#' standard deviation \eqn{\sigma = \beta/\sqrt{2}}. Our code
+#' uses the scale parameter.
+#'
+#' For the Uniform distribution, we offer code for the two parameter
+#' Uniform distribution on the range \eqn{\theta_1} to \eqn{\theta_2}.
+#' These are estimated by the sample minimum and sample maximum.
+#' The probability integral transforms of the remaining n-2 points
+#' are then tested for uniformity on the range 0 to 1. This procedure
+#' is justified because the these probability integral transforms
+#' have exactly this distribution if the original data had a uniform
+#' distribution over any interval.
+#'
+#' It is not unusual to test the hypothesis that a sample follows the
+#' standard uniform distribution on [0,1]. In this case the parameters
+#' \emph{should not} be estimated. Instead use AD(x) or CvM(x) or
+#' Watson(x) to compute the statistic values and then get P-values from
+#' AD.uniform.pvalue(a) or CvM.uniform.pvalue(w) or Watson.uniform.pvalue(u)
+#' whichever is wanted.
+#'
 #' @param a Anderson-Darling statistic \eqn{A^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.
-#' @param verbose Logical; if `TRUE`, print warning messages.
+#' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
 #' @return P-value of the Anderson-Darling statistic.
-#' @export
 #'
+#' @seealso
+#' \code{\link{AD}} for calculating Anderson-Darling statistic;
+#' \code{\link{CvM.pvalue}} for calculating P-value of Cramér-von Mises statistic;
+#' \code{\link{Watson.pvalue}} for calculating P-value of Watson statistic.
+#'
+#' @name AD.pvalue
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' asq0 = AD.uniform(x0)
@@ -40,6 +105,10 @@
 #' x6=rexp(n=100,rate=1/2)
 #' asq6 = AD.exp(x6)
 #' AD.exp.pvalue(asq6)
+NULL
+
+#' @export
+#' @rdname AD.pvalue
 AD.uniform.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.uniform.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -59,7 +128,7 @@ AD.uniform.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.uniform.pvalue
+#' @rdname AD.pvalue
 AD.normal.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.normal.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -79,7 +148,7 @@ AD.normal.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.uniform.pvalue
+#' @rdname AD.pvalue
 AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
   e = AD.gamma.eigen(neig,shape=shape)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -99,7 +168,7 @@ AD.gamma.pvalue = function(a,shape,neig = 100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.uniform.pvalue
+#' @rdname AD.pvalue
 AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.logistic.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -119,7 +188,7 @@ AD.logistic.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.uniform.pvalue
+#' @rdname AD.pvalue
 AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
   e = AD.laplace.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -139,7 +208,7 @@ AD.laplace.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.uniform.pvalue
+#' @rdname AD.pvalue
 AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.weibull.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)
@@ -159,7 +228,7 @@ AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname AD.uniform.pvalue
+#' @rdname AD.pvalue
 AD.exp.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.exp.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)

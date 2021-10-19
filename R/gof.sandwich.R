@@ -18,15 +18,15 @@
 #' @param Fdist User supplied function to compute probability integral transform of y.
 #' @param thetahat Parameter estimates by MLE.
 #' @param Score User supplied function to compute 3 components of the score function
-#' an n by p matrix with entries partial log f(y_i,\eqn{\theta})/ partial theta_j.
+#'   an n by p matrix with entries partial log f(y_i,\eqn{\theta})/ partial theta_j.
 #' @param m Eigenvalues are extracted for an m by m grid of the covariance function.
 #' @param ... Other inputs passed to \code{Fdist} and \code{Score} when needed.
 #'
 #' @return Cramér-von Mises, Anderson-Darling and Watson statistics and their P-values.
-#' @export
 #'
-#' @seealso \code{\link{gof.uniform()}} for generic functions using \code{\link[CompQuadForm]{imhof}} function,
-#' \code{\link{gof.uniform.bootstrap()}} for using bootstrap method
+#' @seealso
+#' \code{\link{gof}} for generic functions using \code{\link[CompQuadForm]{imhof}} function;
+#' \code{\link{gof.bootstrap}} for generic functions using bootstrap method.
 #'
 #' @examples
 #' sample = rnorm(n=100,mean=0,sd=1)
@@ -43,6 +43,7 @@
 #' }
 #' output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.normal.user,m=100)
 #' output
+#' @export
 gof.sandwich=function(y,x=NULL,Fdist,thetahat,Score,m=max(n,100),...){
   n = length(y)                   # Sample size
   p=length(thetahat)              # Number of parameters

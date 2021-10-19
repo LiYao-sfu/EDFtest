@@ -4,14 +4,21 @@
 #' Compute the P-value of the given Cramér-von Mises statistic \eqn{W^2}
 #' using \code{\link[CompQuadForm]{imhof}} function in \code{CompQuadForm}.
 #'
+#' @inherit AD.pvalue details
+#'
 #' @param w Cramér-von Mises statistic \eqn{W^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.
-#' @param verbose Logical; if `TRUE`, print warning messages.
+#' @param verbose Logical; if TRUE, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
 #' @return P-value of the given Cramér-von Mises statistic.
-#' @export
 #'
+#' @seealso
+#' \code{\link{CvM}} for calculating Cramér-von Mises statistic;
+#' \code{\link{AD.pvalue}} for calculating P-value of Anderson-Darling statistic;
+#' \code{\link{Watson.pvalue}} for calculating P-value of Watson statistic.
+#'
+#' @name CvM.pvalue
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' wsq0 = CvM.uniform(x0)
@@ -40,6 +47,10 @@
 #' x6=rexp(n=100,rate=1/2)
 #' wsq6 = CvM.exp(x6)
 #' CvM.exp.pvalue(wsq6)
+NULL
+
+#' @export
+#' @rdname CvM.pvalue
 CvM.uniform.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.uniform.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -59,7 +70,7 @@ CvM.uniform.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.uniform.pvalue
+#' @rdname CvM.pvalue
 CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.normal.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -79,7 +90,7 @@ CvM.normal.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.uniform.pvalue
+#' @rdname CvM.pvalue
 CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
   e = CvM.gamma.eigen(neig,shape=shape)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -99,7 +110,7 @@ CvM.gamma.pvalue = function(w,shape , neig = 100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.uniform.pvalue
+#' @rdname CvM.pvalue
 CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.logistic.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -119,7 +130,7 @@ CvM.logistic.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.uniform.pvalue
+#' @rdname CvM.pvalue
 CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
   e = CvM.laplace.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -139,7 +150,7 @@ CvM.laplace.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.uniform.pvalue
+#' @rdname CvM.pvalue
 CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.weibull.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
@@ -159,7 +170,7 @@ CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
 }
 
 #' @export
-#' @rdname CvM.uniform.pvalue
+#' @rdname CvM.pvalue
 CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.exp.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)

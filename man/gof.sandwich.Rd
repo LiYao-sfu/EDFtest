@@ -55,6 +55,6 @@ output = gof.sandwich(y=sample,Fdist=cdf.normal.user,thetahat=mle,Score=score.no
 output
 }
 \seealso{
-\code{\link{gof.uniform()}} for generic functions using \code{\link[CompQuadForm]{imhof}} function,
-\code{\link{gof.uniform.bootstrap()}} for using bootstrap method
+\code{\link{gof}} for generic functions using \code{\link[CompQuadForm]{imhof}} function;
+\code{\link{gof.bootstrap}} for generic functions using bootstrap method.
 }
