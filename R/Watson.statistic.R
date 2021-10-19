@@ -1,4 +1,4 @@
-#' GOF Watson statistic
+#' Watson statistic
 #'
 #' @description
 #' Compute the Watson goodness-of-fit statistic \eqn{U^2} for an i.i.d. sample,
@@ -9,8 +9,8 @@
 #' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Watson statistic of the given sample.
-#' @export
 #'
+#' @name Watson
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' Watson.uniform(x0)
@@ -32,48 +32,52 @@
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' Watson.exp(x6)
+NULL
+
+#' @export
+#' @rdname Watson
 Watson.uniform <- function(x,parameter=estimate.uniform(x)){
     z <- cdf.uniform(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.uniform
+#' @rdname Watson
 Watson.normal = function(x,parameter=estimate.normal(x)){
     z <- cdf.normal(x, theta=parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.uniform
+#' @rdname Watson
 Watson.gamma = function(x,parameter=estimate.gamma(x)){
     z <- cdf.gamma(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.uniform
+#' @rdname Watson
 Watson.logistic = function(x,parameter=estimate.logistic(x)){
     z <- cdf.logistic(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.uniform
+#' @rdname Watson
 Watson.laplace = function(x,parameter=estimate.laplace(x)){
     z <- cdf.laplace(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.uniform
+#' @rdname Watson
 Watson.weibull = function(x,parameter=estimate.weibull(x)){
     z <- cdf.weibull(x,parameter)
     Watson(z)
 }
 
 #' @export
-#' @rdname Watson.uniform
+#' @rdname Watson
 Watson.exp = function(x,parameter=estimate.exp(x)){
     z <- cdf.exp(x,parameter)
     Watson(z)

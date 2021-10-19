@@ -7,6 +7,7 @@
 \alias{gof.logistic}
 \alias{gof.laplace}
 \alias{gof.weibull}
+\alias{gof.extremevalue}
 \alias{gof.exp}
 \title{Generic GOF tests based on EDF}
 \usage{
@@ -21,6 +22,8 @@ gof.logistic(x, print = FALSE, verbose = FALSE)
 gof.laplace(x, print = FALSE, verbose = FALSE)
 
 gof.weibull(x, print = FALSE, verbose = FALSE)
+
+gof.extremevalue(x, print = FALSE, verbose = FALSE)
 
 gof.exp(x, print = FALSE, verbose = FALSE)
 }

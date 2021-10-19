@@ -8,7 +8,7 @@
 \alias{Watson.laplace}
 \alias{Watson.weibull}
 \alias{Watson.exp}
-\title{GOF Watson statistic}
+\title{Watson statistic}
 \usage{
 Watson.uniform(x, parameter = estimate.uniform(x))
 
@@ -34,7 +34,7 @@ Watson statistic of the given sample.
 }
 \description{
 Compute the Watson goodness-of-fit statistic \eqn{U^2} for an i.i.d. sample,
-x, to test for the given distribution with parameters unknown. Estimate parameters by ML
+`x`, to test for the given distribution with parameters unknown. Estimate parameters by ML
 using \code{EDFtest} MLE function by default.
 }
 \examples{

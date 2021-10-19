@@ -9,8 +9,8 @@
 #' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Anderson-Darling statistic of the given sample.
-#' @export
 #'
+#' @name AD
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' AD.uniform(x0)
@@ -32,6 +32,10 @@
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' AD.exp(x6)
+NULL
+
+#' @export
+#' @rdname AD
 AD.uniform = function(x,parameter=estimate.uniform(x)){
   s <- sort(x)[-c(1,length(x))]
   z <- cdf.uniform(s,parameter)
@@ -39,28 +43,28 @@ AD.uniform = function(x,parameter=estimate.uniform(x)){
 }
 
 #' @export
-#' @rdname AD.uniform
+#' @rdname AD
 AD.normal = function(x,parameter=estimate.normal(x)){
   z <- cdf.normal(x,parameter)
   AD(z)
 }
 
 #' @export
-#' @rdname AD.uniform
+#' @rdname AD
 AD.gamma <- function(x,parameter=estimate.gamma(x)){
   z <- cdf.gamma(x,parameter)
   AD(z)
 }
 
 #' @export
-#' @rdname AD.uniform
+#' @rdname AD
 AD.logistic <- function(x,parameter=estimate.logistic(x)){
   z <- cdf.logistic(x,parameter)
   AD(z)
 }
 
 #' @export
-#' @rdname AD.uniform
+#' @rdname AD
 AD.laplace = function(x,parameter=estimate.laplace(x)){
   z = cdf.laplace(x,parameter)
   AD(z)
@@ -74,14 +78,13 @@ AD.weibull <- function(x,parameter=estimate.weibull(x)){
 }
 
 #' @export
-#' @rdname AD.uniform
+#' @rdname AD
 AD.exp = function(x,parameter=estimate.exp(x)){
   z = cdf.exp(x,parameter)
   AD(z)
 }
 
 AD <- function(z){
-  #AKA AD.uniform()
   n <- length(z)
   u <- sort(z)
   i <- 2*(1:n)-1

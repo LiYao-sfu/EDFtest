@@ -29,12 +29,12 @@ AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 
 \item{neig}{Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.}
 
-\item{verbose}{Logical; if TRUE, print warning messages.}
+\item{verbose}{Logical; if `TRUE`, print warning messages.}
 
 \item{shape}{The shape parameter of Gamma distribution.}
 }
 \value{
-P-value of the Anderson-Darling statistic of a given sample.
+P-value of the Anderson-Darling statistic.
 }
 \description{
 Compute the P-value of the given Anderson-Darling statistic \eqn{A^2}

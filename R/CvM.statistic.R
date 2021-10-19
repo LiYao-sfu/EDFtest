@@ -1,4 +1,4 @@
-#' GOF Cramer-von Mises statistic
+#' Cramer-von Mises statistic
 #'
 #' @description
 #' Compute the Cramér-von Mises goodness-of-fit statistic \eqn{W^2} for an i.i.d. sample,
@@ -9,8 +9,8 @@
 #' @param parameter Parameters of the given distribution, MLE by default.
 #'
 #' @return Cramér-von Mises statistic of the given sample.
-#' @export
 #'
+#' @name CvM
 #' @examples
 #' x0=runif(n=100,min=-1,max=1)
 #' CvM.uniform(x0)
@@ -32,48 +32,52 @@
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' CvM.exp(x6)
+NULL
+
+#' @export
+#' @rdname CvM
 CvM.uniform = function(x,parameter=estimate.uniform(x)){
   z <- cdf.uniform(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.uniform
+#' @rdname CvM
 CvM.normal = function(x,parameter=estimate.normal(x)){
   z <- cdf.normal(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.uniform
+#' @rdname CvM
 CvM.gamma <- function(x,parameter=estimate.gamma(x)){
   z <- cdf.gamma(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.uniform
+#' @rdname CvM
 CvM.logistic <- function(x,parameter=estimate.logistic(x)){
   z <- cdf.logistic(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.uniform
+#' @rdname CvM
 CvM.laplace = function(x,parameter=estimate.laplace(x)){
   z = cdf.laplace(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.uniform
+#' @rdname CvM
 CvM.weibull <- function(x,parameter=estimate.weibull(x)){
   z <- cdf.weibull(x,parameter)
   CvM(z)
 }
 
 #' @export
-#' @rdname CvM.uniform
+#' @rdname CvM
 CvM.exp = function(x,parameter=estimate.exp(x)){
   z = cdf.exp(x,parameter)
   CvM(z)

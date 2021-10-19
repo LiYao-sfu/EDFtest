@@ -6,10 +6,10 @@
 #'
 #' @param a Anderson-Darling statistic \eqn{A^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.
-#' @param verbose Logical; if TRUE, print warning messages.
+#' @param verbose Logical; if `TRUE`, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
-#' @return P-value of the Anderson-Darling statistic of a given sample.
+#' @return P-value of the Anderson-Darling statistic.
 #' @export
 #'
 #' @examples

@@ -29,7 +29,7 @@ Watson.exp.pvalue(u, neig = 100, verbose = FALSE)
 
 \item{neig}{Number of eigenvalues used for \code{imhof()}.}
 
-\item{verbose}{Logical; if TRUE, print warning messages.}
+\item{verbose}{Logical; if `TRUE`, print warning messages.}
 
 \item{shape}{The shape parameter of Gamma distribution.}
 }

@@ -6,7 +6,7 @@
 #'
 #' @param w Cramér-von Mises statistic \eqn{W^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.
-#' @param verbose Logical; if TRUE, print warning messages.
+#' @param verbose Logical; if `TRUE`, print warning messages.
 #' @param shape The shape parameter of Gamma distribution.
 #'
 #' @return P-value of the given Cramér-von Mises statistic.
