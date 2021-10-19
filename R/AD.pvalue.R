@@ -8,7 +8,7 @@
 #' Parameters must be estimated by maximum likelihood (ML) in order
 #' for the P-values computed here to be asymptotically valid.
 #' They are computed using the fact that when parameters are
-#' are estimated by maximum likelihood and the null hypothesis
+#' estimated by maximum likelihood and the null hypothesis
 #' is true, the asymptotic distribution of the GOF statistic
 #' is the distribution of an infinite weighted sum
 #' of weighted chi-square random variables on 1 degree of freedom.
@@ -19,7 +19,7 @@
 #' equation; when that equation depends on one or more parameter
 #' values we use the MLE in the equation.
 #'
-#' Some notes on the specific distributions. For the Normal, Logistic,
+#' Some notes on the specific distributions: For the Normal, Logistic,
 #' Laplace, Extreme Value, Weibull and Exponential distributions, the
 #' limiting distributions do not depend on the parameters. For the
 #' Gamma distribution, the shape parameter affects the limiting
@@ -43,7 +43,7 @@
 #' the inverse of the rate. Our code uses the scale parameter.
 #'
 #' For the Laplace distribution, some writers use the density
-#' \eqn{f(x)= exp(-|x-\mu|/beta)/(2\beta)} in which \eqn{\beta}
+#' \eqn{f(x)= exp(-|x-\mu|/\beta)/(2\beta)} in which \eqn{\beta}
 #' is a scale parameter. Others use the
 #' standard deviation \eqn{\sigma = \beta/\sqrt{2}}. Our code
 #' uses the scale parameter.
@@ -59,10 +59,10 @@
 #'
 #' It is not unusual to test the hypothesis that a sample follows the
 #' standard uniform distribution on [0,1]. In this case the parameters
-#' \emph{should not} be estimated. Instead use AD(x) or CvM(x) or
-#' Watson(x) to compute the statistic values and then get P-values from
-#' AD.uniform.pvalue(a) or CvM.uniform.pvalue(w) or Watson.uniform.pvalue(u)
-#' whichever is wanted.
+#' \emph{should not} be estimated. Instead use \code{AD(z)} or \code{CvM(z)} or
+#' \code{Watson(z)} to compute the statistic values and then get P-values from
+#' \code{AD.uniform.pvalue(a)} or \code{CvM.uniform.pvalue(w)} or
+#' \code{Watson.uniform.pvalue(u)} whichever is wanted.
 #'
 #' @param a Anderson-Darling statistic \eqn{A^2} with a given distribution.
 #' @param neig Number of eigenvalues used for \code{\link[CompQuadForm]{imhof}}.

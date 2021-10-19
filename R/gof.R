@@ -6,6 +6,8 @@
 #' Anderson-Darling and Watson statistics and their P-values using \code{\link[CompQuadForm]{imhof}}
 #' function in \code{CompQuadForm}.
 #'
+#' @inherit AD.pvalue details
+#'
 #' @param x A random sample.
 #' @param print Logical; if TRUE print both statistics and P-values; if FALSE the results are
 #'   returned invisibly.
