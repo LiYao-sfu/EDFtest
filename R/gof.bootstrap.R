@@ -221,6 +221,38 @@ gof.weibull.bootstrap<-function(x, M=10000){
 
 #' @export
 #' @rdname gof.bootstrap
+gof.extremevalue.bootstrap<-function(x, M=10000){
+  xx=(x-mean(x))/sd(x)
+  ww=exp(xx)
+  a2 <- AD.weibull(ww)
+  w2 <- CvM.weibull(ww)
+  u2 <- Watson.weibull(ww)
+  n <- length(ww)
+  pars <- estimate.weibull(ww)
+  alpha <- pars[1]
+  beta <- pars[2]
+  dat <- rweibull(n*M,shape=alpha,scale=beta)
+  dat <- matrix(dat,nrow=M)
+  a2vals <- apply(dat,1,AD.weibull)
+  w2vals <- apply(dat,1,CvM.weibull)
+  u2vals <- apply(dat,1,Watson.weibull)
+  a.pv <- length(a2vals[a2vals>a2])/M
+  w.pv <- length(w2vals[w2vals>w2])/M
+  u.pv <- length(u2vals[w2vals>u2])/M
+  w2text <- paste("Cramer-von Mises statistic is ", as.character(round(w2,7)))
+  w2text <- paste(w2text,"with P-value is ", as.character(round(w.pv,7)),"\n")
+  a2text <- paste("Anderson-Darling statistic is ", as.character(round(a2,7)))
+  a2text <- paste(a2text,"with P-value is ", as.character(round(a.pv,7)),"\n")
+  u2text <- paste("Watson statistic is ", as.character(round(u2,7)))
+  u2text <- paste(u2text,"with P-value is ", as.character(round(u.pv,7)),"\n")
+  cat(w2text)
+  cat(a2text)
+  cat(u2text)
+  invisible(list(Wsq=w2,Wsq.pvalue=w.pv,Asq=a2,Asq.pvalue=a.pv,Usq=u2,Usq.pvalue=u.pv))
+}
+
+#' @export
+#' @rdname gof.bootstrap
 gof.exp.bootstrap<-function(x, M=10000){
   a2 <- AD.exp(x)
   w2 <- CvM.exp(x)

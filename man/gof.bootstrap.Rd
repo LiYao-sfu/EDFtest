@@ -8,6 +8,7 @@
 \alias{gof.logistic.bootstrap}
 \alias{gof.laplace.bootstrap}
 \alias{gof.weibull.bootstrap}
+\alias{gof.extremevalue.bootstrap}
 \alias{gof.exp.bootstrap}
 \title{Generic GOF tests based on EDF using bootstrap}
 \usage{
@@ -22,6 +23,8 @@ gof.logistic.bootstrap(x, M = 10000)
 gof.laplace.bootstrap(x, M = 10000)
 
 gof.weibull.bootstrap(x, M = 10000)
+
+gof.extremevalue.bootstrap(x, M = 10000)
 
 gof.exp.bootstrap(x, M = 10000)
 }
