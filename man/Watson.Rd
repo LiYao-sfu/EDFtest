@@ -8,6 +8,7 @@
 \alias{Watson.logistic}
 \alias{Watson.laplace}
 \alias{Watson.weibull}
+\alias{Watson.extremevalue}
 \alias{Watson.exp}
 \title{Watson statistic}
 \usage{
@@ -22,6 +23,8 @@ Watson.logistic(x, parameter = estimate.logistic(x))
 Watson.laplace(x, parameter = estimate.laplace(x))
 
 Watson.weibull(x, parameter = estimate.weibull(x))
+
+Watson.extremevalue(x)
 
 Watson.exp(x, parameter = estimate.exp(x))
 

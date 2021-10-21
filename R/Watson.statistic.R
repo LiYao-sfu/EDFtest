@@ -85,6 +85,16 @@ Watson.weibull = function(x,parameter=estimate.weibull(x)){
 
 #' @export
 #' @rdname Watson
+Watson.extremevalue <- function(x){
+    xx=(x-mean(x))/sd(x)
+    ww=exp(xx)
+    parameter=estimate.weibull(ww)
+    z <- cdf.weibull(ww,parameter)
+    Watson(z)
+}
+
+#' @export
+#' @rdname Watson
 Watson.exp = function(x,parameter=estimate.exp(x)){
     z <- cdf.exp(x,parameter)
     Watson(z)

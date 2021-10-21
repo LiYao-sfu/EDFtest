@@ -8,6 +8,7 @@
 \alias{AD.logistic.pvalue}
 \alias{AD.laplace.pvalue}
 \alias{AD.weibull.pvalue}
+\alias{AD.extremevalue.pvalue}
 \alias{AD.exp.pvalue}
 \title{P-value of Anderson-Darling statistic}
 \usage{
@@ -22,6 +23,8 @@ AD.logistic.pvalue(a, neig = 100, verbose = FALSE)
 AD.laplace.pvalue(a, neig = 100, verbose = FALSE)
 
 AD.weibull.pvalue(a, neig = 100, verbose = FALSE)
+
+AD.extremevalue.pvalue(a, neig = 100, verbose = FALSE)
 
 AD.exp.pvalue(a, neig = 100, verbose = FALSE)
 }

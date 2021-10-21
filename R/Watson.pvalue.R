@@ -171,6 +171,12 @@ Watson.weibull.pvalue = function(u,neig=100,verbose=FALSE){
 
 #' @export
 #' @rdname Watson.pvalue
+Watson.extremevalue.pvalue = function(u,neig=100,verbose=FALSE){
+  Watson.weibull.pvalue(u=u,neig=neig,verbose=verbose)
+}
+
+#' @export
+#' @rdname Watson.pvalue
 Watson.exp.pvalue = function(u,neig=100,verbose=FALSE){
   e = Watson.exp.eigen(neig)
   plb=pchisq(u/max(e),df=1,lower.tail = FALSE)

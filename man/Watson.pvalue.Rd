@@ -8,6 +8,7 @@
 \alias{Watson.logistic.pvalue}
 \alias{Watson.laplace.pvalue}
 \alias{Watson.weibull.pvalue}
+\alias{Watson.extremevalue.pvalue}
 \alias{Watson.exp.pvalue}
 \title{P-value of Watson statistic}
 \usage{
@@ -22,6 +23,8 @@ Watson.logistic.pvalue(u, neig = 100, verbose = FALSE)
 Watson.laplace.pvalue(u, neig = 100, verbose = FALSE)
 
 Watson.weibull.pvalue(u, neig = 100, verbose = FALSE)
+
+Watson.extremevalue.pvalue(u, neig = 100, verbose = FALSE)
 
 Watson.exp.pvalue(u, neig = 100, verbose = FALSE)
 }

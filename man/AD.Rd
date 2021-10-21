@@ -8,6 +8,7 @@
 \alias{AD.logistic}
 \alias{AD.laplace}
 \alias{AD.weibull}
+\alias{AD.extremevalue}
 \alias{AD.exp}
 \title{Anderson-Darling statistic}
 \usage{
@@ -22,6 +23,8 @@ AD.logistic(x, parameter = estimate.logistic(x))
 AD.laplace(x, parameter = estimate.laplace(x))
 
 AD.weibull(x, parameter = estimate.weibull(x))
+
+AD.extremevalue(x)
 
 AD.exp(x, parameter = estimate.exp(x))
 

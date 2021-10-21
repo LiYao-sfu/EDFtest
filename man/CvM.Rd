@@ -8,6 +8,7 @@
 \alias{CvM.logistic}
 \alias{CvM.laplace}
 \alias{CvM.weibull}
+\alias{CvM.extremevalue}
 \alias{CvM.exp}
 \title{Cramer-von Mises statistic}
 \usage{
@@ -22,6 +23,8 @@ CvM.logistic(x, parameter = estimate.logistic(x))
 CvM.laplace(x, parameter = estimate.laplace(x))
 
 CvM.weibull(x, parameter = estimate.weibull(x))
+
+CvM.extremevalue(x)
 
 CvM.exp(x, parameter = estimate.exp(x))
 

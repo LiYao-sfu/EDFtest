@@ -229,6 +229,12 @@ AD.weibull.pvalue = function(a,neig=100,verbose=FALSE){
 
 #' @export
 #' @rdname AD.pvalue
+AD.extremevalue.pvalue = function(a,neig=100,verbose=FALSE){
+  AD.weibull.pvalue(a=a,neig=neig,verbose=verbose)
+}
+
+#' @export
+#' @rdname AD.pvalue
 AD.exp.pvalue = function(a,neig=100,verbose=FALSE){
   e=AD.exp.eigen(neig)
   plb=pchisq(a/max(e),df=1,lower.tail = FALSE)

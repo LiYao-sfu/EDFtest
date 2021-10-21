@@ -8,6 +8,7 @@
 \alias{CvM.logistic.pvalue}
 \alias{CvM.laplace.pvalue}
 \alias{CvM.weibull.pvalue}
+\alias{CvM.extremevalue.pvalue}
 \alias{CvM.exp.pvalue}
 \title{P-value of Cramer-von Mises statistic}
 \usage{
@@ -22,6 +23,8 @@ CvM.logistic.pvalue(w, neig = 100, verbose = FALSE)
 CvM.laplace.pvalue(w, neig = 100, verbose = FALSE)
 
 CvM.weibull.pvalue(w, neig = 100, verbose = FALSE)
+
+CvM.extremevalue.pvalue(w, neig = 100, verbose = FALSE)
 
 CvM.exp.pvalue(w, neig = 100, verbose = FALSE)
 }

@@ -85,6 +85,16 @@ CvM.weibull <- function(x,parameter=estimate.weibull(x)){
 
 #' @export
 #' @rdname CvM
+CvM.extremevalue <- function(x){
+  xx=(x-mean(x))/sd(x)
+  ww=exp(xx)
+  parameter=estimate.weibull(ww)
+  z <- cdf.weibull(ww,parameter)
+  CvM(z)
+}
+
+#' @export
+#' @rdname CvM
 CvM.exp = function(x,parameter=estimate.exp(x)){
   z = cdf.exp(x,parameter)
   CvM(z)

@@ -171,6 +171,12 @@ CvM.weibull.pvalue = function(w,neig=100,verbose=FALSE){
 
 #' @export
 #' @rdname CvM.pvalue
+CvM.extremevalue.pvalue = function(w,neig=100,verbose=FALSE){
+  CvM.weibull.pvalue(w=w,neig=neig,verbose=verbose)
+}
+
+#' @export
+#' @rdname CvM.pvalue
 CvM.exp.pvalue = function(w,neig=100,verbose=FALSE){
   e=CvM.exp.eigen(neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
