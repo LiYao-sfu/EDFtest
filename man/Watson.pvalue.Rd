@@ -128,6 +128,8 @@ Watson.laplace.pvalue(usq4)
 x5=rweibull(n=100,shape=1,scale=1)
 usq5 = Watson.weibull(x5)
 Watson.weibull.pvalue(usq5)
+x5_log=log(x5)
+Watson.extremevalue.pvalue(Watson.extremevalue(x5_log))
 
 x6=rexp(n=100,rate=1/2)
 usq6 = Watson.exp(x6)

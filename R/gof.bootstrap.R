@@ -34,6 +34,8 @@
 #'
 #' x5=rweibull(n=100,shape=1,scale=1)
 #' gof.weibull.bootstrap(x5,M=100)
+#' x5_log=log(x5)
+#' gof.extremevalue.bootstrap(x5_log,M=100)
 #'
 #' x6=rexp(n=100,rate=1/2)
 #' gof.exp.bootstrap(x6,M=100)

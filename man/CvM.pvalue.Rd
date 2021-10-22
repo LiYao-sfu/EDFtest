@@ -128,6 +128,8 @@ CvM.laplace.pvalue(wsq4)
 x5=rweibull(n=100,shape=1,scale=1)
 wsq5 = CvM.weibull(x5)
 CvM.weibull.pvalue(wsq5)
+x5_log=log(x5)
+CvM.extremevalue.pvalue(CvM.extremevalue(x5_log))
 
 x6=rexp(n=100,rate=1/2)
 wsq6 = CvM.exp(x6)

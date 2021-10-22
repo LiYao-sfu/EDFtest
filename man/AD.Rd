@@ -63,6 +63,8 @@ AD.laplace(x4)
 
 x5=rweibull(n=100,shape=1,scale=1)
 AD.weibull(x5)
+x5_log=log(x5)
+AD.extremevalue(x5_log)
 
 x6=rexp(n=100,rate=1/2)
 AD.exp(x6)

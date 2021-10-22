@@ -128,6 +128,8 @@ AD.laplace.pvalue(asq4)
 x5=rweibull(n=100,shape=1,scale=1)
 asq5 = AD.weibull(x5)
 AD.weibull.pvalue(asq5)
+x5_log=log(x5)
+AD.extremevalue.pvalue(AD.extremevalue(x5_log))
 
 x6=rexp(n=100,rate=1/2)
 asq6 = AD.exp(x6)

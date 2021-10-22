@@ -123,6 +123,8 @@ gof.laplace(x4)
 
 x5=rweibull(n=100,shape=1,scale=1)
 gof.weibull(x5)
+x5_log=log(x5)
+gof.extremevalue(x5_log)
 
 x6=rexp(n=100,rate=1/2)
 gof.exp(x6)
