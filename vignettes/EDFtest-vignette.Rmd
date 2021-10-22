@@ -149,7 +149,7 @@ For the Anderson-Darling test we then divide $R_{ij}$ by $\sqrt{s_i(1-s_i)s_j(1-
 $$
 (I-J)R(I-J)
 $$
-where $I$ is the $m \times m$ identity matrix and $J$ is the $m \times m$ matrix with every entry given by $1/m$. Thus we have swept out row and column means from $R$.  For the built-in cases these adjustments were made in computint $\rho(u,v,\hat\theta)$.
+where $I$ is the $m \times m$ identity matrix and $J$ is the $m \times m$ matrix with every entry given by $1/m$. Thus we have swept out row and column means from $R$.  For the built-in cases these adjustments were made in computing $\rho(u,v,\hat\theta)$.
 
 Steps 4 and 5 are then as in the previous case.
 
