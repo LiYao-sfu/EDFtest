@@ -1,4 +1,4 @@
-#' EDFtest: Goodness-of-fit Tests based on Empirical Distirbution Function
+#' EDFtest: Goodness-of-fit Tests based on Empirical Distribution Function
 #'
 #' \code{EDFtest} provides software for the calculation of goodness-of-fit test statistics
 #' and their P-values. The three statistics computed are the Empirical Distribution

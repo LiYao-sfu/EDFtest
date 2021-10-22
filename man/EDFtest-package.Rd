@@ -3,7 +3,7 @@
 \docType{package}
 \name{EDFtest-package}
 \alias{EDFtest-package}
-\title{EDFtest: Goodness-of-fit Tests based on Empirical Distirbution Function}
+\title{EDFtest: Goodness-of-fit Tests based on Empirical Distribution Function}
 \description{
 \code{EDFtest} provides software for the calculation of goodness-of-fit test statistics
 and their P-values. The three statistics computed are the Empirical Distribution

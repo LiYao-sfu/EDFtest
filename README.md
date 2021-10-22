@@ -59,4 +59,4 @@ library("EDFtest")
 This package is still under development. EDF test for regression models and discrete distributions 
 will be available for the future releases.
 
-If you encounter a clear bug, You could create an issue on github. For other questions, please contact Li Yao by <yaoliy@sfu.ca>.
+If you encounter a clear bug, You could create an issue on GitHub. For other questions, please contact Li Yao by <yaoliy@sfu.ca>.
