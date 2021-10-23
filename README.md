@@ -31,6 +31,12 @@ Authors:
 *   [Richard Lockhart](http://www.sfu.ca/~lockhart/),
     <lockhart@sfu.ca>
 
+Papers:
+
+*   Stephens, M.A. (1974). [EDF Statistics for Goodness of Fit and Some Comparisons.](https://www.jstor.org/stable/2286009?seq=4#metadata_info_tab_contents) *Journal of the American Statistical Association*, Vol. 69, 730-737.
+*   Stephens, M.A. (1976). [Asymptotic results for goodness-of-fit statistics
+     with unknown parameters.](https://projecteuclid.org/journals/annals-of-statistics/volume-4/issue-2/Asymptotic-Results-for-Goodness-of-Fit-Statistics-with-Unknown-Parameters/10.1214/aos/1176343411.full) *Annals of Statistics*, Vol. 4, 357-369.
+
 
 ## Installation
 There are several ways you can install GitHub packages into R. For example,
