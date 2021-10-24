@@ -35,7 +35,7 @@ Papers:
 
 *   Stephens, M.A. (1974). [EDF Statistics for Goodness of Fit and Some Comparisons.](https://doi.org/10.2307/2286009) *Journal of the American Statistical Association*, Vol. 69, 730-737.
 *   Stephens, M.A. (1976). [Asymptotic results for goodness-of-fit statistics
-     with unknown parameters.](https://doi.org/10.1214/aos/1176343411) *Annals of Statistics*, Vol. 4, 357-369.
+     with unknown parameters.](https://scholar.google.com/scholar_url?url=https://projecteuclid.org/journals/annals-of-statistics/volume-4/issue-2/Asymptotic-Results-for-Goodness-of-Fit-Statistics-with-Unknown-Parameters/10.1214/aos/1176343411.pdf&hl=en&sa=T&oi=ucasa&ct=ufr&ei=Wmd0YePQH_iM6rQPgq2vuAg&scisig=AAGBfm09GbS_cTMrgCfM7KEYz6yjOKMUfQ) *Annals of Statistics*, Vol. 4, 357-369.
 
 
 ## Installation
