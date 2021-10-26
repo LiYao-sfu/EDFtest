@@ -23,6 +23,13 @@ distribution `Fdist` with unknown parameter values theta. Estimates of theta mus
 It uses a large sample approximation to the limit distribution based on the use of the score function components
 to estimate the Fisher information and the limiting covariance function of the empirical process.
 
+For the future releases, `EDFtest` package will include regression models in which a response Y is related to predictors X. 
+The model specifies the conditional distribution of Y given X.  It will contains codes
+for situations where the conditional distribution is one of the list given above.  The 
+following models are handled:
+
+Linear regression with homosecdastic errors: <img src="https://render.githubusercontent.com/render/math?math=Y_i"> has a N(<img src="https://render.githubusercontent.com/render/math?math=X_i \beta, \sigma^2">) distribution given <img src="https://render.githubusercontent.com/render/math?math=X_i">.
+
 
 Authors:
 

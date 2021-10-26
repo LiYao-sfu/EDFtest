@@ -44,18 +44,6 @@ estimate.normal.regression=function(x,y,fit.intercept=TRUE){
   c(sigma.hat,coeff.hat)
 }
 
-#'
-#' @rdname estimate.normal.regression
-estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
-  data=data.frame(y=y,x=x)
-  require(L1pack)
-  if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
-  n = length(y)
-  r = residuals(fit)
-  coeff.hat = coefficients(fit)
-  sigma.hat = fit$scale
-  c(sigma.hat,coeff.hat)
-}
 
 #'
 #' @rdname estimate.normal.regression
@@ -99,6 +87,20 @@ estimate.gamma.regression = function(fit,x,y,link = "log"){
   pp = length(thetahat)
   thetahat[pp] = 1/thetahat[pp]
   list(thetahat = thetahat, model.matrix = xx,optim.output = w)
+}
+
+
+#'
+#' @rdname estimate.normal.regression
+estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
+  data=data.frame(y=y,x=x)
+  require(L1pack)
+  if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
+  n = length(y)
+  r = residuals(fit)
+  coeff.hat = coefficients(fit)
+  sigma.hat = fit$scale
+  c(sigma.hat,coeff.hat)
 }
 
 
