@@ -42,10 +42,10 @@ CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.gamma.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+CvM.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
-  e = CvM.gamma.regression.eigen(x,neig=neig)
+  e = CvM.gamma.regression.eigen(x,theta=theta,link=link,neig=neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
   im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
@@ -157,10 +157,10 @@ CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE)
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.exp.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+CvM.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
-  e = CvM.exp.regression.eigen(x,neig=neig)
+  e = CvM.exp.regression.eigen(x,theta=theta,link=link,neig=neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
   im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
@@ -270,6 +270,52 @@ CvM.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
   M=CvM.gamma.regression.covmat(x,theta=theta,link=link,neig=neig)
   e=eigen(M)$values/neig
   e # *mean.wsq.gamma/sum(e) but this correction is not available yet
+}
+
+
+CvM.exp.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
+    #
+    # returns the estimated Fisher Information per point
+    # for an exponential regression model in which the log mean is predicted
+    # linearly from a matrix of covariates x
+    # Normally x will contain an intercept term
+    #
+    pp=length(theta)
+    eta = x %*% theta
+    if( link == "log") {
+      invlink = exp
+      linkder = exp
+    }
+    if( link == "inverse" ) {
+      invlink = function(w) 1/w
+      linkder = function(w) -1/w^2
+    }
+    if( link == "identity" ) {
+      invlink = function(w) w
+      lindker = function(w) 1
+    }
+    mu = invlink(eta)
+    deriv = linkder(eta)
+    W = x * rep(deriv,p)
+    M = t(W)%*%W/n  # should be p by p
+    FI[1:p,1:p]=(1/mu^2) * M          # !!!  This code is broken
+  s = 1:n
+  s = s/(n+1)
+  M1 = outer(s,s,pmin)-outer(s,s)
+  Q = qgamma(s,shape=shape)
+  D = dgamma(Q,shape=shape)
+  M2 = - Q * D
+  M1-M2%*%solve(FI,t(M2))
+}
+
+
+
+CvM.exp.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
+  p=dim(x)[2]
+  n=dim(x)[1]
+  M=CvM.exp.regression.covmat(x,theta=theta,link=link,neig=neig)
+  e=eigen(M)$values/neig
+  e # *mean.wsq.exp/sum(e) but this correction is not available yet
 }
 
 
