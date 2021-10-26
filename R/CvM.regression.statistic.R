@@ -17,6 +17,44 @@ NULL
 
 #' @export
 #' @rdname CvM.regression
+CvM.normal.regression <- function(y,x,parameter=estimate.normal.regression(y,x)){
+  pp=length(parameter)
+  p=pp-1
+  beta = parameter[-pp]
+  sigma = parameter[pp]
+  mu = x %*% beta
+  z <- pnorm(y,mean=mu,sd=sigma)
+  CvM(z)
+}
+
+
+#' @export
+#' @rdname CvM.regression
+CvM.logistic.regression <- function(y,x,parameter=estimate.logistic.regression(y,x)){
+  pp=length(parameter)
+  p=pp-1
+  beta = parameter[-pp]
+  sigma = parameter[pp]
+  mu = x %*% beta
+  z <- plogis(y,location=mu,scale=sigma)
+  CvM(z)
+}
+
+#' @export
+#' @rdname CvM.regression
+CvM.laplace.regression <- function(y,x,parameter=estimate.laplace.regression(y,x)){
+  pp=length(parameter)
+  p=pp-1
+  beta = parameter[-pp]
+  sigma = parameter[pp]
+  mu = x %*% beta
+  z <- plaplace(y,m=mu,s=sigma)
+  CvM(z)
+}
+
+
+#' @export
+#' @rdname CvM.regression
 CvM.weibull.regression <- function(y,x,parameter=estimate.weibull.regression(y,x)){
   pp=length(parameter)
   p=pp-1
@@ -28,6 +66,41 @@ CvM.weibull.regression <- function(y,x,parameter=estimate.weibull.regression(y,x
   CvM(z)
 }
 
+#' @export
+#' @rdname CvM.regression
+CvM.extremevalue.regression <- function(y,x,parameter=estimate.extremevalue.regression(y,x)){
+  pp=length(parameter)
+  p=pp-1
+  beta = parameter[-pp]
+  sigma = parameter[pp]
+  yy=(y-x %*% beta)/sigma
+  z = exp(-exp(yy))
+  CvM(z)
+}
+
+
+#' @export
+#' @rdname CvM.regression
+CvM.exp.regression <- function(y,x,parameter=estimate.exp.regression(y,x)){
+  p=length(parameter)
+  beta = parameter
+  scale = exp(x %*% beta)
+  z <- pexp(y,scale=scale)
+  CvM(z)
+}
+
+
+#' @export
+#' @rdname AD.regression
+AD.extremevalue.regression <- function(y,x,parameter=estimate.extremevalue.regression(y,x)){
+  pp=length(parameter)
+  p=pp-1
+  beta = parameter[-pp]
+  sigma = parameter[pp]
+  yy=(y-x %*% beta)/sigma
+  z = exp(-exp(yy))
+  AD(z)
+}
 
 # Helpers -----------------------------------------------------------------
 

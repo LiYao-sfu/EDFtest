@@ -94,7 +94,6 @@ estimate.gamma.regression = function(fit,x,y,link = "log"){
 #' @rdname estimate.normal.regression
 estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
   data=data.frame(y=y,x=x)
-  require(L1pack)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
   n = length(y)
   r = residuals(fit)
@@ -115,13 +114,12 @@ estimate.weibull.regression <- function(y,x,detail=FALSE){
   #
   w=log(y)-digamma(1)
   fit = lm(w~x-1)
-  # print(summary(fit))
   beta.start = coef(fit)[-1]
   int.start = coef(fit)[1]+digamma(1)
   sigma.start =  summary(fit)$sigma*6/pi^2
 
   theta = c(int.start,beta.start,sigma.start)
-  #  print(theta)
+
   f = function(theta,response,predictor){
     -ell.extremevalue.regression(response,predictor,theta)
   }
@@ -131,18 +129,101 @@ estimate.weibull.regression <- function(y,x,detail=FALSE){
   D2 = function(theta,response,predictor){
     -apply(hessianarray.extremevalue.regression(response,predictor,theta),c(2,3),sum)
   }
-  # cat("Initial Log Likelihood ", f(theta,log(y),x),"\n")
-  # cat("Initial Score ", D1(theta,log(y),x),"\n")
-  # cat("Initial Hessian\n")
-  # print(D2(theta,log(y),x))
-  # print(eigen(D2(theta,log(y),x))$values)
   Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
                                 epsa=0.001,#print.info=TRUE,
                                 minimize = TRUE,maxiter=500,response = log(y),predictor=x)
   thetahat = Marq$b
-  # print(Marq)
-  # print(rbind(thetahat,theta))
   if(detail) return(list(thetahat = thetahat, Marq = Marq))
   thetahat
 }
+
+
+estimate.extremevalue.regression <- function(y,x,detail=FALSE){
+  #
+  # Use the Marquardt-Levenberg algorithm to fit an Extreme value regression
+  #  model in which the response is predicted by x
+  # The scale parameter is taken to be x^\top beta .
+  # To get initial values we do linear regression remembering
+  #  that y -x^\top beta has mean -gamma and variance pi^2/6
+  #  where gamma is Euler's constant.
+  #
+  w=y-digamma(1)
+  fit = lm(w~x-1)
+  beta.start = coef(fit)[-1]
+  int.start = coef(fit)[1]+digamma(1)
+  sigma.start =  summary(fit)$sigma*6/pi^2
+
+  theta = c(int.start,beta.start,sigma.start)
+
+  f = function(theta,response,predictor){
+    -ell.extremevalue.regression(response,predictor,theta)
+  }
+  D1 = function(theta,response,predictor){
+    -apply(score.extremevalue.regression(response,predictor,theta),2,sum)
+  }
+  D2 = function(theta,response,predictor){
+    -apply(hessianarray.extremevalue.regression(response,predictor,theta),c(2,3),sum)
+  }
+  Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
+                                epsa=0.001,#print.info=TRUE,
+                                minimize = TRUE,maxiter=500,response = y,predictor=x)
+  thetahat = Marq$b
+  if(detail) return(list(thetahat = thetahat, Marq = Marq))
+  thetahat
+}
+
+# Helpers -------------------------------------
+
+
+score.extremevalue.regression = function(y,x,theta){
+  pp=length(theta)
+  n=length(y)
+  p=pp-1
+  beta = theta[1:p]
+  sigma = theta[pp]
+  mu = x %*% beta
+  r = (y-mu) / sigma
+  ua = x*rep((exp(r)-1) / sigma, p)
+  us = ( r*exp(r) -r -1) / sigma
+  cbind(ua,us)
+}
+
+hessianarray.extremevalue.regression = function(y,x,theta){
+  pp=length(theta)
+  n=length(y)
+  p=pp-1
+  beta = theta[1:p]
+  sigma = theta[pp]
+  mu = x %*% beta
+  r = (y-mu) / sigma
+  er = exp(r)
+  umbit= -er/ sigma^2
+  H = array(0,dim=c(n,pp,pp))
+  umm = array(0,dim=c(n,p,p))
+  for( i in 1:n) umm[i,,]= outer(umbit[i]*x[i,],x[i,])
+  ums = -x*rep( (r*er +er -1) / sigma^2,p)
+  uss = (-(r^2)*er -2*r*er+2*r + 1)/sigma^2
+  H[,1:p,1:p] = umm
+  H[,pp,1:p] = ums
+  H[,1:p,pp] = ums
+  H[,pp,pp]  = uss
+  H
+}
+
+ell.extremevalue.regression = function(y,x,theta){
+  pp=length(theta)
+  n=length(y)
+  p=pp-1
+  beta = theta[1:p]
+  sigma = theta[pp]
+  mu = x %*% beta
+  r = (y-mu) / sigma
+  er = exp(r)
+  # print(-n*log(sigma) + sum(r-er))
+  (-n*log(sigma) + sum(r-er))
+}
+
+
+
+
 

@@ -108,6 +108,51 @@ CvM.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 }
 
 
+#' @export
+#' @rdname CvM.regression.pvalue
+CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+  p=dim(x)[2]
+  n=dim(x)[1]
+  e = CvM.weibull.regression.eigen(x,neig=neig)
+  plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for W = ",w," using = ",neig,
+                      " eigenvalues, imhof returned a negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for W = ",w," using = ",neig,
+                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+
+#' @export
+#' @rdname CvM.regression.pvalue
+CvM.exp.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+  p=dim(x)[2]
+  n=dim(x)[1]
+  e = CvM.exp.regression.eigen(x,neig=neig)
+  plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for W = ",w," using = ",neig,
+                      " eigenvalues, imhof returned a negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for W = ",w," using = ",neig,
+                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
 # Helpers -----------------------------------------------------------------
 
 
