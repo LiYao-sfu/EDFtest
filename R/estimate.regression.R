@@ -46,7 +46,7 @@ estimate.normal.regression=function(x,y,fit.intercept=TRUE){
 
 
 #'
-#' @rdname estimate.normal.regression
+#' @rdname estimate.gamma.regression
 estimate.gamma.regression = function(fit,x,y,link = "log"){
   #
   #  This function uses glm to get initial values for maximum
@@ -88,6 +88,50 @@ estimate.gamma.regression = function(fit,x,y,link = "log"){
   thetahat[pp] = 1/thetahat[pp]
   list(thetahat = thetahat, model.matrix = xx,optim.output = w)
 }
+
+
+#'
+#' @rdname estimate.exp.regression
+estimate.exp.regression = function(fit,x,y,link = "log"){
+  #
+  #  This function uses glm to get initial values for maximum
+  #   likelihood fits of a model in which link(E(y)) =x %*% coefs
+  #  We will test that the $y$ have exponential distributions with mean
+  #    invlink(x %*% coefs).
+  #    GLM gives us initial estimates of coefs
+  #  The dispersion  is 1/alpha.
+  #  Then optim is used to ensure we have found find the mle.
+  #
+  #  We allow the three link functions used by glm for the Gamma family
+  #  So far we don't check that one of the possibilities is actually called.
+  #  The code will crash if not.
+  #
+  if(missing(fit)){
+    if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
+    fit = glm(y~x, family = Gamma(link = link))
+  }
+  xx = model.matrix(fit)
+  betastart = coef(fit)
+  # cat("Initial values ",betastart,"\n")
+  if( link == "log" ) invlink = exp
+  if( link == "inverse" ) invlink = function(w) 1/w
+  if( link == "identity" ) invlink = function(w) w
+  ell = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    pp = length(th)
+    coefs = th
+    mu = invlink(xx %*% th)
+    ell = -log(mu) -y/mu 
+    -sum(ell)
+  }
+    #
+  # Might be better to rewrite using MarqLev
+  #
+  w = optim(par = betastart, ell, xx=xx,y=y,invlink=invlink)
+  thetahat = w$par
+  list(thetahat = thetahat, model.matrix = xx,optim.output = w)
+}
+
 
 
 #'
