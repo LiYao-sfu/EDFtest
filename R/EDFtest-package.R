@@ -32,4 +32,5 @@
 #' @import stats
 #' @importFrom CompQuadForm imhof
 #' @importFrom rmutil rlaplace
+#' @importFrom marqLevAlg marqLevAlg
 NULL
