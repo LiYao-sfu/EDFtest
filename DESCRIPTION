@@ -1,7 +1,7 @@
 Package: EDFtest
 Type: Package
 Title: Goodness of Fit Based on Empirical Distribution Function
-Version: 0.1.0
+Version: 0.1.0.9000
 Date: 2021-10-22
 Description: This repository contains software for the calculation of goodness-of-fit test statistics and their P-values. The three statistics computed are the Empirical Distribution function statistics called Cramer-von Mises, Anderson-Darling, and Watson statistics. The statistics and their P-values can be used to assess an assumed distribution.The following distributions are available: Uniform, Normal, Gamma, Logistic, Laplace, Weibull, Extreme Value, and Exponential.
 Authors@R: c(
