@@ -28,6 +28,25 @@ CvM.normal.regression <- function(y,x,parameter=estimate.normal.regression(y,x))
 }
 
 
+
+#' @export
+#' @rdname CvM.regression
+CvM.gamma.regression <- function(y,x,link="log",parameter=estimate.gamma.regression(fit,x,y,link = link)){
+  pp=length(parameter)
+  p=pp-1
+  beta = parameter[-pp]
+  shape = parameter[pp]
+  if( link == "log" ) invlink = exp
+  if( link == "inverse" ) invlink = function(w) 1/w
+  if( link == "identity" ) invlink = function(w) w
+  mu = invlink(x %*% beta)
+  scale = mu/shape
+  z <- pgamma(y,shape=shape,scale = scale)
+  CvM(z)
+}
+
+
+
 #' @export
 #' @rdname CvM.regression
 CvM.logistic.regression <- function(y,x,parameter=estimate.logistic.regression(y,x)){
