@@ -39,6 +39,30 @@ CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 }
 
 
+
+#' @export
+#' @rdname CvM.regression.pvalue
+CvM.gamma.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+  p=dim(x)[2]
+  n=dim(x)[1]
+  e = CvM.gamma.regression.eigen(x,neig=neig)
+  plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
+  warn=getOption("warn")
+  im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
+  options(warn=warn)
+  aerror=im$abserr
+  p=im$Qq
+  if(p<0&&verbose)cat("for W = ",w," using = ",neig,
+                      " eigenvalues, imhof returned a negative probability\n")
+  if(p<plb){
+    p=plb
+    if(verbose) cat("for W = ",w," using = ",neig,
+                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+  }
+  list(P=p,error=aerror)
+}
+
+
 #' @export
 #' @rdname CvM.regression.pvalue
 CvM.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
@@ -185,7 +209,7 @@ CvM.normal.regression.covmat=function(x,m=max(n,100)){
 }
 
 
-CvM.gamma.regression.covmat=function(x,theta,link="log"){
+CvM.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
   fisher.information.gamma=function(x,theta){
     #
     # returns the estimated Fisher Information per point
@@ -236,6 +260,16 @@ CvM.gamma.regression.covmat=function(x,theta,link="log"){
   }
   M2 = cbind(G1,G2)
   M1-M2%*%solve(FI,t(M2))
+}
+
+
+
+CvM.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
+  p=dim(x)[2]
+  n=dim(x)[1]
+  M=CvM.gamma.regression.covmat(x,theta=theta,link=link,neig=neig)
+  e=eigen(M)$values/neig
+  e # *mean.wsq.gamma/sum(e) but this correction is not available yet
 }
 
 
