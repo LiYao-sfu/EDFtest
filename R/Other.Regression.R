@@ -125,14 +125,3 @@ score.gamma.regression = function(y,x,thetahat,link="log"){
 }
 
 
-#' @export
-#' @rdname AD.regression
-AD.extremevalue.regression <- function(y,x,parameter=estimate.extremevalue.regression(y,x)){
-  pp=length(parameter)
-  p=pp-1
-  beta = parameter[-pp]
-  sigma = parameter[pp]
-  yy=(y-x %*% beta)/sigma
-  z = exp(-exp(yy))
-  AD(z)
-}
