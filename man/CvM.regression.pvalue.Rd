@@ -3,18 +3,41 @@
 \name{CvM.regression.pvalue}
 \alias{CvM.regression.pvalue}
 \alias{CvM.normal.regression.pvalue}
+\alias{CvM.gamma.regression.pvalue}
 \alias{CvM.logistic.regression.pvalue}
 \alias{CvM.laplace.regression.pvalue}
 \alias{CvM.weibull.regression.pvalue}
+\alias{CvM.extremevalue.regression.pvalue}
+\alias{CvM.exp.regression.pvalue}
 \title{P-value of Cramer-von Mises statistic for regression}
 \usage{
 CvM.normal.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+
+CvM.gamma.regression.pvalue(
+  w,
+  x,
+  theta,
+  link = "log",
+  neig = max(n, 100),
+  verbose = FALSE
+)
 
 CvM.logistic.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
 
 CvM.laplace.regression.pvalue(w, xneig = max(100, n), verbose = FALSE)
 
 CvM.weibull.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+
+CvM.extremevalue.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+
+CvM.exp.regression.pvalue(
+  w,
+  x,
+  theta,
+  link = "log",
+  neig = max(n, 100),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{w}{Cramér-von Mises statistic \eqn{W^2} with a given distribution.}

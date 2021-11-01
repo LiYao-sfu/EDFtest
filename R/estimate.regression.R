@@ -12,29 +12,49 @@
 #'
 #' @return Estimated sigma and coefficients of a linear regression.
 #'
+#' @seealso
 #'
+#' @name estimate.regression
 #' @examples
-#' # OLS regression ------------------------------------
 #' n = 500
 #' p = 3
 #' beta = c(1,2,3)
 #' x = rnorm(n*(p-1))
 #' x = c(rep(1,n),x)
 #' x = matrix(x,n,p)
+#'
+#' # OLS regression
 #' mean = x%*%(beta)
 #' sd = 2
 #' y =rnorm(n,mean=mean,sd=sd)
 #' estimate.normal.regression(x,y)
 #'
-#' # LAD regression ------------------------------------
+#' # LAD regression
+#' library(L1pack)
 #' y =L1pack::rlaplace(n=n, location=mean, scale=sd)
 #' estimate.laplace.regression(x,y,FALSE)
 #'
-#' # Gamma regression ----------------------------------
+#' # Gamma regression
 #' alpha = 3
 #' scale=exp(x %*% beta) / alpha
 #' y =rgamma(n=n,shape=alpha,scale=scale)
 #' estimate.gamma.regression(x,y)
+#'
+#' # Exponential regression
+#' y =rexp(n=n,rate=1/exp(mean))
+#' estimate.exp.regression(x,y)
+#'
+#' # Weibull regression
+#'
+#'
+#' # Extreme Value regression
+#'
+#'
+NULL
+
+
+#' @export
+#' @rdname estimate.regression
 estimate.normal.regression=function(x,y,fit.intercept=TRUE){
   if(fit.intercept)fit=lm(y~x[,-1]) else fit = lm(y~x-1)
   n = length(y)
@@ -45,8 +65,8 @@ estimate.normal.regression=function(x,y,fit.intercept=TRUE){
 }
 
 
-#'
-#' @rdname estimate.gamma.regression
+#' @export
+#' @rdname estimate.regression
 estimate.gamma.regression = function(fit,x,y,link = "log"){
   #
   #  This function uses glm to get initial values for maximum
@@ -90,8 +110,8 @@ estimate.gamma.regression = function(fit,x,y,link = "log"){
 }
 
 
-#'
-#' @rdname estimate.exp.regression
+#' @export
+#' @rdname estimate.regression
 estimate.exp.regression = function(fit,x,y,link = "log"){
   #
   #  This function uses glm to get initial values for maximum
@@ -121,10 +141,10 @@ estimate.exp.regression = function(fit,x,y,link = "log"){
     pp = length(th)
     coefs = th
     mu = invlink(xx %*% th)
-    ell = -log(mu) -y/mu 
+    ell = -log(mu) -y/mu
     -sum(ell)
   }
-    #
+  #
   # Might be better to rewrite using MarqLev
   #
   w = optim(par = betastart, ell, xx=xx,y=y,invlink=invlink)
@@ -133,9 +153,8 @@ estimate.exp.regression = function(fit,x,y,link = "log"){
 }
 
 
-
-#'
-#' @rdname estimate.normal.regression
+#' @export
+#' @rdname estimate.regression
 estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
   data=data.frame(y=y,x=x)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
@@ -147,6 +166,8 @@ estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
 }
 
 
+#' @export
+#' @rdname estimate.regression
 estimate.weibull.regression <- function(y,x,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a weibull regression
@@ -182,6 +203,8 @@ estimate.weibull.regression <- function(y,x,detail=FALSE){
 }
 
 
+#' @export
+#' @rdname estimate.regression
 estimate.extremevalue.regression <- function(y,x,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit an Extreme value regression
@@ -215,6 +238,7 @@ estimate.extremevalue.regression <- function(y,x,detail=FALSE){
   if(detail) return(list(thetahat = thetahat, Marq = Marq))
   thetahat
 }
+
 
 # Helpers -------------------------------------
 

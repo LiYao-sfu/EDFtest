@@ -15,6 +15,7 @@
 #'
 NULL
 
+
 #' @export
 #' @rdname CvM.regression
 CvM.normal.regression <- function(y,x,parameter=estimate.normal.regression(y,x)){
@@ -26,7 +27,6 @@ CvM.normal.regression <- function(y,x,parameter=estimate.normal.regression(y,x))
   z <- pnorm(y,mean=mu,sd=sigma)
   CvM(z)
 }
-
 
 
 #' @export
@@ -46,7 +46,6 @@ CvM.gamma.regression <- function(y,x,link="log",parameter=estimate.gamma.regress
 }
 
 
-
 #' @export
 #' @rdname CvM.regression
 CvM.logistic.regression <- function(y,x,parameter=estimate.logistic.regression(y,x)){
@@ -58,6 +57,7 @@ CvM.logistic.regression <- function(y,x,parameter=estimate.logistic.regression(y
   z <- plogis(y,location=mu,scale=sigma)
   CvM(z)
 }
+
 
 #' @export
 #' @rdname CvM.regression
@@ -84,6 +84,7 @@ CvM.weibull.regression <- function(y,x,parameter=estimate.weibull.regression(y,x
   z <- pweibull(y,shape=shape,scale =scale)
   CvM(z)
 }
+
 
 #' @export
 #' @rdname CvM.regression

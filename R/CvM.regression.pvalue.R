@@ -16,6 +16,7 @@
 #'
 NULL
 
+
 #' @export
 #' @rdname CvM.regression.pvalue
 CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
@@ -37,7 +38,6 @@ CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
   }
   list(P=p,error=aerror)
 }
-
 
 
 #' @export

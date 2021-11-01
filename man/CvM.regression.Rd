@@ -2,10 +2,37 @@
 % Please edit documentation in R/CvM.regression.statistic.R
 \name{CvM.regression}
 \alias{CvM.regression}
+\alias{CvM.normal.regression}
+\alias{CvM.gamma.regression}
+\alias{CvM.logistic.regression}
+\alias{CvM.laplace.regression}
 \alias{CvM.weibull.regression}
+\alias{CvM.extremevalue.regression}
+\alias{CvM.exp.regression}
 \title{Cramer-von Mises statistic for regression}
 \usage{
+CvM.normal.regression(y, x, parameter = estimate.normal.regression(y, x))
+
+CvM.gamma.regression(
+  y,
+  x,
+  link = "log",
+  parameter = estimate.gamma.regression(fit, x, y, link = link)
+)
+
+CvM.logistic.regression(y, x, parameter = estimate.logistic.regression(y, x))
+
+CvM.laplace.regression(y, x, parameter = estimate.laplace.regression(y, x))
+
 CvM.weibull.regression(y, x, parameter = estimate.weibull.regression(y, x))
+
+CvM.extremevalue.regression(
+  y,
+  x,
+  parameter = estimate.extremevalue.regression(y, x)
+)
+
+CvM.exp.regression(y, x, parameter = estimate.exp.regression(y, x))
 }
 \arguments{
 \item{y}{response variable}
