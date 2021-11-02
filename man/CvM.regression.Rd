@@ -56,21 +56,18 @@ CvM.exp.regression(y, x, parameter = estimate.exp.regression(y, x))
 n = 500
 p = 3
 beta = c(1,2,3)
-x = rnorm(n*(p-1))
-x = c(rep(1,n),x)
+x = rnorm(n*(p))
+#x = c(rep(1,n),x)
 x = matrix(x,n,p)
-
 # OLS regression
 mean = x\%*\%(beta)
 #apply the link to get the mean
 #generate data with that mean,
 
-
-
 sd = 2
 y =rnorm(n,mean=mean,sd=sd)
-estimate.normal.regression(x=x,y=y)
-CvM.normal.regression(x=x,y=y)
+estimate.normal.regression(x=x,y=y,fit.intercept=TRUE)
+CvM.normal.regression(x=x,y=y,fit.intercept=TRUE) # mean(cvm)=.06
 
 
 }

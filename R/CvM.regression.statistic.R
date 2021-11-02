@@ -23,8 +23,6 @@
 #' #apply the link to get the mean
 #' #generate data with that mean,
 #'
-#'
-#'
 #' sd = 2
 #' y =rnorm(n,mean=mean,sd=sd)
 #' estimate.normal.regression(x=x,y=y,fit.intercept=TRUE)
@@ -42,7 +40,6 @@ CvM.normal.regression <- function(x,y,fit.intercept = TRUE,
   if(fit.intercept){
     x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
   }
-  #pp=length(parameter)
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]

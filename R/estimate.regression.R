@@ -28,8 +28,6 @@
 #' #apply the link to get the mean
 #' #generate data with that mean,
 #'
-#'
-#'
 #' sd = 2
 #' y =rnorm(n,mean=mean,sd=sd)
 #' estimate.normal.regression(x,y)
@@ -188,11 +186,7 @@ estimate.weibull.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE){
   #  where gamma is Euler's constant.
   #
   w=log(y)-digamma(1)
-  if(fit.intercept){
-    fit = lm(w~x)
-  }else{
-    fit = lm(w~x-1)
-  }
+  if(fit.intercept) fit = lm(w~x) else fit = lm(w~x-1)
   beta.start = coef(fit)[-1]
   int.start = coef(fit)[1]+digamma(1)
   sigma.start =  summary(fit)$sigma*6/pi^2
@@ -229,7 +223,7 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
   #  where gamma is Euler's constant.
   #
   w=y-digamma(1)
-  fit = lm(w~x-1)
+  if(fit.intercept) fit = lm(w~x) else fit = lm(w~x-1)
   beta.start = coef(fit)[-1]
   int.start = coef(fit)[1]+digamma(1)
   sigma.start =  summary(fit)$sigma*6/pi^2

@@ -51,8 +51,6 @@ mean = x\%*\%(beta)
 #apply the link to get the mean
 #generate data with that mean,
 
-
-
 sd = 2
 y =rnorm(n,mean=mean,sd=sd)
 estimate.normal.regression(x,y)
