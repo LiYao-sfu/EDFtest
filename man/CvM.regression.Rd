@@ -11,7 +11,12 @@
 \alias{CvM.exp.regression}
 \title{Cramer-von Mises statistic for regression}
 \usage{
-CvM.normal.regression(y, x, parameter = estimate.normal.regression(y, x))
+CvM.normal.regression(
+  x,
+  y,
+  fit.intercept = TRUE,
+  parameter = estimate.normal.regression(x, y, fit.intercept = fit.intercept)
+)
 
 CvM.gamma.regression(
   y,
@@ -35,9 +40,9 @@ CvM.extremevalue.regression(
 CvM.exp.regression(y, x, parameter = estimate.exp.regression(y, x))
 }
 \arguments{
-\item{y}{response variable}
-
 \item{x}{explanatory variables}
+
+\item{y}{response variable}
 
 \item{parameter}{estimates of regression parameters}
 }
@@ -48,6 +53,25 @@ CvM.exp.regression(y, x, parameter = estimate.exp.regression(y, x))
 
 }
 \examples{
+n = 500
+p = 3
+beta = c(1,2,3)
+x = rnorm(n*(p-1))
+x = c(rep(1,n),x)
+x = matrix(x,n,p)
+
+# OLS regression
+mean = x\%*\%(beta)
+#apply the link to get the mean
+#generate data with that mean,
+
+
+
+sd = 2
+y =rnorm(n,mean=mean,sd=sd)
+estimate.normal.regression(x=x,y=y)
+CvM.normal.regression(x=x,y=y)
+
 
 }
 \seealso{

@@ -51,6 +51,9 @@
 #' CvM.exp.pvalue(wsq6)
 NULL
 
+#MC: neig = 100 and 400 to see theres a difference.
+
+
 #' @export
 #' @rdname CvM.pvalue
 CvM.uniform.pvalue = function(w,neig=100,verbose=FALSE){

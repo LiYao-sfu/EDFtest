@@ -25,6 +25,11 @@
 #'
 #' # OLS regression
 #' mean = x%*%(beta)
+#' #apply the link to get the mean
+#' #generate data with that mean,
+#'
+#'
+#'
 #' sd = 2
 #' y =rnorm(n,mean=mean,sd=sd)
 #' estimate.normal.regression(x,y)
@@ -38,36 +43,38 @@
 #' alpha = 3
 #' scale=exp(x %*% beta) / alpha
 #' y =rgamma(n=n,shape=alpha,scale=scale)
-#' estimate.gamma.regression(x,y)
+#' estimate.gamma.regression(x=x,y=y,intercept=FALSE)
 #'
 #' # Exponential regression
 #' y =rexp(n=n,rate=1/exp(mean))
-#' estimate.exp.regression(x,y)
+#' estimate.exp.regression(x=x,y=y)
 #'
 #' # Weibull regression
-#'
+#' y = rweibull(n=n,shape=1,scale=exp(mean))
+#' estimate.weibull.regression(x=x,y=y)
 #'
 #' # Extreme Value regression
-#'
+#' y = log(rweibull(n=n,shape=1,scale=exp(mean)))
+#' estimate.extremevalue.regression(x=x,y=y)
 #'
 NULL
 
 
 #' @export
 #' @rdname estimate.regression
-estimate.normal.regression=function(x,y,fit.intercept=TRUE){
-  if(fit.intercept)fit=lm(y~x[,-1]) else fit = lm(y~x-1)
+estimate.normal.regression=function(x,y,fit,fit.intercept=TRUE){
+  if(fit.intercept)fit=lm(y~x) else fit = lm(y~x-1)
   n = length(y)
   r = residuals(fit)
   coeff.hat = coefficients(fit)
   sigma.hat = sqrt(mean(r^2)*n/(fit$df.residual))
-  c(sigma.hat,coeff.hat)
+  c(coeff.hat,sigma.hat)
 }
 
 
 #' @export
 #' @rdname estimate.regression
-estimate.gamma.regression = function(fit,x,y,link = "log"){
+estimate.gamma.regression = function(x,y,fit,link = "log",fit.intercept=TRUE){
   #
   #  This function uses glm to get initial values for maximum
   #   likelihood fits of a model in which link(E(y)) =x %*% coefs
@@ -81,9 +88,11 @@ estimate.gamma.regression = function(fit,x,y,link = "log"){
   #  So far we don't check that one of the possibilities is actually called.
   #  The code will crash if not.
   #
+
   if(missing(fit)){
     if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
-    fit = glm(y~x, family = Gamma(link = link))
+    if(fit.intercept) {fit = glm(y~x, family = Gamma(link = link))}
+    else{fit = glm(y~x-1, family = Gamma(link = link))}
   }
   xx = model.matrix(fit)
   betastart = coef(fit)
@@ -112,7 +121,7 @@ estimate.gamma.regression = function(fit,x,y,link = "log"){
 
 #' @export
 #' @rdname estimate.regression
-estimate.exp.regression = function(fit,x,y,link = "log"){
+estimate.exp.regression = function(x,y,fit,link = "log",fit.intercept=TRUE){
   #
   #  This function uses glm to get initial values for maximum
   #   likelihood fits of a model in which link(E(y)) =x %*% coefs
@@ -128,7 +137,8 @@ estimate.exp.regression = function(fit,x,y,link = "log"){
   #
   if(missing(fit)){
     if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
-    fit = glm(y~x, family = Gamma(link = link))
+    if(intercept) {fit = glm(y~x, family = Gamma(link = link))}
+    else{fit = glm(y~x-1, family = Gamma(link = link))}
   }
   xx = model.matrix(fit)
   betastart = coef(fit)
@@ -168,7 +178,7 @@ estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
 
 #' @export
 #' @rdname estimate.regression
-estimate.weibull.regression <- function(y,x,detail=FALSE){
+estimate.weibull.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a weibull regression
   #  model in which the log of the response is predicted by x
@@ -178,7 +188,11 @@ estimate.weibull.regression <- function(y,x,detail=FALSE){
   #  where gamma is Euler's constant.
   #
   w=log(y)-digamma(1)
-  fit = lm(w~x-1)
+  if(fit.intercept){
+    fit = lm(w~x)
+  }else{
+    fit = lm(w~x-1)
+  }
   beta.start = coef(fit)[-1]
   int.start = coef(fit)[1]+digamma(1)
   sigma.start =  summary(fit)$sigma*6/pi^2
@@ -205,7 +219,7 @@ estimate.weibull.regression <- function(y,x,detail=FALSE){
 
 #' @export
 #' @rdname estimate.regression
-estimate.extremevalue.regression <- function(y,x,detail=FALSE){
+estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit an Extreme value regression
   #  model in which the response is predicted by x

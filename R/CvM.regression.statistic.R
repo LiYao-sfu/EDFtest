@@ -12,14 +12,37 @@
 #'
 #' @name CvM.regression
 #' @examples
+#' n = 500
+#' p = 3
+#' beta = c(1,2,3)
+#' x = rnorm(n*(p))
+#' #x = c(rep(1,n),x)
+#' x = matrix(x,n,p)
+#' # OLS regression
+#' mean = x%*%(beta)
+#' #apply the link to get the mean
+#' #generate data with that mean,
+#'
+#'
+#'
+#' sd = 2
+#' y =rnorm(n,mean=mean,sd=sd)
+#' estimate.normal.regression(x=x,y=y,fit.intercept=TRUE)
+#' CvM.normal.regression(x=x,y=y,fit.intercept=TRUE) # mean(cvm)=.06
+#'
 #'
 NULL
 
 
 #' @export
 #' @rdname CvM.regression
-CvM.normal.regression <- function(y,x,parameter=estimate.normal.regression(y,x)){
+CvM.normal.regression <- function(x,y,fit.intercept = TRUE,
+                                  parameter=estimate.normal.regression(x,y,fit.intercept=fit.intercept)){
   pp=length(parameter)
+  if(fit.intercept){
+    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+  }
+  #pp=length(parameter)
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]

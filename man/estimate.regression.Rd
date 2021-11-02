@@ -10,17 +10,17 @@
 \alias{estimate.extremevalue.regression}
 \title{Estimate Regression Model Parameters}
 \usage{
-estimate.normal.regression(x, y, fit.intercept = TRUE)
+estimate.normal.regression(x, y, fit, fit.intercept = TRUE)
 
-estimate.gamma.regression(fit, x, y, link = "log")
+estimate.gamma.regression(x, y, fit, link = "log", fit.intercept = TRUE)
 
-estimate.exp.regression(fit, x, y, link = "log")
+estimate.exp.regression(x, y, fit, link = "log", fit.intercept = TRUE)
 
 estimate.laplace.regression(x, y, fit.intercept = TRUE)
 
-estimate.weibull.regression(y, x, detail = FALSE)
+estimate.weibull.regression(x, y, fit.intercept = TRUE, detail = FALSE)
 
-estimate.extremevalue.regression(y, x, detail = FALSE)
+estimate.extremevalue.regression(x, y, fit.intercept = TRUE, detail = FALSE)
 }
 \arguments{
 \item{x}{A design matrix which is not expected to have a column of 1s.}
@@ -39,27 +39,47 @@ Estimated sigma and coefficients of a linear regression.
 which fits log(E(y))= x beta
 }
 \examples{
-# OLS regression ------------------------------------
 n = 500
 p = 3
 beta = c(1,2,3)
 x = rnorm(n*(p-1))
 x = c(rep(1,n),x)
 x = matrix(x,n,p)
+
+# OLS regression
 mean = x\%*\%(beta)
+#apply the link to get the mean
+#generate data with that mean,
+
+
+
 sd = 2
 y =rnorm(n,mean=mean,sd=sd)
 estimate.normal.regression(x,y)
 
-# LAD regression ------------------------------------
+# LAD regression
+library(L1pack)
 y =L1pack::rlaplace(n=n, location=mean, scale=sd)
 estimate.laplace.regression(x,y,FALSE)
 
-# Gamma regression ----------------------------------
+# Gamma regression
 alpha = 3
 scale=exp(x \%*\% beta) / alpha
 y =rgamma(n=n,shape=alpha,scale=scale)
-estimate.gamma.regression(x,y)
+estimate.gamma.regression(x=x,y=y,intercept=FALSE)
+
+# Exponential regression
+y =rexp(n=n,rate=1/exp(mean))
+estimate.exp.regression(x=x,y=y)
+
+# Weibull regression
+y = rweibull(n=n,shape=1,scale=exp(mean))
+estimate.weibull.regression(x=x,y=y)
+
+# Extreme Value regression
+y = log(rweibull(n=n,shape=1,scale=exp(mean)))
+estimate.extremevalue.regression(x=x,y=y)
+
 }
 \seealso{
 
