@@ -163,6 +163,50 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
 
 #' @export
 #' @rdname estimate.regression
+estimate.logistic.regression <- function(y,x,detail=FALSE){
+  #
+  # Use the Marquardt-Levenberg algorithm to fit a logistic regression
+  #  model in which the log of the response is predicted by x
+  # The scale parameter is taken to be x^\top beta .
+  # To get initial values we do linear regression remembering
+  #
+  #
+
+  fit = lm(y~x-1)
+  # print(summary(fit))
+  beta.start = coef(fit)
+  sigma.start =  summary(fit)$sigma*sqrt(3/pi^2)
+
+  theta = c(beta.start,sigma.start)
+  #  print(theta)
+  f = function(theta,response,predictor){
+    -ell.logistic.regression(response,predictor,theta)
+  }
+  D1 = function(theta,response,predictor){
+    -apply(score.logistic.regression(response,predictor,theta),2,sum)
+  }
+  D2 = function(theta,response,predictor){
+    -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
+  }
+  # cat("Initial Log Likelihood ", f(theta,log(y),x),"\n")
+  # cat("Initial Score ", D1(theta,log(y),x),"\n")
+  # cat("Initial Hessian\n")
+  # print(D2(theta,log(y),x))
+  # print(eigen(D2(theta,log(y),x))$values)
+  Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
+                                #print.info=TRUE,
+                                minimize = TRUE,maxiter=100,
+                                response = y,predictor=x)
+  thetahat = Marq$b
+  # print(Marq)
+  # print(rbind(thetahat,theta))
+  if(detail) return(list(thetahat = thetahat, Marq = Marq))
+  thetahat
+}
+
+
+#' @export
+#' @rdname estimate.regression
 estimate.laplace.regression=function(y,x,fit.intercept=TRUE){
   data=data.frame(y=y,x=x)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
@@ -249,6 +293,57 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
 
 
 # Helpers -------------------------------------
+
+
+score.logistic.regression = function(y,x,theta){
+  pp=length(theta)
+  n=length(y)
+  p=pp-1
+  beta = theta[1:p]
+  sigma = theta[pp]
+  mu = x %*% beta
+  r = (y-mu) / sigma
+  er = exp(r)
+  ua = x*rep((2*er/(1+er)-1) / sigma, p)
+  us = ( (r-1)*er -r -1) / (sigma*(1+er))
+  cbind(ua,us)
+}
+
+hessianarray.logistic.regression = function(y,x,theta){
+  pp=length(theta)
+  n=length(y)
+  p=pp-1
+  beta = theta[1:p]
+  sigma = theta[pp]
+  mu = x %*% beta
+  r = (y-mu) / sigma
+  er = exp(r)
+  umbit = -2*er/(1+er)^2
+  H = array(0,dim=c(n,pp,pp))
+  umm = array(0,dim=c(n,p,p))
+  for( i in 1:n) umm[i,,]= outer(umbit[i]*x[i,]/sigma^2,x[i,])
+  ums = x*rep((1-2*r*er-er^2)/(sigma^2*(1+er)^2),p)
+  uss = (1+2*r-(2*r-1)*er^2-2*(r^2-1)*er)/(sigma^2*(1+er)^2)
+  H[,1:p,1:p] = umm
+  H[,pp,1:p] = ums
+  H[,1:p,pp] = ums
+  H[,pp,pp]  = uss
+  H
+}
+
+ell.logistic.regression = function(y,x,theta){
+  pp=length(theta)
+  n=length(y)
+  p=pp-1
+  beta = theta[1:p]
+  sigma = theta[pp]
+  mu = x %*% beta
+
+  r = (y-mu) / sigma
+  er = exp(r)
+  ell =-n*log(sigma) + sum(r-2*log(1+er))
+  ell
+}
 
 
 score.extremevalue.regression = function(y,x,theta){
