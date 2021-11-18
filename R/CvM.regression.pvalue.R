@@ -285,25 +285,28 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
     if( link == "log") {
       invlink = exp
       linkder = exp
+      weight = function(w) 1
     }
     if( link == "inverse" ) {
       invlink = function(w) 1/w
       linkder = function(w) -1/w^2
+      weight = function(w) -1/w
     }
     if( link == "identity" ) {
       invlink = function(w) w
       lindker = function(w) 1
+      weight = function(w) 1/w
     }
   mu = invlink(eta)
   deriv = linkder(eta)
-  W = x * rep(deriv/mu,p)
+  W = x * rep(wt,p)
   FI = t(W)%*%W/n  # should be p by p
   s = 1:n
   s = s/(n+1)
   M1 = outer(s,s,pmin)-outer(s,s)
-  Q = qexp(s)
-  D = dexp(Q)
-  M2 = - Q * D
+  G = log(1-s)*(1-s)
+  W2 = matrix(apply(x * rep(1/mu,p),2,mean),nrow=p)
+  M2 = outer(G,G) * t(W2) %*% solve(FI,W2)
   M1-M2%*%solve(FI,t(M2))
 }
 
