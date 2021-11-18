@@ -200,9 +200,9 @@ CvM.normal.regression.covmat=function(x,neig=max(n,100)){
   s=1:neig
   s=s/(neig+1)
   M1=outer(s,s,pmin)-outer(s,s)
-  x = qnorm(s)
-  G1 = dnorm(x)
-  G2 = -x*G1
+  xx = qnorm(s)
+  G1 = dnorm(xx)
+  G2 = -xx*G1
   G1 = x*rep(G1,p)
   M2 = cbind(G1,G2)
   M1-M2%*%solve(Fisher.normal,t(M2))
@@ -280,8 +280,8 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
     # linearly from a matrix of covariates x
     # Normally x will contain an intercept term
     #
-    pp=length(theta)
-    eta = x %*% theta
+  pp=length(theta)
+  eta = x %*% theta
     if( link == "log") {
       invlink = exp
       linkder = exp
@@ -294,16 +294,15 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
       invlink = function(w) w
       lindker = function(w) 1
     }
-    mu = invlink(eta)
-    deriv = linkder(eta)
-    W = x * rep(deriv,p)
-    M = t(W)%*%W/n  # should be p by p
-    FI[1:p,1:p]=(1/mu^2) * M          # !!!  This code is broken
+  mu = invlink(eta)
+  deriv = linkder(eta)
+  W = x * rep(deriv/mu,p)
+  FI = t(W)%*%W/n  # should be p by p
   s = 1:n
   s = s/(n+1)
   M1 = outer(s,s,pmin)-outer(s,s)
-  Q = qgamma(s,shape=shape)
-  D = dgamma(Q,shape=shape)
+  Q = qexp(s)
+  D = dexp(Q)
   M2 = - Q * D
   M1-M2%*%solve(FI,t(M2))
 }
