@@ -145,8 +145,8 @@ CvM.exp.regression <- function(y,x,fit.intercept = TRUE,
                                parameter=estimate.exp.regression(y,x)){
   p=length(parameter)
   beta = parameter
-  scale = exp(x %*% beta)
-  z <- pexp(y,scale=scale)
+  scale = exp(x %*% as.matrix(beta))
+  z <- pexp(y,rate=1/scale)
   CvM(z)
 }
 

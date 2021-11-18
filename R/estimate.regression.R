@@ -134,8 +134,8 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   #  The code will crash if not.
   #
   if(missing(fit)){
-    if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
-    if(intercept) {fit = glm(y~x, family = Gamma(link = link))}
+    if(missing(x) || missing(y)) stop("No fit is provided and one of x and y is missing")
+    if(fit.intercept) {fit = glm(y~x, family = Gamma(link = link))}
     else{fit = glm(y~x-1, family = Gamma(link = link))}
   }
   xx = model.matrix(fit)
