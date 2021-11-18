@@ -34,7 +34,7 @@ NULL
 
 #' @export
 #' @rdname CvM.regression
-CvM.normal.regression <- function(x,y,fit.intercept = TRUE,
+CvM.normal.regression <- function(y,x,fit.intercept = TRUE,
                                   parameter=estimate.normal.regression(x,y,fit.intercept=fit.intercept)){
   pp=length(parameter)
   if(fit.intercept){
@@ -43,7 +43,7 @@ CvM.normal.regression <- function(x,y,fit.intercept = TRUE,
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]
-  mu = x %*% beta
+  mu = x %*% as.matrix(beta)
   z <- pnorm(y,mean=mu,sd=sigma)
   CvM(z)
 }
@@ -51,8 +51,12 @@ CvM.normal.regression <- function(x,y,fit.intercept = TRUE,
 
 #' @export
 #' @rdname CvM.regression
-CvM.gamma.regression <- function(y,x,link="log",parameter=estimate.gamma.regression(fit,x,y,link = link)){
+CvM.gamma.regression <- function(y,x,fit.intercept = TRUE,
+                                 parameter=estimate.gamma.regression(fit,x,y,link = link),link="log"){
   pp=length(parameter)
+  if(fit.intercept){
+    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+  }
   p=pp-1
   beta = parameter[-pp]
   shape = parameter[pp]
@@ -68,8 +72,12 @@ CvM.gamma.regression <- function(y,x,link="log",parameter=estimate.gamma.regress
 
 #' @export
 #' @rdname CvM.regression
-CvM.logistic.regression <- function(y,x,parameter=estimate.logistic.regression(y,x)){
+CvM.logistic.regression <- function(y,x,fit.intercept = TRUE,
+                                    parameter=estimate.logistic.regression(x,y)){
   pp=length(parameter)
+  if(fit.intercept){
+    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+  }
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]
@@ -81,26 +89,34 @@ CvM.logistic.regression <- function(y,x,parameter=estimate.logistic.regression(y
 
 #' @export
 #' @rdname CvM.regression
-CvM.laplace.regression <- function(y,x,parameter=estimate.laplace.regression(y,x)){
+CvM.laplace.regression <- function(y,x,fit.intercept = TRUE,
+                                   parameter=estimate.laplace.regression(y,x)){
   pp=length(parameter)
+  if(fit.intercept){
+    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+  }
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]
-  mu = x %*% beta
-  z <- plaplace(y,m=mu,s=sigma)
+  mu = x %*% as.matrix(beta)
+  z <- rmutil::plaplace(y,m=mu,s=sigma)
   CvM(z)
 }
 
 
 #' @export
 #' @rdname CvM.regression
-CvM.weibull.regression <- function(y,x,parameter=estimate.weibull.regression(y,x)){
+CvM.weibull.regression <- function(y,x,fit.intercept = TRUE,
+                                   parameter=estimate.weibull.regression(y,x)){
   pp=length(parameter)
+  if(fit.intercept){
+    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+  }
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]
   shape=1/sigma
-  scale = exp(x %*% beta)
+  scale = exp(x %*% as.matrix(beta))
   z <- pweibull(y,shape=shape,scale =scale)
   CvM(z)
 }
@@ -108,8 +124,12 @@ CvM.weibull.regression <- function(y,x,parameter=estimate.weibull.regression(y,x
 
 #' @export
 #' @rdname CvM.regression
-CvM.extremevalue.regression <- function(y,x,parameter=estimate.extremevalue.regression(y,x)){
+CvM.extremevalue.regression <- function(y,x,fit.intercept = TRUE,
+                                        parameter=estimate.extremevalue.regression(y,x)){
   pp=length(parameter)
+  if(fit.intercept){
+    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+  }
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]
@@ -121,7 +141,8 @@ CvM.extremevalue.regression <- function(y,x,parameter=estimate.extremevalue.regr
 
 #' @export
 #' @rdname CvM.regression
-CvM.exp.regression <- function(y,x,parameter=estimate.exp.regression(y,x)){
+CvM.exp.regression <- function(y,x,fit.intercept = TRUE,
+                               parameter=estimate.exp.regression(y,x)){
   p=length(parameter)
   beta = parameter
   scale = exp(x %*% beta)

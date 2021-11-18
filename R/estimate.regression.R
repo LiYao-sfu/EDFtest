@@ -6,8 +6,8 @@
 #' \code{estimate.gamma.regression} estimate the parameters in a Gamma regression model
 #' which fits log(E(y))= x beta
 #'
-#' @param x A design matrix which is not expected to have a column of 1s.
 #' @param y A univariate response.
+#' @param x A design matrix which is not expected to have a column of 1s.
 #' @param fit.intercept Logical; if TRUE, an intercept term is added by lm.
 #'
 #' @return Estimated sigma and coefficients of a linear regression.
@@ -30,37 +30,37 @@
 #'
 #' sd = 2
 #' y =rnorm(n,mean=mean,sd=sd)
-#' estimate.normal.regression(x,y)
+#' estimate.normal.regression(y=y,x=x)
 #'
 #' # LAD regression
 #' library(L1pack)
 #' y =L1pack::rlaplace(n=n, location=mean, scale=sd)
-#' estimate.laplace.regression(x,y,FALSE)
+#' estimate.laplace.regression(y=y,x=x,FALSE)
 #'
 #' # Gamma regression
 #' alpha = 3
 #' scale=exp(x %*% beta) / alpha
 #' y =rgamma(n=n,shape=alpha,scale=scale)
-#' estimate.gamma.regression(x=x,y=y,intercept=FALSE)
+#' estimate.gamma.regression(y=y,x=x,intercept=FALSE)
 #'
 #' # Exponential regression
 #' y =rexp(n=n,rate=1/exp(mean))
-#' estimate.exp.regression(x=x,y=y)
+#' estimate.exp.regression(y=y,x=x)
 #'
 #' # Weibull regression
 #' y = rweibull(n=n,shape=1,scale=exp(mean))
-#' estimate.weibull.regression(x=x,y=y)
+#' estimate.weibull.regression(y=y,x=x)
 #'
 #' # Extreme Value regression
 #' y = log(rweibull(n=n,shape=1,scale=exp(mean)))
-#' estimate.extremevalue.regression(x=x,y=y)
+#' estimate.extremevalue.regression(y=y,x=x)
 #'
 NULL
 
 
 #' @export
 #' @rdname estimate.regression
-estimate.normal.regression=function(x,y,fit,fit.intercept=TRUE){
+estimate.normal.regression=function(y,x,fit,fit.intercept=TRUE){
   if(fit.intercept)fit=lm(y~x) else fit = lm(y~x-1)
   n = length(y)
   r = residuals(fit)
@@ -72,7 +72,7 @@ estimate.normal.regression=function(x,y,fit,fit.intercept=TRUE){
 
 #' @export
 #' @rdname estimate.regression
-estimate.gamma.regression = function(x,y,fit,link = "log",fit.intercept=TRUE){
+estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   #
   #  This function uses glm to get initial values for maximum
   #   likelihood fits of a model in which link(E(y)) =x %*% coefs
@@ -119,7 +119,7 @@ estimate.gamma.regression = function(x,y,fit,link = "log",fit.intercept=TRUE){
 
 #' @export
 #' @rdname estimate.regression
-estimate.exp.regression = function(x,y,fit,link = "log",fit.intercept=TRUE){
+estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   #
   #  This function uses glm to get initial values for maximum
   #   likelihood fits of a model in which link(E(y)) =x %*% coefs
@@ -163,20 +163,20 @@ estimate.exp.regression = function(x,y,fit,link = "log",fit.intercept=TRUE){
 
 #' @export
 #' @rdname estimate.regression
-estimate.laplace.regression=function(x,y,fit.intercept=TRUE){
+estimate.laplace.regression=function(y,x,fit.intercept=TRUE){
   data=data.frame(y=y,x=x)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
   n = length(y)
   r = residuals(fit)
   coeff.hat = coefficients(fit)
   sigma.hat = fit$scale
-  c(sigma.hat,coeff.hat)
+  c(coeff.hat,sigma.hat)
 }
 
 
 #' @export
 #' @rdname estimate.regression
-estimate.weibull.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE){
+estimate.weibull.regression <- function(y,x,fit.intercept=TRUE,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a weibull regression
   #  model in which the log of the response is predicted by x

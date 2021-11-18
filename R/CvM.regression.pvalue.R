@@ -42,7 +42,7 @@ CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
+CvM.gamma.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.gamma.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -88,7 +88,7 @@ CvM.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.laplace.regression.pvalue = function(w,xneig=max(100,n),verbose=FALSE){
+CvM.laplace.regression.pvalue = function(w,x,neig=max(100,n),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.laplace.regression.eigen(w,xneig=max(100,n))
@@ -157,7 +157,7 @@ CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE)
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
+CvM.exp.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.exp.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -190,15 +190,15 @@ CvM.normal.regression.eigen = function(x,neig=max(n,100)){
 }
 
 
-CvM.normal.regression.covmat=function(x,m=max(n,100)){
+CvM.normal.regression.covmat=function(x,neig=max(n,100)){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
   Fisher.normal = matrix(0,nrow=p+1,ncol=p+1)
   Fisher.normal[1:p,1:p]= D
   Fisher.normal[p+1,p+1]=2
-  s=1:m
-  s=s/(m+1)
+  s=1:neig
+  s=s/(neig+1)
   M1=outer(s,s,pmin)-outer(s,s)
   x = qnorm(s)
   G1 = dnorm(x)
@@ -209,7 +209,7 @@ CvM.normal.regression.covmat=function(x,m=max(n,100)){
 }
 
 
-CvM.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
+CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
   fisher.information.gamma=function(x,theta){
     #
     # returns the estimated Fisher Information per point
@@ -264,7 +264,7 @@ CvM.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
 
 
 
-CvM.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
+CvM.gamma.regression.eigen = function(x,theta,neig=max(n,100),link="log"){
   p=dim(x)[2]
   n=dim(x)[1]
   M=CvM.gamma.regression.covmat(x,theta=theta,link=link,neig=neig)
@@ -273,7 +273,7 @@ CvM.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
 }
 
 
-CvM.exp.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
+CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
     #
     # returns the estimated Fisher Information per point
     # for an exponential regression model in which the log mean is predicted
@@ -310,7 +310,7 @@ CvM.exp.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
 
 
 
-CvM.exp.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
+CvM.exp.regression.eigen = function(x,theta,neig=max(n,100),link="log"){
   p=dim(x)[2]
   n=dim(x)[1]
   M=CvM.exp.regression.covmat(x,theta=theta,link=link,neig=neig)
