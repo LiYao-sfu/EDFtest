@@ -279,6 +279,7 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
     # for an exponential regression model in which the log mean is predicted
     # linearly from a matrix of covariates x
     # Normally x will contain an intercept term
+    # Permits use of two other links: identity and inverse
     #
   pp=length(theta)
   eta = x %*% theta
@@ -298,7 +299,7 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
       weight = function(w) 1/w
     }
   mu = invlink(eta)
-  deriv = linkder(eta)
+  wt = weight(eta)
   W = x * rep(wt,p)
   FI = t(W)%*%W/n  # should be p by p
   s = 1:n
