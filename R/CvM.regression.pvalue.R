@@ -344,9 +344,10 @@ CvM.logistic.regression.covmat=function(x,neig=max(100,n)){
   M1=outer(s,s,pmin)-outer(s,s)
   G1 = s*(1-s)
   G2 = G1*(log(s/(1-s)))
-  G1 = x*rep(G1,p)
-  M2 = cbind(G1,G2)
-  M1-M2%*%solve(Fisher,t(M2))
+  Del = apply(x,2,mean). # Del should now have length p+1
+  G1 = outer(x,G1) # G1 should now have dimension p by neig
+  M2 = cbind(G1,G2) # G1 should now have dimension p+1 by neig
+  M1-t(M2)%*%solve(Fisher,M2)
 }
 
 
@@ -374,9 +375,10 @@ CvM.laplace.regression.covmat=function(x,neig = max(n,100)){
   G1[s>0.5]=(s-1)[s>0.5]
   G2 = -s*log(2*s)
   G2[s>0.5] = ((1-s)*log(2*(1-s)))[s>0.5]
-  G1 = x*rep(G1,p)
-  M2 = cbind(G1,G2)
-  M1-M2%*%solve(Fisher.laplace,t(M2))
+  Del = apply(x,2,mean) # Del should now have length p
+  G1 = outer(x,G1) # G1 should now have dimension p by neig
+  M2 = cbind(G1,G2) # G1 should now have dimension p+1 by neig
+  M1 - t(M2) %*% solve(Fisher.laplace,M2)
 }
 
 
@@ -404,7 +406,8 @@ CvM.weibull.regression.covmat=function(x,neig=max(100,n)){
   M1=outer(s,s,pmin)-outer(s,s)
   G1 = s*(1-s)
   G2 = G1*(log(s/(1-s)))
-  G1 = x*rep(G1,p)
-  M2 = cbind(G1,G2)
-  M1-M2%*%solve(Fisher,t(M2))
+  Del = apply(x,2,mean) # Del should now have length p
+  G1 = outer(x,G1) # G1 should now have dimension p by neig
+  M2 = cbind(G1,G2) # G1 should now have dimension p+1 by neig
+  M1 - t(M2) %*% solve(Fisher,M2)
 }
