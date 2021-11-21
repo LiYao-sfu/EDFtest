@@ -203,9 +203,9 @@ CvM.normal.regression.covmat=function(x,neig=max(n,100)){
   xx = qnorm(s)
   G1 = dnorm(xx)
   G2 = -xx*G1
-  G1 = x*rep(G1,p)
+  G1 = apply(x*rep(G1,p),2,mean)
   M2 = cbind(G1,G2)
-  M1-M2%*%solve(Fisher.normal,t(M2))
+  M1 - t(M2) %*% solve(Fisher.normal,M2)
 }
 
 
