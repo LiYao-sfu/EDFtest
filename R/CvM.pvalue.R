@@ -247,9 +247,9 @@ CvM.gamma.covmat=function(n,shape){
   fisher.information.gamma=function(shape.hat){
     #
     # returns the estimated Fisher Information per point
-    # for a gamma regression model in which the log mean is predicted
-    # linearly from a matrix of covariates x
-    # Normally x will contain an intercept term
+    # for an iid sample from the gamma distibution
+    # when the scale parameter is 1
+    # Code takes shape to be the first parameter then scale second
     #
     FI=matrix(0,nrow=2,ncol=2)
     FI[1,1]=trigamma(shape.hat)
