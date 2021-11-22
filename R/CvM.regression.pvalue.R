@@ -225,23 +225,26 @@ CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
     if( link == "log") {
       invlink = exp
       linkder = exp
+      weight = function(w) 1
     }
     if( link == "inverse" ) {
       invlink = function(w) 1/w
       linkder = function(w) -1/w^2
+      weight = function(w) -1/w
     }
     if( link == "identity" ) {
       invlink = function(w) w
       lindker = function(w) 1
+      weight = function(w) 1/w
     }
     mu = invlink(eta)
-    deriv = linkder(eta)
-    W = x * rep(deriv,p)
+    wt = weight(eta)
+    W = x * rep(wt,p)
     M = t(W)%*%W/n  # should be p by p
     print(dim(M))
     FI=matrix(0,nrow=pp,ncol=pp)
     FI[pp,pp]=trigamma(shape.hat)-1/shape.hat
-    FI[1:p,1:p]=(shape.hat/mu^2) * M
+    FI[1:p,1:p] = shape.hat * M
     FI
   }
   g = gamma(shape)
@@ -259,7 +262,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
     G1[i] = integrate(g1.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
   M2 = cbind(G1,G2)
-  M1-M2%*%solve(FI,t(M2))
+  M1 - t(M2) %*% solve(FI,M2)
 }
 
 
