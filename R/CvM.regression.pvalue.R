@@ -202,9 +202,12 @@ CvM.normal.regression.covmat=function(x,neig=max(n,100)){
   M1=outer(s,s,pmin)-outer(s,s)
   xx = qnorm(s)
   G1 = dnorm(xx)
+  Del = apply(W,2,sum) # Del should now be a p vector
+  G1 = outer(Del, G1) # G1 should now be p by neig
+  
   G2 = -xx*G1
-  G1 = apply(x*rep(G1,p),2,mean)
-  M2 = cbind(G1,G2)
+
+  M2 = cbind(G1,G2) # M2 should now be p+1 by neig
   M1 - t(M2) %*% solve(Fisher.normal,M2)
 }
 
