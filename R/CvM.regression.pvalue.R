@@ -91,7 +91,7 @@ CvM.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 CvM.laplace.regression.pvalue = function(w,x,neig=max(100,n),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
-  e = CvM.laplace.regression.eigen(w,xneig=max(100,n))
+  e = CvM.laplace.regression.eigen(x,neig=neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
   im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
@@ -180,7 +180,7 @@ CvM.exp.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbos
 # Helpers -----------------------------------------------------------------
 
 
-CvM.normal.regression.eigen = function(x,neig=max(n,100)){
+CvM.normal.regression.eigen = function(x,neig){
   p=dim(x)[2]
   n=dim(x)[1]
   mean.wsq.normal=1/6 -7*sqrt(3)/(36*pi)
@@ -190,7 +190,7 @@ CvM.normal.regression.eigen = function(x,neig=max(n,100)){
 }
 
 
-CvM.normal.regression.covmat=function(x,neig=max(n,100)){
+CvM.normal.regression.covmat=function(x,neig){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
@@ -204,15 +204,13 @@ CvM.normal.regression.covmat=function(x,neig=max(n,100)){
   G1 = dnorm(xx)
   Del = apply(x,2,sum) # Del should now be a p vector
   G1 = outer(Del, G1) # G1 should now be p by neig
-  
   G2 = -xx*G1
-
   M2 = cbind(G1,G2) # M2 should now be p+1 by neig
   M1 - t(M2) %*% solve(Fisher.normal,M2)
 }
 
 
-CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
+CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
       if( link == "log") {
    #   invlink = exp
    #   linkder = exp
@@ -261,7 +259,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
   G1 = - Q * D
   Del = apply(W,2,sum) # Del should now be a p vector
   G1 = outer(Del, G1) # G1 should now be p by neig
-  
+
   g = gamma(shape)
   dg = digamma(shape)
   G2 = s*0
@@ -275,7 +273,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
 
 
 
-CvM.gamma.regression.eigen = function(x,theta,neig=max(n,100),link="log"){
+CvM.gamma.regression.eigen = function(x,theta,neig,link="log"){
   p=dim(x)[2]
   n=dim(x)[1]
   M=CvM.gamma.regression.covmat(x,theta=theta,link=link,neig=neig)
@@ -284,7 +282,7 @@ CvM.gamma.regression.eigen = function(x,theta,neig=max(n,100),link="log"){
 }
 
 
-CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
+CvM.exp.regression.covmat=function(x,theta,neig,link="log"){
     #
     # returns the estimated Fisher Information per point
     # for an exponential regression model in which the log mean is predicted
@@ -323,7 +321,7 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
 
 
 
-CvM.exp.regression.eigen = function(x,theta,neig=max(n,100),link="log"){
+CvM.exp.regression.eigen = function(x,theta,neig,link="log"){
   p=dim(x)[2]
   n=dim(x)[1]
   M=CvM.exp.regression.covmat(x,theta=theta,link=link,neig=neig)
@@ -332,7 +330,7 @@ CvM.exp.regression.eigen = function(x,theta,neig=max(n,100),link="log"){
 }
 
 
-CvM.logistic.regression.eigen = function(x,neig=max(100,n)){
+CvM.logistic.regression.eigen = function(x,neig){
   p = dim(x)[2]
   n = dim(x)[1]
   mean.wsq.logistic= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
@@ -342,7 +340,7 @@ CvM.logistic.regression.eigen = function(x,neig=max(100,n)){
 }
 
 
-CvM.logistic.regression.covmat=function(x,neig=max(100,n)){
+CvM.logistic.regression.covmat=function(x,neig){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
@@ -361,7 +359,7 @@ CvM.logistic.regression.covmat=function(x,neig=max(100,n)){
 }
 
 
-CvM.laplace.regression.eigen  = function(x,neig = max(n,100)){
+CvM.laplace.regression.eigen  = function(x,neig){
   p = dim(x)[2]
   n = dim(x)[1]
   mean = 1/6 -1/12-1/54
@@ -371,7 +369,7 @@ CvM.laplace.regression.eigen  = function(x,neig = max(n,100)){
 }
 
 
-CvM.laplace.regression.covmat=function(x,neig = max(n,100)){
+CvM.laplace.regression.covmat=function(x,neig){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
@@ -392,7 +390,7 @@ CvM.laplace.regression.covmat=function(x,neig = max(n,100)){
 }
 
 
-CvM.weibull.regression.eigen = function(x,neig=max(100,n)){
+CvM.weibull.regression.eigen = function(x,neig){
   p = dim(x)[2]
   n = dim(x)[1]
   # mean.wsq.weibull= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
@@ -402,7 +400,7 @@ CvM.weibull.regression.eigen = function(x,neig=max(100,n)){
 }
 
 
-CvM.weibull.regression.covmat=function(x,neig=max(100,n)){
+CvM.weibull.regression.covmat=function(x,neig){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
