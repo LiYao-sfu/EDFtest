@@ -123,31 +123,35 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     pp = length(th)
     coefs = th[-pp]
     alpha=1/th[pp]
+    alpha.der = - alpha^2
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
     sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
     sc.mu = xx*rep(wt*(-alpha +alpha*y/mu),n)
-    cbind(sc.mu,sc.alpha)    
+    cbind(sc.mu,sc.alpha*alpha.der)    
   }
   hessian = function(th,xx,y,invlink = invlink){
     n = length(y)
     pp = length(th)
     coefs = th[-pp]
     alpha=1/th[pp]
+    alpha.der = -alpha^2
+    alpha.2der = 2 * alpha^3
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
+    sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
     H = array(0,dim=c(n,pp,pp))
     h.mu.mu = alpha-2*alpha*y/mu
     h.al.al = 1/alpha-trigamma(alpha) 
-    h.al.mu = -y/mu-1
+    h.al.mu = alpha.der*(-y/mu-1)
     h.m.m = array(0,dim=c(n,p,p))
     for( i in 1:n){
       H[i,1:p,1:p] = outer(h.mu.mu[i]*wt[i]^2*xx[i,],xx[i,])
       H[i,1:p,pp] = h.al.mu[i]*wt[i]*xx[i,]
       H[i,pp,1:p] = h.al.mu[i]*wt[i]*xx[i,]
-      H[i,pp,pp] = h.al.al
+      H[i,pp,pp] = h.al.al*alpha.der^2+ sc.alpha* alpha.2der
     }
     H
   }
