@@ -202,7 +202,7 @@ CvM.normal.regression.covmat=function(x,neig=max(n,100)){
   M1=outer(s,s,pmin)-outer(s,s)
   xx = qnorm(s)
   G1 = dnorm(xx)
-  Del = apply(W,2,sum) # Del should now be a p vector
+  Del = apply(x,2,sum) # Del should now be a p vector
   G1 = outer(Del, G1) # G1 should now be p by neig
   
   G2 = -xx*G1
@@ -295,18 +295,18 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
   pp=length(theta)
   eta = x %*% theta
     if( link == "log") {
-    #  invlink = exp
-    #  linkder = exp
+   #  invlink = exp
+   #  linkder = exp
       weight = function(w) 1
     }
     if( link == "inverse" ) {
-   #   invlink = function(w) 1/w
-    #  linkder = function(w) -1/w^2
+   #  invlink = function(w) 1/w
+   #  linkder = function(w) -1/w^2
       weight = function(w) -1/w
     }
     if( link == "identity" ) {
-     # invlink = function(w) w
-    #  lindker = function(w) 1
+   #  invlink = function(w) w
+   #  lindker = function(w) 1
       weight = function(w) 1/w
     }
   wt = weight(eta)
