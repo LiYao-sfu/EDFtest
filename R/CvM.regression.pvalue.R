@@ -210,58 +210,63 @@ CvM.normal.regression.covmat=function(x,neig=max(n,100)){
 
 
 CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
-  fisher.information.gamma=function(x,theta){
+      if( link == "log") {
+   #   invlink = exp
+   #   linkder = exp
+      weight = function(w) 1
+    }
+    if( link == "inverse" ) {
+   #   invlink = function(w) 1/w
+   #   linkder = function(w) -1/w^2
+      weight = function(w) -1/w
+    }
+    if( link == "identity" ) {
+ #     invlink = function(w) w
+  #    lindker = function(w) 1
+      weight = function(w) 1/w
+    }
+    pp=length(theta)
+    p=pp-1
+    shape = theta[pp]
+    coefs = theta[-pp]
+    eta = x %*% coefs
+
+    mu = invlink(eta)
+    wt = weight(eta)
+    W = x * rep(wt,p)
+    M = t(W)%*%W/n  # should be p by p
+  #####fisher.information.gamma=function(x,theta){
     #
     # returns the estimated Fisher Information per point
     # for a gamma regression model in which the log mean is predicted
     # linearly from a matrix of covariates x
     # Normally x will contain an intercept term
     #
-    pp=length(theta)
-    p=pp-1
-    shape.hat = theta[pp]
-    coefs = theta[-pp]
-    eta = x %*% coefs
-    if( link == "log") {
-      invlink = exp
-      linkder = exp
-      weight = function(w) 1
-    }
-    if( link == "inverse" ) {
-      invlink = function(w) 1/w
-      linkder = function(w) -1/w^2
-      weight = function(w) -1/w
-    }
-    if( link == "identity" ) {
-      invlink = function(w) w
-      lindker = function(w) 1
-      weight = function(w) 1/w
-    }
-    mu = invlink(eta)
-    wt = weight(eta)
-    W = x * rep(wt,p)
-    M = t(W)%*%W/n  # should be p by p
-    print(dim(M))
     FI=matrix(0,nrow=pp,ncol=pp)
-    FI[pp,pp]=trigamma(shape.hat)-1/shape.hat
-    FI[1:p,1:p] = shape.hat * M
-    FI
-  }
-  g = gamma(shape)
-  dg = digamma(shape)
-  FI = fisher.information.gamma(shape.hat = shape)
-  s=1:n
-  s=s/(n+1)
+    FI[pp,pp]=trigamma(shape)-1/shape
+    FI[1:p,1:p] = shape * M
+  #  FI
+  ########}
+
+ # FI = fisher.information.gamma(shape.hat = shape)
+  s=1:neig
+  s=s/(neig+1)
   M1=outer(s,s,pmin)-outer(s,s)
-  G2 = s*0
+
   Q = qgamma(s,shape=shape)
   D = dgamma(Q,shape=shape)
   G1 = - Q * D
+  Del = apply(W,2,sum) # Del should now be a p vector
+  G1 = outer(Del, G1) # G1 should now be p by neig
+  
+  g = gamma(shape)
+  dg = digamma(shape)
+  G2 = s*0
   g2.integrand = function(x,shape){log(x)*x^(shape-1)*exp(-x)}
-  for(i in 1:n){
+  for(i in 1:neig){
     G2[i] = integrate(g2.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
-  M2 = cbind(G1,G2)
+  M2 = cbind(G1,G2) # M2 should be p+1 by neig
   M1 - t(M2) %*% solve(FI,M2)
 }
 
@@ -287,31 +292,30 @@ CvM.exp.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
   pp=length(theta)
   eta = x %*% theta
     if( link == "log") {
-      invlink = exp
-      linkder = exp
+    #  invlink = exp
+    #  linkder = exp
       weight = function(w) 1
     }
     if( link == "inverse" ) {
-      invlink = function(w) 1/w
-      linkder = function(w) -1/w^2
+   #   invlink = function(w) 1/w
+    #  linkder = function(w) -1/w^2
       weight = function(w) -1/w
     }
     if( link == "identity" ) {
-      invlink = function(w) w
-      lindker = function(w) 1
+     # invlink = function(w) w
+    #  lindker = function(w) 1
       weight = function(w) 1/w
     }
-  mu = invlink(eta)
   wt = weight(eta)
   W = x * rep(wt,p)
   FI = t(W)%*%W/n  # should be p by p
-  s = 1:n
-  s = s/(n+1)
+  s = 1:neig
+  s = s/(neig+1)
   M1 = outer(s,s,pmin)-outer(s,s)
   G = log(1-s)*(1-s)
-  W2 = matrix(apply(x * rep(1/mu,p),2,mean),nrow=p)
-  M2 = outer(G,G) * t(W2) %*% solve(FI,W2)
-  M1-M2%*%solve(FI,t(M2))
+  Del = apply(W,2,sum) # Del should now be a p vector
+  G1 = outer(Del, G1) # G1 should now be p by neig
+  M1 - t(G1) %*% solve(FI,G1)
 }
 
 
