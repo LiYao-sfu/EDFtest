@@ -253,13 +253,13 @@ CvM.gamma.regression.covmat=function(x,theta,neig=max(n,100),link="log"){
   s=1:n
   s=s/(n+1)
   M1=outer(s,s,pmin)-outer(s,s)
-  G1 = s*0
+  G2 = s*0
   Q = qgamma(s,shape=shape)
   D = dgamma(Q,shape=shape)
-  G2 = - Q * D
-  g1.integrand = function(x,shape){log(x)*x^(shape-1)*exp(-x)}
+  G1 = - Q * D
+  g2.integrand = function(x,shape){log(x)*x^(shape-1)*exp(-x)}
   for(i in 1:n){
-    G1[i] = integrate(g1.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
+    G2[i] = integrate(g2.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
   M2 = cbind(G1,G2)
   M1 - t(M2) %*% solve(FI,M2)
@@ -410,7 +410,7 @@ CvM.weibull.regression.covmat=function(x,neig=max(100,n)){
   G1 = s*(1-s)
   G2 = G1*(log(s/(1-s)))
   Del = apply(x,2,mean) # Del should now have length p
-  G1 = outer(x,G1) # G1 should now have dimension p by neig
+  G1 = outer(Del,G1) # G1 should now have dimension p by neig
   M2 = cbind(G1,G2) # G1 should now have dimension p+1 by neig
   M1 - t(M2) %*% solve(Fisher,M2)
 }
