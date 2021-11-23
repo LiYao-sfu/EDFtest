@@ -5,27 +5,30 @@
 \alias{estimate.normal.regression}
 \alias{estimate.gamma.regression}
 \alias{estimate.exp.regression}
+\alias{estimate.logistic.regression}
 \alias{estimate.laplace.regression}
 \alias{estimate.weibull.regression}
 \alias{estimate.extremevalue.regression}
 \title{Estimate Regression Model Parameters}
 \usage{
-estimate.normal.regression(x, y, fit, fit.intercept = TRUE)
+estimate.normal.regression(y, x, fit, fit.intercept = TRUE)
 
-estimate.gamma.regression(x, y, fit, link = "log", fit.intercept = TRUE)
+estimate.gamma.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 
-estimate.exp.regression(x, y, fit, link = "log", fit.intercept = TRUE)
+estimate.exp.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 
-estimate.laplace.regression(x, y, fit.intercept = TRUE)
+estimate.logistic.regression(y, x, detail = FALSE)
 
-estimate.weibull.regression(x, y, fit.intercept = TRUE, detail = FALSE)
+estimate.laplace.regression(y, x, fit.intercept = TRUE)
+
+estimate.weibull.regression(y, x, fit.intercept = TRUE, detail = FALSE)
 
 estimate.extremevalue.regression(x, y, fit.intercept = TRUE, detail = FALSE)
 }
 \arguments{
-\item{x}{A design matrix which is not expected to have a column of 1s.}
-
 \item{y}{A univariate response.}
+
+\item{x}{A design matrix which is not expected to have a column of 1s.}
 
 \item{fit.intercept}{Logical; if TRUE, an intercept term is added by lm.}
 }
@@ -53,30 +56,30 @@ mean = x\%*\%(beta)
 
 sd = 2
 y =rnorm(n,mean=mean,sd=sd)
-estimate.normal.regression(x,y)
+estimate.normal.regression(y=y,x=x)
 
 # LAD regression
 library(L1pack)
 y =L1pack::rlaplace(n=n, location=mean, scale=sd)
-estimate.laplace.regression(x,y,FALSE)
+estimate.laplace.regression(y=y,x=x,FALSE)
 
 # Gamma regression
 alpha = 3
 scale=exp(x \%*\% beta) / alpha
 y =rgamma(n=n,shape=alpha,scale=scale)
-estimate.gamma.regression(x=x,y=y,intercept=FALSE)
+estimate.gamma.regression(y=y,x=x,intercept=FALSE)
 
 # Exponential regression
 y =rexp(n=n,rate=1/exp(mean))
-estimate.exp.regression(x=x,y=y)
+estimate.exp.regression(y=y,x=x)
 
 # Weibull regression
 y = rweibull(n=n,shape=1,scale=exp(mean))
-estimate.weibull.regression(x=x,y=y)
+estimate.weibull.regression(y=y,x=x)
 
 # Extreme Value regression
 y = log(rweibull(n=n,shape=1,scale=exp(mean)))
-estimate.extremevalue.regression(x=x,y=y)
+estimate.extremevalue.regression(y=y,x=x)
 
 }
 \seealso{

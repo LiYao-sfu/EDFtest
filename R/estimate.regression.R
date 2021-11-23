@@ -55,6 +55,12 @@
 #' y = log(rweibull(n=n,shape=1,scale=exp(mean)))
 #' estimate.extremevalue.regression(y=y,x=x)
 #'
+#' # Logistic regression
+#' y = rlogis(n=n,location=mean,scale=2)
+#' estimate.logistic.regression(y=y,x=x)
+#'
+#'
+#'
 NULL
 
 
@@ -109,7 +115,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     invlink = function(w) w
     weight = 1/w
   }
-  ellneg = function(th,xx,y,invlink = invlink){
+  ell = function(th,xx,y,invlink = invlink){
     n = length(y)
     pp = length(th)
     coefs = th[-pp]
@@ -129,7 +135,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     wt = weight(eta)
     sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
     sc.mu = xx*rep(wt*(-alpha +alpha*y/mu),n)
-    cbind(sc.mu,sc.alpha*alpha.der)    
+    cbind(sc.mu,sc.alpha*alpha.der)
   }
   hessian = function(th,xx,y,invlink = invlink){
     n = length(y)
@@ -144,7 +150,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
     H = array(0,dim=c(n,pp,pp))
     h.mu.mu = alpha-2*alpha*y/mu
-    h.al.al = 1/alpha-trigamma(alpha) 
+    h.al.al = 1/alpha-trigamma(alpha)
     h.al.mu = alpha.der*(-y/mu-1)
     h.m.m = array(0,dim=c(n,p,p))
     for( i in 1:n){
@@ -164,17 +170,17 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   D2 = function(theta,response,predictor){
     -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
   }
-  Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
-                                #print.info=TRUE,
-                                minimize = TRUE,maxiter=100,
-                                response = y,predictor=xx)
-  thetahat = Marq$b
- # w = optim(par = thetastart, ell, xx=xx,y=y,invlink=invlink)
- # thetahat = w$par
+  # Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
+  #                               #print.info=TRUE,
+  #                               minimize = TRUE,maxiter=100,
+  #                               response = y,predictor=xx)
+  # thetahat = Marq$b
+  w = optim(par = thetastart, ell, xx=xx,y=y,invlink=invlink)
+  thetahat = w$par
   pp = length(thetahat)
   thetahat[pp] = 1/thetahat[pp]
   list(thetahat = thetahat, model.matrix = xx,optim.output = w)
-  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
+  #list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
@@ -218,7 +224,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     pp = length(th)
     coefs = th
     mu = invlink(xx %*% coefs)
-    ell = -log(mu) -y/mu 
+    ell = -log(mu) -y/mu
     -sum(ell)
   }
   score = function(th,xx,y,invlink = invlink){
@@ -229,7 +235,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     mu = invlink(eta)
     wt = weight(eta)
     sc.mu = xx*rep(wt*(-1 +y/mu),n)
-    sc.mu   
+    sc.mu
   }
   hessian = function(th,xx,y,invlink = invlink){
     n = length(y)
@@ -246,15 +252,15 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     H
   }
   f = function(theta,response,predictor){
-    ellneg(response,predictor,theta)
+    ellneg(theta,predictor,response)
   }
   D1 = function(theta,response,predictor){
-    -apply(score.logistic.regression(response,predictor,theta),2,sum)
+    -apply(score(response,predictor,theta),2,sum)
   }
   D2 = function(theta,response,predictor){
-    -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
+    -apply(hessian(response,predictor,theta),c(2,3),sum)
   }
-  Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
+  Marq = marqLevAlg::marqLevAlg(b=betastart,fn=f,gr=D1,hess=D2,
                                 #print.info=TRUE,
                                 minimize = TRUE,maxiter=100,
                                 response = y,predictor=xx)
@@ -282,7 +288,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
 
 #' @export
 #' @rdname estimate.regression
-estimate.logistic.regression <- function(y,x,detail=FALSE){
+estimate.logistic.regression <- function(x,y,fit,fit.intercept=TRUE,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a logistic regression
   #  model in which the log of the response is predicted by x
@@ -290,9 +296,7 @@ estimate.logistic.regression <- function(y,x,detail=FALSE){
   # To get initial values we do linear regression remembering
   #
   #
-
-  fit = lm(y~x-1)
-  # print(summary(fit))
+  if(fit.intercept)fit=lm(y~x) else fit = lm(y~x-1)
   beta.start = coef(fit)
   sigma.start =  summary(fit)$sigma*sqrt(3/pi^2)
 
@@ -350,11 +354,11 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE,detail=FALSE){
   #
   w=log(y)-digamma(1)
   if(fit.intercept){
-    # 
-    # The design matrix x is assumed not to contain a column
-    # of 1s and an intercept is added to the fit 
     #
-    fit = lm(w~x) 
+    # The design matrix x is assumed not to contain a column
+    # of 1s and an intercept is added to the fit
+    #
+    fit = lm(w~x)
     beta.start = coef(fit)[-1]
     int.start = coef(fit)[1]+digamma(1)
     sigma.start =  summary(fit)$sigma*6/pi^2
@@ -398,7 +402,7 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
   #  model in which the response is predicted by x
   # The scale parameter is taken to be x^\top beta .
   # To get initial values we do linear regression remembering
-  #  that y -x^\top beta has mean -gamma and variance pi^2/6 
+  #  that y -x^\top beta has mean -gamma and variance pi^2/6
   #  where gamma is Euler's constant.
   #
   w=y-digamma(1)

@@ -202,28 +202,28 @@ CvM.normal.regression.covmat=function(x,neig){
   M1=outer(s,s,pmin)-outer(s,s)
   xx = qnorm(s)
   G1 = dnorm(xx)
-  Del = apply(x,2,sum) # Del should now be a p vector
-  G1 = outer(Del, G1) # G1 should now be p by neig
   G2 = -xx*G1
-  M2 = cbind(G1,G2) # M2 should now be p+1 by neig
+  Del = apply(x,2,mean) # Del should now be a p vector
+  G1 = outer(Del, G1) # G1 should now be p by neig
+  M2 = rbind(G1,G2) # M2 should now be p+1 by neig
   M1 - t(M2) %*% solve(Fisher.normal,M2)
 }
 
 
 CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
-      if( link == "log") {
-   #   invlink = exp
-   #   linkder = exp
+    if( link == "log") {
+      invlink = exp
+      linkder = exp
       weight = function(w) 1
     }
     if( link == "inverse" ) {
-   #   invlink = function(w) 1/w
-   #   linkder = function(w) -1/w^2
+      invlink = function(w) 1/w
+      linkder = function(w) -1/w^2
       weight = function(w) -1/w
     }
     if( link == "identity" ) {
- #     invlink = function(w) w
-  #    lindker = function(w) 1
+      invlink = function(w) w
+      lindker = function(w) 1
       weight = function(w) 1/w
     }
     pp=length(theta)
@@ -267,7 +267,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
   for(i in 1:neig){
     G2[i] = integrate(g2.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
-  M2 = cbind(G1,G2) # M2 should be p+1 by neig
+  M2 = rbind(G1,G2) # M2 should be p+1 by neig
   M1 - t(M2) %*% solve(FI,M2)
 }
 
@@ -354,7 +354,7 @@ CvM.logistic.regression.covmat=function(x,neig){
   G2 = G1*(log(s/(1-s)))
   Del = apply(x,2,mean) # Del should now have length p
   G1 = outer(Del,G1) # G1 should now have dimension p by neig
-  M2 = cbind(G1,G2) # M2 should now have dimension p+1 by neig
+  M2 = rbind(G1,G2) # M2 should now have dimension p+1 by neig
   M1-t(M2)%*%solve(Fisher,M2)
 }
 
@@ -385,7 +385,7 @@ CvM.laplace.regression.covmat=function(x,neig){
   G2[s>0.5] = ((1-s)*log(2*(1-s)))[s>0.5]
   Del = apply(x,2,mean) # Del should now have length p
   G1 = outer(Del,G1) # G1 should now have dimension p by neig
-  M2 = cbind(G1,G2) # M2 should now have dimension p+1 by neig
+  M2 = rbind(G1,G2) # M2 should now have dimension p+1 by neig
   M1 - t(M2) %*% solve(Fisher,M2)
 }
 
@@ -406,16 +406,16 @@ CvM.weibull.regression.covmat=function(x,neig){
   D = t(x)%*%x/n
   Fisher.weibull = matrix(c(pi^2/6+(1+digamma(1))^2,-(1+digamma(1)),-(1+digamma(1)),1),nrow=2)
   Fisher = matrix(0,nrow=p+1,ncol=p+1)
-  Fisher[1:p,1:p] = pi^2/6+(1+digamma(1))^2*D
+  Fisher[1:p,1:p] = D
   Fisher[1:p,p+1] = -(1+digamma(1))*apply(x,2,mean)
-  Fisher[p+1,p+1] = 1
+  Fisher[p+1,p+1] = pi^2/6+(1+digamma(1))^2
   s=1:neig
   s=s/(neig+1)
   M1=outer(s,s,pmin)-outer(s,s)
-  G1 = s*(1-s)
-  G2 = G1*(log(s/(1-s)))
+  G1 = -log(1-s)*(1-s)
+  G2 = -log(1-s)*log(-log(1-s))*(1-s)
   Del = apply(x,2,mean) # Del should now have length p
   G1 = outer(Del,G1) # G1 should now have dimension p by neig
-  M2 = cbind(G1,G2) # M2 should now have dimension p+1 by neig
+  M2 = rbind(G1,G2) # M2 should now have dimension p+1 by neig
   M1 - t(M2) %*% solve(Fisher,M2)
 }

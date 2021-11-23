@@ -17,14 +17,14 @@ CvM.gamma.regression.pvalue(
   w,
   x,
   theta,
-  link = "log",
   neig = max(n, 100),
+  link = "log",
   verbose = FALSE
 )
 
 CvM.logistic.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
 
-CvM.laplace.regression.pvalue(w, xneig = max(100, n), verbose = FALSE)
+CvM.laplace.regression.pvalue(w, x, neig = max(100, n), verbose = FALSE)
 
 CvM.weibull.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
 
@@ -34,8 +34,8 @@ CvM.exp.regression.pvalue(
   w,
   x,
   theta,
-  link = "log",
   neig = max(n, 100),
+  link = "log",
   verbose = FALSE
 )
 }

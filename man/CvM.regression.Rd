@@ -12,8 +12,8 @@
 \title{Cramer-von Mises statistic for regression}
 \usage{
 CvM.normal.regression(
-  x,
   y,
+  x,
   fit.intercept = TRUE,
   parameter = estimate.normal.regression(x, y, fit.intercept = fit.intercept)
 )
@@ -21,28 +21,50 @@ CvM.normal.regression(
 CvM.gamma.regression(
   y,
   x,
-  link = "log",
-  parameter = estimate.gamma.regression(fit, x, y, link = link)
+  fit.intercept = TRUE,
+  parameter = estimate.gamma.regression(fit, x, y, link = link),
+  link = "log"
 )
 
-CvM.logistic.regression(y, x, parameter = estimate.logistic.regression(y, x))
+CvM.logistic.regression(
+  y,
+  x,
+  fit.intercept = TRUE,
+  parameter = estimate.logistic.regression(x, y)
+)
 
-CvM.laplace.regression(y, x, parameter = estimate.laplace.regression(y, x))
+CvM.laplace.regression(
+  y,
+  x,
+  fit.intercept = TRUE,
+  parameter = estimate.laplace.regression(y, x)
+)
 
-CvM.weibull.regression(y, x, parameter = estimate.weibull.regression(y, x))
+CvM.weibull.regression(
+  y,
+  x,
+  fit.intercept = TRUE,
+  parameter = estimate.weibull.regression(y, x)
+)
 
 CvM.extremevalue.regression(
   y,
   x,
+  fit.intercept = TRUE,
   parameter = estimate.extremevalue.regression(y, x)
 )
 
-CvM.exp.regression(y, x, parameter = estimate.exp.regression(y, x))
+CvM.exp.regression(
+  y,
+  x,
+  fit.intercept = TRUE,
+  parameter = estimate.exp.regression(y, x)
+)
 }
 \arguments{
-\item{x}{explanatory variables}
-
 \item{y}{response variable}
+
+\item{x}{explanatory variables}
 
 \item{parameter}{estimates of regression parameters}
 }
