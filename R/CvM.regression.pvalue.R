@@ -411,6 +411,6 @@ CvM.weibull.regression.covmat=function(x,neig=max(100,n)){
   G2 = G1*(log(s/(1-s)))
   Del = apply(x,2,mean) # Del should now have length p
   G1 = outer(Del,G1) # G1 should now have dimension p by neig
-  M2 = cbind(G1,G2) # G1 should now have dimension p+1 by neig
+  M2 = cbind(G1,G2) # M2 should now have dimension p+1 by neig
   M1 - t(M2) %*% solve(Fisher,M2)
 }
