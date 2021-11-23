@@ -97,10 +97,19 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   sigmastart = summary(fit)$dispersion
   thetastart = c(betastart,sigmastart)
   cat("Initial values ",thetastart,"\n")
-  if( link == "log" ) invlink = exp
-  if( link == "inverse" ) invlink = function(w) 1/w
-  if( link == "identity" ) invlink = function(w) w
-  ell = function(th,xx,y,invlink = invlink){
+  if( link == "log" ){
+    invlink = exp
+    weight = function(w) 1
+  }
+  if( link == "inverse" ){
+    invlink = function(w) 1/w
+    weight = function(w) -1/w
+  }
+  if( link == "identity" ){
+    invlink = function(w) w
+    weight = 1/w
+  }
+  ellneg = function(th,xx,y,invlink = invlink){
     n = length(y)
     pp = length(th)
     coefs = th[-pp]
@@ -109,11 +118,59 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     ell = alpha*log(y)+alpha*log(alpha/mu) -alpha*y/mu -lgamma(alpha)
     -sum(ell)
   }
-  w = optim(par = thetastart, ell, xx=xx,y=y,invlink=invlink)
-  thetahat = w$par
+  score = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    pp = length(th)
+    coefs = th[-pp]
+    alpha=1/th[pp]
+    eta = xx %*% coefs
+    mu = invlink(eta)
+    wt = weight(eta)
+    sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
+    sc.mu = xx*rep(wt*(-alpha +alpha*y/mu),n)
+    cbind(sc.mu,sc.alpha)    
+  }
+  hessian = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    pp = length(th)
+    coefs = th[-pp]
+    alpha=1/th[pp]
+    eta = xx %*% coefs
+    mu = invlink(eta)
+    wt = weight(eta)
+    H = array(0,dim=c(n,pp,pp))
+    h.mu.mu = alpha-2*alpha*y/mu
+    h.al.al = 1/alpha-trigamma(alpha) 
+    h.al.mu = -y/mu-1
+    h.m.m = array(0,dim=c(n,p,p))
+    for( i in 1:n){
+      H[i,1:p,1:p] = outer(h.mu.mu[i]*wt[i]^2*xx[i,],xx[i,])
+      H[i,1:p,pp] = h.al.mu[i]*wt[i]*xx[i,]
+      H[i,pp,1:p] = h.al.mu[i]*wt[i]*xx[i,]
+      H[i,pp,pp] = h.al.al
+    }
+    H
+  }
+  f = function(theta,response,predictor){
+    ellneg(response,predictor,theta)
+  }
+  D1 = function(theta,response,predictor){
+    -apply(score.logistic.regression(response,predictor,theta),2,sum)
+  }
+  D2 = function(theta,response,predictor){
+    -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
+  }
+  Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
+                                #print.info=TRUE,
+                                minimize = TRUE,maxiter=100,
+                                response = y,predictor=xx)
+  thetahat = Marq$b
+ # w = optim(par = thetastart, ell, xx=xx,y=y,invlink=invlink)
+ # thetahat = w$par
   pp = length(thetahat)
   thetahat[pp] = 1/thetahat[pp]
   list(thetahat = thetahat, model.matrix = xx,optim.output = w)
+  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
