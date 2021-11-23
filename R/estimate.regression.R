@@ -183,8 +183,8 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   #  We will test that the $y$ have exponential distributions with mean
   #    invlink(x %*% coefs).
   #    GLM gives us initial estimates of coefs
-  #  The dispersion  is 1/alpha.
-  #  Then optim is used to ensure we have found find the mle.
+  #  The dispersion  is 1.
+  #  Then Marquardt-Levenberg is used to ensure we have found find the mle.
   #
   #  We allow the three link functions used by glm for the Gamma family
   #  So far we don't check that one of the possibilities is actually called.
@@ -197,6 +197,64 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   }
   xx = model.matrix(fit)
   betastart = coef(fit)
+    if( link == "log" ){
+    invlink = exp
+    weight = function(w) 1
+  }
+  if( link == "inverse" ){
+    invlink = function(w) 1/w
+    weight = function(w) -1/w
+  }
+  if( link == "identity" ){
+    invlink = function(w) w
+    weight = 1/w
+  }
+  ellneg = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    pp = length(th)
+    coefs = th
+    mu = invlink(xx %*% coefs)
+    ell = -log(mu) -y/mu 
+    -sum(ell)
+  }
+  score = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    p = length(th)
+    coefs = th
+    eta = xx %*% coefs
+    mu = invlink(eta)
+    wt = weight(eta)
+    sc.mu = xx*rep(wt*(-1 +y/mu),n)
+    sc.mu   
+  }
+  hessian = function(th,xx,y,invlink = invlink){
+    n = length(y)
+    p = length(th)
+    coefs = th
+    eta = xx %*% coefs
+    mu = invlink(eta)
+    wt = weight(eta)
+    H = array(0,dim=c(n,p,p))
+    h.mu.mu = alpha-2*alpha*y/mu
+    for( i in 1:n){
+      H[i,1:p,1:p] = outer(h.mu.mu[i]*wt[i]^2*xx[i,],xx[i,])
+    }
+    H
+  }
+  f = function(theta,response,predictor){
+    ellneg(response,predictor,theta)
+  }
+  D1 = function(theta,response,predictor){
+    -apply(score.logistic.regression(response,predictor,theta),2,sum)
+  }
+  D2 = function(theta,response,predictor){
+    -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
+  }
+  Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
+                                #print.info=TRUE,
+                                minimize = TRUE,maxiter=100,
+                                response = y,predictor=xx)
+  thetahat = Marq$b
   # cat("Initial values ",betastart,"\n")
   if( link == "log" ) invlink = exp
   if( link == "inverse" ) invlink = function(w) 1/w
