@@ -223,19 +223,35 @@ estimate.laplace.regression=function(y,x,fit.intercept=TRUE){
 estimate.weibull.regression <- function(y,x,fit.intercept=TRUE,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a weibull regression
-  #  model in which the log of the response is predicted by x
-  # The scale parameter is taken to be x^\top beta .
+  #  model in which the log of the scale parameter for the response is predicted by x
+  # That is, the scale parameter is taken to be log(x^\top beta).
   # To get initial values we do linear regression remembering
-  #  that log(y) -x^\top beta has mean -gamma and variance pi^2/6
+  #  that log(y) -x^\top beta has mean -gamma and variance pi^2/6 times the shape parameter
   #  where gamma is Euler's constant.
   #
   w=log(y)-digamma(1)
-  if(fit.intercept) fit = lm(w~x) else fit = lm(w~x-1)
-  beta.start = coef(fit)[-1]
-  int.start = coef(fit)[1]+digamma(1)
-  sigma.start =  summary(fit)$sigma*6/pi^2
-
-  theta = c(int.start,beta.start,sigma.start)
+  if(fit.intercept){
+    # 
+    # The design matrix x is assumed not to contain a column
+    # of 1s and an intercept is added to the fit 
+    #
+    fit = lm(w~x) 
+    beta.start = coef(fit)[-1]
+    int.start = coef(fit)[1]+digamma(1)
+    sigma.start =  summary(fit)$sigma*6/pi^2
+    theta = c(int.start,beta.start,sigma.start)
+    xx = cbind(rep(1,n),x)
+    } else{
+    #
+    # It is assumed that a column of 1s is included in x or that
+    # for some reason a column of 1s is not desired.
+    #
+    fit = lm(w~x-1)
+    beta.start = coef(fit)
+    sigma.start =  summary(fit)$sigma*6/pi^2
+    theta = c(beta.start,sigma.start)
+    xx=x
+  }
 
   f = function(theta,response,predictor){
     -ell.extremevalue.regression(response,predictor,theta)
@@ -248,7 +264,7 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE,detail=FALSE){
   }
   Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
                                 epsa=0.001,#print.info=TRUE,
-                                minimize = TRUE,maxiter=500,response = log(y),predictor=x)
+                                minimize = TRUE,maxiter=500,response = log(y),predictor=xx)
   thetahat = Marq$b
   if(detail) return(list(thetahat = thetahat, Marq = Marq))
   thetahat
@@ -263,16 +279,24 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
   #  model in which the response is predicted by x
   # The scale parameter is taken to be x^\top beta .
   # To get initial values we do linear regression remembering
-  #  that y -x^\top beta has mean -gamma and variance pi^2/6
+  #  that y -x^\top beta has mean -gamma and variance pi^2/6 
   #  where gamma is Euler's constant.
   #
   w=y-digamma(1)
-  if(fit.intercept) fit = lm(w~x) else fit = lm(w~x-1)
-  beta.start = coef(fit)[-1]
-  int.start = coef(fit)[1]+digamma(1)
-  sigma.start =  summary(fit)$sigma*6/pi^2
-
-  theta = c(int.start,beta.start,sigma.start)
+  if(fit.intercept){
+    fit = lm(w~x)
+    beta.start = coef(fit)[-1]
+    int.start = coef(fit)[1]+digamma(1)
+    sigma.start =  summary(fit)$sigma*6/pi^2
+    xx=cbind(rep(1,length(y)),x)
+    theta = c(int.start,beta.start,sigma.start)
+  }else{
+    fit = lm(w~x-1)
+    beta.start = coef(fit)
+    sigma.start =  summary(fit)$sigma*6/pi^2
+    xx=x
+    theta = c(beta.start,sigma.start)
+   }
 
   f = function(theta,response,predictor){
     -ell.extremevalue.regression(response,predictor,theta)
@@ -285,7 +309,7 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
   }
   Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
                                 epsa=0.001,#print.info=TRUE,
-                                minimize = TRUE,maxiter=500,response = y,predictor=x)
+                                minimize = TRUE,maxiter=500,response = y,predictor=xx)
   thetahat = Marq$b
   if(detail) return(list(thetahat = thetahat, Marq = Marq))
   thetahat
