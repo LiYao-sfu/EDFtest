@@ -19,7 +19,7 @@ NULL
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+CvM.normal.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.normal.regression.eigen(x,neig=neig)
@@ -34,7 +34,7 @@ CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," using = ",neig,
-                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+                    " eigenvalues, p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -42,7 +42,7 @@ CvM.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.gamma.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbose=FALSE){
+CvM.gamma.regression.pvalue = function(w,x,theta,neig=max(n,400),link="log",verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.gamma.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -57,7 +57,7 @@ CvM.gamma.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verb
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," using = ",neig,
-                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+                    " eigenvalues, p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -65,7 +65,7 @@ CvM.gamma.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verb
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+CvM.logistic.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.logistic.regression.eigen(x,neig=neig)
@@ -80,7 +80,7 @@ CvM.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," using = ",neig,
-                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+                    " eigenvalues, p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -88,7 +88,7 @@ CvM.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.laplace.regression.pvalue = function(w,x,neig=max(100,n),verbose=FALSE){
+CvM.laplace.regression.pvalue = function(w,x,neig=max(400,n),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.laplace.regression.eigen(x,neig=neig)
@@ -103,7 +103,7 @@ CvM.laplace.regression.pvalue = function(w,x,neig=max(100,n),verbose=FALSE){
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," and neig = ",neig,
-                    " p was replaced by a lower bound on p: ",plb, "\n")
+                    " p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -111,7 +111,7 @@ CvM.laplace.regression.pvalue = function(w,x,neig=max(100,n),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+CvM.weibull.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.weibull.regression.eigen(x,neig=neig)
@@ -126,7 +126,7 @@ CvM.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," using = ",neig,
-                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+                    " eigenvalues, p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -134,7 +134,7 @@ CvM.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.weibull.regression.eigen(x,neig=neig)
@@ -149,7 +149,7 @@ CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE)
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," using = ",neig,
-                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+                    " eigenvalues, p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -157,7 +157,7 @@ CvM.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE)
 
 #' @export
 #' @rdname CvM.regression.pvalue
-CvM.exp.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbose=FALSE){
+CvM.exp.regression.pvalue = function(w,x,theta,neig=max(n,400),link="log",verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = CvM.exp.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -172,7 +172,7 @@ CvM.exp.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbos
   if(p<plb){
     p=plb
     if(verbose) cat("for W = ",w," using = ",neig,
-                    " eigenvalues, p was replaced by a lower bound on p: ",plb, "\n")
+                    " eigenvalues, p-value was replaced by a lower bound: ",plb, "\n")
   }
   list(P=p,error=aerror)
 }
@@ -181,8 +181,6 @@ CvM.exp.regression.pvalue = function(w,x,theta,neig=max(n,100),link="log",verbos
 
 
 CvM.normal.regression.eigen = function(x,neig){
-  p=dim(x)[2]
-  n=dim(x)[1]
   mean.wsq.normal=1/6 -7*sqrt(3)/(36*pi)
   M=CvM.normal.regression.covmat(x,neig=neig)
   e=eigen(M)$values/neig
@@ -236,20 +234,19 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
     wt = weight(eta)
     W = x * rep(wt,p)
     M = t(W)%*%W/n  # should be p by p
-  #####fisher.information.gamma=function(x,theta){
+  #####
     #
-    # returns the estimated Fisher Information per point
+    # the estimated Fisher Information per point
     # for a gamma regression model in which the log mean is predicted
     # linearly from a matrix of covariates x
     # Normally x will contain an intercept term
     #
-    FI=matrix(0,nrow=pp,ncol=pp)
-    FI[pp,pp]=trigamma(shape)-1/shape
-    FI[1:p,1:p] = shape * M
-  #  FI
-  ########}
-
- # FI = fisher.information.gamma(shape.hat = shape)
+    Fisher=matrix(0,nrow=pp,ncol=pp)
+    Fisher[pp,pp]=trigamma(shape)-1/shape
+    Fisher[1:p,1:p] = shape * M
+    #  
+  #####
+  
   s=1:neig
   s=s/(neig+1)
   M1=outer(s,s,pmin)-outer(s,s)
@@ -257,7 +254,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
   Q = qgamma(s,shape=shape)
   D = dgamma(Q,shape=shape)
   G1 = - Q * D
-  Del = apply(W,2,sum) # Del should now be a p vector
+  Del = apply(W,2,mean) # Del should now be a p vector
   G1 = outer(Del, G1) # G1 should now be p by neig
 
   g = gamma(shape)
@@ -268,14 +265,12 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
     G2[i] = integrate(g2.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
   M2 = rbind(G1,G2) # M2 should be p+1 by neig
-  M1 - t(M2) %*% solve(FI,M2)
+  M1 - t(M2) %*% solve(Fisher,M2)
 }
 
 
 
 CvM.gamma.regression.eigen = function(x,theta,neig,link="log"){
-  p=dim(x)[2]
-  n=dim(x)[1]
   M=CvM.gamma.regression.covmat(x,theta=theta,link=link,neig=neig)
   e=eigen(M)$values/neig
   e # *mean.wsq.gamma/sum(e) but this correction is not available yet
@@ -284,13 +279,12 @@ CvM.gamma.regression.eigen = function(x,theta,neig,link="log"){
 
 CvM.exp.regression.covmat=function(x,theta,neig,link="log"){
     #
-    # returns the estimated Fisher Information per point
     # for an exponential regression model in which the log mean is predicted
     # linearly from a matrix of covariates x
     # Normally x will contain an intercept term
     # Permits use of two other links: identity and inverse
     #
-  pp=length(theta)
+  p=length(theta)
   eta = x %*% theta
     if( link == "log") {
    #  invlink = exp
@@ -309,21 +303,19 @@ CvM.exp.regression.covmat=function(x,theta,neig,link="log"){
     }
   wt = weight(eta)
   W = x * rep(wt,p)
-  FI = t(W)%*%W/n  # should be p by p
+  Fisher = t(W)%*%W/n  # should be p by p
   s = 1:neig
   s = s/(neig+1)
   M1 = outer(s,s,pmin)-outer(s,s)
-  G = log(1-s)*(1-s)
-  Del = apply(W,2,sum) # Del should now be a p vector
+  G1 = -log(1-s)*(1-s)
+  Del = apply(W,2,mean) # Del should now be a p vector
   G1 = outer(Del, G1) # G1 should now be p by neig
-  M1 - t(G1) %*% solve(FI,G1)
+  M1 - t(G1) %*% solve(Fisher,G1)
 }
 
 
 
 CvM.exp.regression.eigen = function(x,theta,neig,link="log"){
-  p=dim(x)[2]
-  n=dim(x)[1]
   M=CvM.exp.regression.covmat(x,theta=theta,link=link,neig=neig)
   e=eigen(M)$values/neig
   e # *mean.wsq.exp/sum(e) but this correction is not available yet
@@ -331,8 +323,6 @@ CvM.exp.regression.eigen = function(x,theta,neig,link="log"){
 
 
 CvM.logistic.regression.eigen = function(x,neig){
-  p = dim(x)[2]
-  n = dim(x)[1]
   mean.wsq.logistic= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
   M=CvM.logistic.regression.covmat(x,neig=neig)
   e=eigen(M)$values/neig
@@ -360,8 +350,6 @@ CvM.logistic.regression.covmat=function(x,neig){
 
 
 CvM.laplace.regression.eigen  = function(x,neig){
-  p = dim(x)[2]
-  n = dim(x)[1]
   mean = 1/6 -1/12-1/54
   M=CvM.laplace.regression.covmat(x,neig = neig)
   e=eigen(M)$values/neig
@@ -391,12 +379,10 @@ CvM.laplace.regression.covmat=function(x,neig){
 
 
 CvM.weibull.regression.eigen = function(x,neig){
-  p = dim(x)[2]
-  n = dim(x)[1]
   # mean.wsq.weibull= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
   M=CvM.weibull.regression.covmat(x,neig=neig)
   e=eigen(M)$values/neig
-  e #*mean.wsq.logistic/sum(e)
+  e # *mean.wsq./sum(e)
 }
 
 
