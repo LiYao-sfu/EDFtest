@@ -86,7 +86,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   #    invlink(x %*% coefs)
   #  and shape alpha.  GLM gives us initial estimates of coefs and of
   #  the dispersion which is 1/alpha.
-  #  Then optim is used to find the mle.
+  #  Then optim is used to find the mle of coefs and of alpha
   #
   #  We allow the three link functions used by glm for the Gamma family
   #  So far we don't check that one of the possibilities is actually called.
@@ -100,26 +100,29 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   }
   xx = model.matrix(fit)
   betastart = coef(fit)
-  sigmastart = summary(fit)$dispersion
-  thetastart = c(betastart,sigmastart)
+  shapestart = 1/summary(fit)$dispersion
+  thetastart = c(betastart,shapestart)
   cat("Initial values ",thetastart,"\n")
   if( link == "log" ){
     invlink = exp
     weight = function(w) 1
+    logh2der = function(w) 0
   }
   if( link == "inverse" ){
     invlink = function(w) 1/w
     weight = function(w) -1/w
+    logh2der = function(w) 1/w^2
   }
   if( link == "identity" ){
     invlink = function(w) w
     weight = 1/w
+    logh2der = function(w) -1/w^2
   }
-  ell = function(th,xx,y,invlink = invlink){
+  ellneg = function(th,xx,y,invlink = invlink){
     n = length(y)
     pp = length(th)
     coefs = th[-pp]
-    alpha=1/th[pp]
+    alpha = th[pp]
     mu = invlink(xx %*% coefs)
     ell = alpha*log(y)+alpha*log(alpha/mu) -alpha*y/mu -lgamma(alpha)
     -sum(ell)
@@ -127,37 +130,39 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   score = function(th,xx,y,invlink = invlink){
     n = length(y)
     pp = length(th)
+    p = pp - 1
     coefs = th[-pp]
-    alpha=1/th[pp]
-    alpha.der = - alpha^2
+    alpha = th[pp]
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
     sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
-    sc.mu = xx*rep(wt*(-alpha +alpha*y/mu),n)
-    cbind(sc.mu,sc.alpha*alpha.der)
+    sc.mu = xx*rep(wt*alpha*(y/mu -1),p)
+    cbind(sc.mu,sc.alpha)
   }
   hessian = function(th,xx,y,invlink = invlink){
     n = length(y)
     pp = length(th)
+    p = pp - 1
     coefs = th[-pp]
-    alpha=1/th[pp]
-    alpha.der = -alpha^2
-    alpha.2der = 2 * alpha^3
+    alpha=th[pp]
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
+    wt2 = logh2der(eta)
     sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
     H = array(0,dim=c(n,pp,pp))
-    h.mu.mu = alpha-2*alpha*y/mu
+    h1.mu.mu = (y/mu-1)*wt2
+    h2.mu.mu = -y/mu*wt^2
+    h.mu.mu = alpha*(h1.mu.mu+h2.mu.mu)
     h.al.al = 1/alpha-trigamma(alpha)
-    h.al.mu = alpha.der*(-y/mu-1)
+    h.al.mu = (y/mu-1)*wt
     h.m.m = array(0,dim=c(n,p,p))
     for( i in 1:n){
-      H[i,1:p,1:p] = outer(h.mu.mu[i]*wt[i]^2*xx[i,],xx[i,])
-      H[i,1:p,pp] = h.al.mu[i]*wt[i]*xx[i,]
-      H[i,pp,1:p] = h.al.mu[i]*wt[i]*xx[i,]
-      H[i,pp,pp] = h.al.al*alpha.der^2+ sc.alpha* alpha.2der
+      H[i,1:p,1:p] = outer(h.mu.mu[i]*xx[i,],xx[i,])
+      H[i,1:p,pp] = h.al.mu[i]*xx[i,]
+      H[i,pp,1:p] = h.al.mu[i]*xx[i,]
+      H[i,pp,pp] = h.al.al + sc.alpha
     }
     H
   }
@@ -165,22 +170,20 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     ellneg(response,predictor,theta)
   }
   D1 = function(theta,response,predictor){
-    -apply(score.logistic.regression(response,predictor,theta),2,sum)
+    -apply(score(response,predictor,theta),2,sum)
   }
   D2 = function(theta,response,predictor){
-    -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
+    -apply(hessian(response,predictor,theta),c(2,3),sum)
   }
-  # Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
-  #                               #print.info=TRUE,
-  #                               minimize = TRUE,maxiter=100,
-  #                               response = y,predictor=xx)
-  # thetahat = Marq$b
-  w = optim(par = thetastart, ell, xx=xx,y=y,invlink=invlink)
-  thetahat = w$par
-  pp = length(thetahat)
-  thetahat[pp] = 1/thetahat[pp]
-  list(thetahat = thetahat, model.matrix = xx,optim.output = w)
-  #list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
+  Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
+                                 #print.info=TRUE,
+                                 minimize = TRUE,maxiter=100,
+                                 response = y,predictor=xx)
+  thetahat = Marq$b
+ # w = optim(par = thetastart, ellneg, xx=xx,y=y,invlink=invlink)
+ # thetahat = w$par
+ # list(thetahat = thetahat, model.matrix = xx,optim.output = w)
+  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
@@ -210,14 +213,17 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     if( link == "log" ){
     invlink = exp
     weight = function(w) 1
+    logh2der = function(w) 0
   }
   if( link == "inverse" ){
     invlink = function(w) 1/w
     weight = function(w) -1/w
+    logh2der = function(w) 1/w^2
   }
   if( link == "identity" ){
     invlink = function(w) w
     weight = 1/w
+    logh2der = function(w) - 1/w^2
   }
   ellneg = function(th,xx,y,invlink = invlink){
     n = length(y)
@@ -234,9 +240,10 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
-    sc.mu = xx*rep(wt*(-1 +y/mu),n)
+    sc.mu = xx*rep(wt*(-1 +y/mu),p)
     sc.mu
   }
+
   hessian = function(th,xx,y,invlink = invlink){
     n = length(y)
     p = length(th)
@@ -244,13 +251,17 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
+    wt2 = logh2der(eta)
     H = array(0,dim=c(n,p,p))
-    h.mu.mu = alpha-2*alpha*y/mu
+    h1.mu.mu = (y/mu-1)*wt2
+    h2.mu.mu = -y/mu*wt^2
+    h.mu.mu = h1.mu.mu+h2.mu.mu
     for( i in 1:n){
       H[i,1:p,1:p] = outer(h.mu.mu[i]*wt[i]^2*xx[i,],xx[i,])
     }
     H
   }
+
   f = function(theta,response,predictor){
     ellneg(theta,predictor,response)
   }
