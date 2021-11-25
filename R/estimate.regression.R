@@ -118,7 +118,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     weight = 1/w
     logh2der = function(w) -1/w^2
   }
-  ellneg = function(th,xx,y,invlink = invlink){
+  ellneg = function(th,xx,y){
     n = length(y)
     pp = length(th)
     coefs = th[-pp]
@@ -127,7 +127,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     ell = alpha*log(y)+alpha*log(alpha/mu) -alpha*y/mu -lgamma(alpha)
     -sum(ell)
   }
-  score = function(th,xx,y,invlink = invlink){
+  score = function(th,xx,y){
     n = length(y)
     pp = length(th)
     p = pp - 1
@@ -136,11 +136,11 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     eta = xx %*% coefs
     mu = invlink(eta)
     wt = weight(eta)
-    sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
+    sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) +1
     sc.mu = xx*rep(wt*alpha*(y/mu -1),p)
     cbind(sc.mu,sc.alpha)
   }
-  hessian = function(th,xx,y,invlink = invlink){
+  hessian = function(th,xx,y){
     n = length(y)
     pp = length(th)
     p = pp - 1
@@ -150,7 +150,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     mu = invlink(eta)
     wt = weight(eta)
     wt2 = logh2der(eta)
-    sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) -1
+    sc.alpha = log(y/mu) -y/mu -digamma(alpha)+log(alpha) +1
     H = array(0,dim=c(n,pp,pp))
     h1.mu.mu = (y/mu-1)*wt2
     h2.mu.mu = -y/mu*wt^2
@@ -162,18 +162,18 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
       H[i,1:p,1:p] = outer(h.mu.mu[i]*xx[i,],xx[i,])
       H[i,1:p,pp] = h.al.mu[i]*xx[i,]
       H[i,pp,1:p] = h.al.mu[i]*xx[i,]
-      H[i,pp,pp] = h.al.al + sc.alpha
     }
+    H[,pp,pp] = h.al.al + sc.alpha
     H
   }
-  f = function(theta,response,predictor){
-    ellneg(response,predictor,theta)
+  f = function(theta,predictor,response){
+    ellneg(theta,predictor,response)
   }
-  D1 = function(theta,response,predictor){
-    -apply(score(response,predictor,theta),2,sum)
+  D1 = function(theta,predictor,response){
+    -apply(score(theta,predictor,response),2,sum)
   }
-  D2 = function(theta,response,predictor){
-    -apply(hessian(response,predictor,theta),c(2,3),sum)
+  D2 = function(theta,predictor,response){
+    -apply(hessian(theta,predictor,response),c(2,3),sum)
   }
   Marq = marqLevAlg::marqLevAlg(b=thetastart,fn=f,gr=D1,hess=D2,
                                  #print.info=TRUE,
@@ -210,7 +210,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   }
   xx = model.matrix(fit)
   betastart = coef(fit)
-    if( link == "log" ){
+  if( link == "log" ){
     invlink = exp
     weight = function(w) 1
     logh2der = function(w) 0
@@ -225,7 +225,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     weight = 1/w
     logh2der = function(w) - 1/w^2
   }
-  ellneg = function(th,xx,y,invlink = invlink){
+  ellneg = function(th,xx,y){
     n = length(y)
     pp = length(th)
     coefs = th
@@ -233,7 +233,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     ell = -log(mu) -y/mu
     -sum(ell)
   }
-  score = function(th,xx,y,invlink = invlink){
+  score = function(th,xx,y){
     n = length(y)
     p = length(th)
     coefs = th
@@ -244,7 +244,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     sc.mu
   }
 
-  hessian = function(th,xx,y,invlink = invlink){
+  hessian = function(th,xx,y){
     n = length(y)
     p = length(th)
     coefs = th
@@ -262,38 +262,22 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
     H
   }
 
-  f = function(theta,response,predictor){
+  f = function(theta,predictor,response){
     ellneg(theta,predictor,response)
   }
-  D1 = function(theta,response,predictor){
-    -apply(score(response,predictor,theta),2,sum)
+  D1 = function(theta,predictor,response){
+    -apply(score(theta,predictor,response),2,sum)
   }
-  D2 = function(theta,response,predictor){
-    -apply(hessian(response,predictor,theta),c(2,3),sum)
+  D2 = function(theta,predictor,response){
+    -apply(hessian(theta,predictor,response),c(2,3),sum)
   }
+
   Marq = marqLevAlg::marqLevAlg(b=betastart,fn=f,gr=D1,hess=D2,
                                 #print.info=TRUE,
                                 minimize = TRUE,maxiter=100,
                                 response = y,predictor=xx)
   thetahat = Marq$b
-  # cat("Initial values ",betastart,"\n")
-  if( link == "log" ) invlink = exp
-  if( link == "inverse" ) invlink = function(w) 1/w
-  if( link == "identity" ) invlink = function(w) w
-  ell = function(th,xx,y,invlink = invlink){
-    n = length(y)
-    pp = length(th)
-    coefs = th
-    mu = invlink(xx %*% th)
-    ell = -log(mu) -y/mu
-    -sum(ell)
-  }
-  #
-  # Might be better to rewrite using MarqLev
-  #
-  w = optim(par = betastart, ell, xx=xx,y=y,invlink=invlink)
-  thetahat = w$par
-  list(thetahat = thetahat, model.matrix = xx,optim.output = w)
+  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
