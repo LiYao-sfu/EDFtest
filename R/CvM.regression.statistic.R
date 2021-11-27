@@ -87,53 +87,47 @@ CvM.logistic.regression <- function(y,x,fit.intercept = TRUE){
 
 #' @export
 #' @rdname CvM.regression
-CvM.laplace.regression <- function(y,x,fit.intercept = TRUE,
-                                   parameter=estimate.laplace.regression(y,x)){
-  pp=length(parameter)
-  if(fit.intercept){
-    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
-  }
-  p=pp-1
-  beta = parameter[-pp]
-  sigma = parameter[pp]
+CvM.laplace.regression <- function(y,x,fit.intercept = TRUE){
+  w = estimate.laplace.regression(y,x,fit.intercept=fit.intercept)
+  theta=w$thetahat
+  pp=length(theta)
+  xx=w$model.matrix
+  beta = theta[-pp]
+  sigma = theta[pp]
   mu = x %*% as.matrix(beta)
   z <- rmutil::plaplace(y,m=mu,s=sigma)
-  CvM(z)
+  list(w=CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
 
 
 #' @export
 #' @rdname CvM.regression
-CvM.weibull.regression <- function(y,x,fit.intercept = TRUE,
-                                   parameter=estimate.weibull.regression(y,x)){
-  pp=length(parameter)
-  if(fit.intercept){
-    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
-  }
-  p=pp-1
-  beta = parameter[-pp]
-  sigma = parameter[pp]
-  shape=1/sigma
+CvM.weibull.regression <- function(y,x,fit.intercept = TRUE){
+  w = estimate.weibull.regression(y,x,fit.intercept=fit.intercept)
+  theta=w$thetahat
+  pp=length(theta)
+  xx=w$model.matrix
+  beta = theta[-pp]
+  shape = 1/theta[pp]
   scale = exp(x %*% as.matrix(beta))
   z <- pweibull(y,shape=shape,scale =scale)
-  CvM(z)
+  list(w=CvM(z),x.design=xx,betahat=beta,shapehat=shape)
 }
 
 
 #' @export
 #' @rdname CvM.regression
-CvM.extremevalue.regression <- function(y,x,fit.intercept = TRUE,
-                                        parameter=estimate.extremevalue.regression(y,x)){
-  pp=length(parameter)
-  if(fit.intercept){
-    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
-  }
+CvM.extremevalue.regression <- function(y,x,fit.intercept = TRUE){
+  w = estimate.extremevalue.regression(y,x,fit.intercept=fit.intercept)
+  theta=w$thetahat
+  pp=length(theta)
+  xx=w$model.matrix
   p=pp-1
-  beta = parameter[-pp]
-  sigma = parameter[pp]
+  beta = ptheta[-pp]
+  sigma = theta[pp]
   yy=(y-x %*% beta)/sigma
   z = exp(-exp(yy))
-  CvM(z)
+  list(w=CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
 
 
