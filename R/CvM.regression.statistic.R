@@ -34,18 +34,14 @@ NULL
 
 #' @export
 #' @rdname CvM.regression
-CvM.normal.regression <- function(y,x,fit.intercept = TRUE,
-                                  parameter=estimate.normal.regression(x,y,fit.intercept=fit.intercept)){
-  pp=length(parameter)
-  if(fit.intercept){
-    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
-  }
-  p=pp-1
-  beta = parameter[-pp]
-  sigma = parameter[pp]
-  mu = x %*% as.matrix(beta)
+CvM.normal.regression <- function(y,x,fit.intercept = TRUE){
+  if(fit.intercept){fit = lm(y~x)}else{fit=lm(y~x-1)}
+  xx = model.matrix(fit)
+  beta = coef(fit)
+  sigma = sqrt(mean(fit$residuals^2))
+  mu = xx %*% beta
   z <- pnorm(y,mean=mu,sd=sigma)
-  CvM(z)
+  list(w = CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
 
 
