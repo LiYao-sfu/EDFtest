@@ -326,12 +326,12 @@ estimate.logistic.regression <- function(y,x,fit,fit.intercept=TRUE,detail=FALSE
 #' @export
 #' @rdname estimate.regression
 estimate.laplace.regression=function(y,x,fit.intercept=TRUE){
+  require(L1pack)
   data=data.frame(y=y,x=x)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
   xx = model.matrix(fit)
   coeff.hat = coefficients(fit)
   sigma.hat = fit$scale
-  xx=model.matrix(fit)
   list(thetahat = c(coeff.hat,sigma.hat), model.matrix = xx,fit=fit)
 }
 
