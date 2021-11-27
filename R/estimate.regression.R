@@ -283,7 +283,7 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
 
 #' @export
 #' @rdname estimate.regression
-estimate.logistic.regression <- function(x,y,fit,fit.intercept=TRUE,detail=FALSE){
+estimate.logistic.regression <- function(y,x,fit,fit.intercept=TRUE,detail=FALSE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a logistic regression
   #  model in which the log of the response is predicted by x
@@ -297,14 +297,14 @@ estimate.logistic.regression <- function(x,y,fit,fit.intercept=TRUE,detail=FALSE
 
   theta = c(beta.start,sigma.start)
   #  print(theta)
-  f = function(theta,response,predictor){
-    -ell.logistic.regression(response,predictor,theta)
+  f = function(theta,predictor,response){
+    -ell.logistic.regression(theta,predictor,response)
   }
-  D1 = function(theta,response,predictor){
-    -apply(score.logistic.regression(response,predictor,theta),2,sum)
+  D1 = function(theta,predictor,response){
+    -apply(score.logistic.regression(theta,predictor,response),2,sum)
   }
-  D2 = function(theta,response,predictor){
-    -apply(hessianarray.logistic.regression(response,predictor,theta),c(2,3),sum)
+  D2 = function(theta,predictor,response){
+    -apply(hessianarray.logistic.regression(theta,predictor,response),c(2,3),sum)
   }
   # cat("Initial Log Likelihood ", f(theta,log(y),x),"\n")
   # cat("Initial Score ", D1(theta,log(y),x),"\n")
@@ -416,14 +416,14 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
     theta = c(beta.start,sigma.start)
    }
 
-  f = function(theta,response,predictor){
-    -ell.extremevalue.regression(response,predictor,theta)
+  f = function(theta,predictor,response){
+    -ell.extremevalue.regression(theta,predictor,response)
   }
-  D1 = function(theta,response,predictor){
-    -apply(score.extremevalue.regression(response,predictor,theta),2,sum)
+  D1 = function(theta,predictor,response){
+    -apply(score.extremevalue.regression(theta,predictor,response),2,sum)
   }
-  D2 = function(theta,response,predictor){
-    -apply(hessianarray.extremevalue.regression(response,predictor,theta),c(2,3),sum)
+  D2 = function(theta,predictor,response){
+    -apply(hessianarray.extremevalue.regression(theta,predictor,response),c(2,3),sum)
   }
   Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
                                 epsa=0.001,#print.info=TRUE,
@@ -437,7 +437,7 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
 # Helpers -------------------------------------
 
 
-score.logistic.regression = function(y,x,theta){
+score.logistic.regression = function(theta,x,y){
   pp=length(theta)
   n=length(y)
   p=pp-1
@@ -451,7 +451,7 @@ score.logistic.regression = function(y,x,theta){
   cbind(ua,us)
 }
 
-hessianarray.logistic.regression = function(y,x,theta){
+hessianarray.logistic.regression = function(theta,x,y){
   pp=length(theta)
   n=length(y)
   p=pp-1
@@ -473,7 +473,7 @@ hessianarray.logistic.regression = function(y,x,theta){
   H
 }
 
-ell.logistic.regression = function(y,x,theta){
+ell.logistic.regression = function(theta,x,y){
   pp=length(theta)
   n=length(y)
   p=pp-1
