@@ -150,6 +150,7 @@ CvM.exp.regression <- function(y,x,fit,fit.intercept = TRUE,
   mu = invlink(xx %*% beta)
   z <- pexp(y,rate = 1/mu)
   list(w = CvM(z), x.design = xx,betahat=beta)
+}
 
 
 # Helpers -----------------------------------------------------------------
