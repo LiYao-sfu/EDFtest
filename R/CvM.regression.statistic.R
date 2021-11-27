@@ -48,7 +48,7 @@ CvM.normal.regression <- function(y,x,fit.intercept = TRUE){
 #' @export
 #' @rdname CvM.regression
 
-CvM.gamma.regression <- function(y,x,fit.intercept = TRUE,
+CvM.gamma.regression <- function(y,x,fit,fit.intercept = TRUE,
                                  link="log"){
   if(missing(fit)){
     if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
@@ -71,18 +71,17 @@ CvM.gamma.regression <- function(y,x,fit.intercept = TRUE,
 
 #' @export
 #' @rdname CvM.regression
-CvM.logistic.regression <- function(y,x,fit.intercept = TRUE,
-                                    parameter=estimate.logistic.regression(x,y)){
-  pp=length(parameter)
-  if(fit.intercept){
-    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
-  }
+CvM.logistic.regression <- function(y,x,fit.intercept = TRUE){
+  w = estimate.logistic.regression(y,x,fit.intercept=fit.intercept)
+  theta=w$thetahat
+  pp=length(theta)
+  xx=w$x.design
   p=pp-1
   beta = parameter[-pp]
   sigma = parameter[pp]
   mu = x %*% beta
   z <- plogis(y,location=mu,scale=sigma)
-  CvM(z)
+  list(w=CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
 
 
