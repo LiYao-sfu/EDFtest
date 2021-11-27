@@ -318,8 +318,7 @@ estimate.logistic.regression <- function(y,x,fit,fit.intercept=TRUE,detail=FALSE
   thetahat = Marq$b
   # print(Marq)
   # print(rbind(thetahat,theta))
-  if(detail) return(list(thetahat = thetahat, Marq = Marq))
-  thetahat
+  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
@@ -328,17 +327,17 @@ estimate.logistic.regression <- function(y,x,fit,fit.intercept=TRUE,detail=FALSE
 estimate.laplace.regression=function(y,x,fit.intercept=TRUE){
   data=data.frame(y=y,x=x)
   if(fit.intercept)fit=lad(y~x,data=data) else fit = lad(y~x-1,data=data)
-  n = length(y)
-  r = residuals(fit)
+  xx = model.matrix(fit)
   coeff.hat = coefficients(fit)
   sigma.hat = fit$scale
-  c(coeff.hat,sigma.hat)
+  xx=model.matrix(fit)
+  list(thetahat = c(coeff.hat,sigma.hat), model.matrix = xx,fit=fit)
 }
 
 
 #' @export
 #' @rdname estimate.regression
-estimate.weibull.regression <- function(y,x,fit.intercept=TRUE,detail=FALSE){
+estimate.weibull.regression <- function(y,x,fit.intercept=TRUE){
   #
   # Use the Marquardt-Levenberg algorithm to fit a weibull regression
   #  model in which the log of the scale parameter for the response is predicted by x
@@ -384,14 +383,13 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE,detail=FALSE){
                                 epsa=0.001,#print.info=TRUE,
                                 minimize = TRUE,maxiter=500,response = log(y),predictor=xx)
   thetahat = Marq$b
-  if(detail) return(list(thetahat = thetahat, Marq = Marq))
-  thetahat
+  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
 #' @export
 #' @rdname estimate.regression
-estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE){
+estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE){
   #
   # Use the Marquardt-Levenberg algorithm to fit an Extreme value regression
   #  model in which the response is predicted by x
@@ -429,8 +427,7 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE,detail=FALSE
                                 epsa=0.001,#print.info=TRUE,
                                 minimize = TRUE,maxiter=500,response = y,predictor=xx)
   thetahat = Marq$b
-  if(detail) return(list(thetahat = thetahat, Marq = Marq))
-  thetahat
+  list(thetahat = thetahat, model.matrix = xx,Marq.output = Marq)
 }
 
 
