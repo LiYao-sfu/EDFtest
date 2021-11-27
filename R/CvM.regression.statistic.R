@@ -124,7 +124,7 @@ CvM.extremevalue.regression <- function(y,x,fit.intercept = TRUE){
   xx=w$model.matrix
   beta = ptheta[-pp]
   sigma = theta[pp]
-  yy=(y-x %*% beta)/sigma
+  yy=(y-xx %*% beta)/sigma
   z = exp(-exp(yy))
   list(w=CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
