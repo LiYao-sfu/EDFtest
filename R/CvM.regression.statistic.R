@@ -140,14 +140,26 @@ CvM.extremevalue.regression <- function(y,x,fit.intercept = TRUE,
 
 #' @export
 #' @rdname CvM.regression
-CvM.exp.regression <- function(y,x,fit.intercept = TRUE,
-                               parameter=estimate.exp.regression(y,x)){
-  p=length(parameter)
-  beta = parameter
-  scale = exp(x %*% as.matrix(beta))
-  z <- pexp(y,rate=1/scale)
-  CvM(z)
-}
+CvM.exp.regression <- function(y,x,fit,fit.intercept = TRUE,
+                                 link="log"){
+  if(missing(fit)){
+    if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
+    if(fit.intercept) {fit = glm(y~x, family = Gamma(link = link))}
+    else{fit = glm(y~x-1, family = Gamma(link = link))}
+  }
+  xx = model.matrix(fit)
+  beta = coef(fit)
+  estimates = estimate.exp.regression(y,x,fit,
+                                    fit.intercept = fit.intercept,
+                                    link = link)
+  beta=estimates$thetahat
+
+  if( link == "log" ) invlink = exp
+  if( link == "inverse" ) invlink = function(w) 1/w
+  if( link == "identity" ) invlink = function(w) w
+  mu = invlink(xx %*% beta)
+  z <- pexp(y,rate = 1/mu)
+  list(w = CvM(z), x.design = xx,betahat=beta)
 
 
 # Helpers -----------------------------------------------------------------
