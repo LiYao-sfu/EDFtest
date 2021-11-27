@@ -109,7 +109,7 @@ CvM.weibull.regression <- function(y,x,fit.intercept = TRUE){
   xx=w$model.matrix
   beta = theta[-pp]
   shape = 1/theta[pp]
-  scale = exp(x %*% as.matrix(beta))
+  scale = exp(xx %*% beta)
   z <- pweibull(y,shape=shape,scale =scale)
   list(w=CvM(z),x.design=xx,betahat=beta,shapehat=shape)
 }
