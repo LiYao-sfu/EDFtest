@@ -71,8 +71,9 @@ estimate.normal.regression=function(y,x,fit,fit.intercept=TRUE){
   n = length(y)
   r = residuals(fit)
   coeff.hat = coefficients(fit)
+  xx=model.matrix(fit)
   sigma.hat = sqrt(mean(r^2)*n/(fit$df.residual))
-  c(coeff.hat,sigma.hat)
+  list(thetahat = c(coeff.hat,sigma.hat), model.matrix = xx,fit=fit)
 }
 
 
@@ -485,7 +486,7 @@ ell.logistic.regression = function(theta,x,y){
 }
 
 
-score.extremevalue.regression = function(y,x,theta){
+score.extremevalue.regression = function(theta,x,y){
   pp=length(theta)
   n=length(y)
   p=pp-1
@@ -498,7 +499,7 @@ score.extremevalue.regression = function(y,x,theta){
   cbind(ua,us)
 }
 
-hessianarray.extremevalue.regression = function(y,x,theta){
+hessianarray.extremevalue.regression = function(theta,x,y){
   pp=length(theta)
   n=length(y)
   p=pp-1
@@ -520,7 +521,7 @@ hessianarray.extremevalue.regression = function(y,x,theta){
   H
 }
 
-ell.extremevalue.regression = function(y,x,theta){
+ell.extremevalue.regression = function(theta,x,y){
   pp=length(theta)
   n=length(y)
   p=pp-1
