@@ -50,14 +50,12 @@ CvM.normal.regression <- function(y,x,fit.intercept = TRUE){
 
 CvM.gamma.regression <- function(y,x,fit,fit.intercept = TRUE,
                                  link="log"){
-  if(missing(fit)){
-    if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
-    if(fit.intercept) {fit = glm(y~x, family = Gamma(link = link))}
-    else{fit = glm(y~x-1, family = Gamma(link = link))}
-  }
-  xx = model.matrix(fit)
-  beta = coef(fit)
-  shape = 1/summary(fit)$dispersion
+  w=estimate.gamma.regression(y,x,fit,fit.intercept = fit.intercept)
+  xx = w$model.matrix
+  theta =w$thetahat
+  pp=length(theta)
+  beta = theta[-pp]
+  shape = theta[pp]
 
   if( link == "log" ) invlink = exp
   if( link == "inverse" ) invlink = function(w) 1/w
