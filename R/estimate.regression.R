@@ -105,8 +105,8 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   cat("Initial values ",thetastart,"\n")
   if( link == "log" ){
     invlink = exp
-    weight = function(w) 1
-    logh2der = function(w) 0
+    weight = function(w) rep(1,length(w))
+    logh2der = function(w) rep(0,length(w))
   }
   if( link == "inverse" ){
     invlink = function(w) 1/w
@@ -212,8 +212,8 @@ estimate.exp.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   betastart = coef(fit)
   if( link == "log" ){
     invlink = exp
-    weight = function(w) 1
-    logh2der = function(w) 0
+    weight = function(w) rep(1,length(w))
+    logh2der = function(w) rep(0,length(w))
   }
   if( link == "inverse" ){
     invlink = function(w) 1/w
