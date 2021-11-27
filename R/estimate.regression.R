@@ -294,7 +294,7 @@ estimate.logistic.regression <- function(y,x,fit,fit.intercept=TRUE,detail=FALSE
   if(fit.intercept)fit=lm(y~x) else fit = lm(y~x-1)
   beta.start = coef(fit)
   sigma.start =  summary(fit)$sigma*sqrt(3/pi^2)
-
+  xx = model.matrix(fit)
   theta = c(beta.start,sigma.start)
   #  print(theta)
   f = function(theta,predictor,response){
@@ -314,7 +314,7 @@ estimate.logistic.regression <- function(y,x,fit,fit.intercept=TRUE,detail=FALSE
   Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
                                 #print.info=TRUE,
                                 minimize = TRUE,maxiter=100,
-                                response = y,predictor=x)
+                                response = y,predictor=xx)
   thetahat = Marq$b
   # print(Marq)
   # print(rbind(thetahat,theta))
