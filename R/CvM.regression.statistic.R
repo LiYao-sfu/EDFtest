@@ -47,22 +47,25 @@ CvM.normal.regression <- function(y,x,fit.intercept = TRUE){
 
 #' @export
 #' @rdname CvM.regression
+
 CvM.gamma.regression <- function(y,x,fit.intercept = TRUE,
-                                 parameter=estimate.gamma.regression(fit,x,y,link = link),link="log"){
-  pp=length(parameter)
-  if(fit.intercept){
-    x=cbind(1,x) # cbind(rep(1,dim(x)[1]),x)
+                                 link="log"){
+  if(missing(fit)){
+    if (missing(x) || missing(y))stop("No fit is provided and one of x and y is missing")
+    if(fit.intercept) {fit = glm(y~x, family = Gamma(link = link))}
+    else{fit = glm(y~x-1, family = Gamma(link = link))}
   }
-  p=pp-1
-  beta = parameter[-pp]
-  shape = parameter[pp]
+  xx = model.matrix(fit)
+  beta = coef(fit)
+  shape = 1/summary(fit)$dispersion
+
   if( link == "log" ) invlink = exp
   if( link == "inverse" ) invlink = function(w) 1/w
   if( link == "identity" ) invlink = function(w) w
-  mu = invlink(x %*% beta)
+  mu = invlink(xx %*% beta)
   scale = mu/shape
   z <- pgamma(y,shape=shape,scale = scale)
-  CvM(z)
+  list(w = CvM(z), x.design = xx,betahat=beta, shapehat=shape)
 }
 
 
