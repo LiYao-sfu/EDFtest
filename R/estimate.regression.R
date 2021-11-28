@@ -358,7 +358,7 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE){
     int.start = coef(fit)[1]+digamma(1)
     sigma.start =  summary(fit)$sigma*6/pi^2
     theta = c(int.start,beta.start,sigma.start)
-    xx = cbind(rep(1,n),x)
+    xx = model.matrix(fit)
     } else{
     #
     # It is assumed that a column of 1s is included in x or that
@@ -368,7 +368,7 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE){
     beta.start = coef(fit)
     sigma.start =  summary(fit)$sigma*6/pi^2
     theta = c(beta.start,sigma.start)
-    xx=x
+    xx = model.matrix(fit)
   }
 
   f = function(theta,response,predictor){
@@ -405,13 +405,13 @@ estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE){
     beta.start = coef(fit)[-1]
     int.start = coef(fit)[1]+digamma(1)
     sigma.start =  summary(fit)$sigma*6/pi^2
-    xx=cbind(rep(1,length(y)),x)
+    xx = model.matrix(fit)
     theta = c(int.start,beta.start,sigma.start)
   }else{
     fit = lm(w~x-1)
     beta.start = coef(fit)
     sigma.start =  summary(fit)$sigma*6/pi^2
-    xx=x
+    xx = model.matrix(fit)
     theta = c(beta.start,sigma.start)
    }
 
