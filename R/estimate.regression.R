@@ -371,14 +371,14 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE){
     xx = model.matrix(fit)
   }
 
-  f = function(theta,response,predictor){
-    -ell.extremevalue.regression(response,predictor,theta)
+  f = function(theta,predictor,response){
+    -ell.extremevalue.regression(theta,predictor,response)
   }
-  D1 = function(theta,response,predictor){
-    -apply(score.extremevalue.regression(response,predictor,theta),2,sum)
+  D1 = function(theta,predictor,response){
+    -apply(score.extremevalue.regression(theta,predictor,response),2,sum)
   }
-  D2 = function(theta,response,predictor){
-    -apply(hessianarray.extremevalue.regression(response,predictor,theta),c(2,3),sum)
+  D2 = function(theta,predictor,response){
+    -apply(hessianarray.extremevalue.regression(theta,predictor,response),c(2,3),sum)
   }
   Marq = marqLevAlg::marqLevAlg(b=theta,fn=f,gr=D1,hess=D2,
                                 epsa=0.001,#print.info=TRUE,
@@ -390,7 +390,7 @@ estimate.weibull.regression <- function(y,x,fit.intercept=TRUE){
 
 #' @export
 #' @rdname estimate.regression
-estimate.extremevalue.regression <- function(x,y,fit.intercept=TRUE){
+estimate.extremevalue.regression <- function(y,x,fit.intercept=TRUE){
   #
   # Use the Marquardt-Levenberg algorithm to fit an Extreme value regression
   #  model in which the response is predicted by x
