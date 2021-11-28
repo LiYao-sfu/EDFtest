@@ -77,7 +77,7 @@ CvM.logistic.regression <- function(y,x,fit.intercept = TRUE){
   p=pp-1
   beta = theta[-pp]
   sigma = theta[pp]
-  mu = x %*% beta
+  mu = xx %*% beta
   z <- plogis(y,location=mu,scale=sigma)
   list(w=CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
