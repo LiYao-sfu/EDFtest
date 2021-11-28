@@ -103,7 +103,7 @@ estimate.gamma.regression = function(y,x,fit,fit.intercept=TRUE,link = "log"){
   betastart = coef(fit)
   shapestart = 1/summary(fit)$dispersion
   thetastart = c(betastart,shapestart)
-  cat("Initial values ",thetastart,"\n")
+  # cat("Initial values ",thetastart,"\n")
   if( link == "log" ){
     invlink = exp
     weight = function(w) rep(1,length(w))
