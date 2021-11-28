@@ -92,7 +92,7 @@ CvM.laplace.regression <- function(y,x,fit.intercept = TRUE){
   xx=w$model.matrix
   beta = theta[-pp]
   sigma = theta[pp]
-  mu = x %*% as.matrix(beta)
+  mu = xx %*% as.matrix(beta)
   z <- rmutil::plaplace(y,m=mu,s=sigma)
   list(w=CvM(z),x.design=xx,betahat=beta,sigmahat=sigma)
 }
