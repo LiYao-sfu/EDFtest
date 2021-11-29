@@ -380,10 +380,10 @@ CvM.laplace.regression.covmat=function(x,neig){
 
 
 CvM.weibull.regression.eigen = function(x,neig){
-  # mean.wsq.weibull= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
+  mean.wsq.weibull= 1/54 -4*(log(3)^2-log(3)-1)/(9*pi^2)  # from Maple
   M=CvM.weibull.regression.covmat(x,neig=neig)
   e=eigen(M)$values/neig
-  e # *mean.wsq./sum(e)
+  e * mean.wsq./sum(e)
 }
 
 
@@ -395,6 +395,7 @@ CvM.weibull.regression.covmat=function(x,neig){
   Fisher = matrix(0,nrow=p+1,ncol=p+1)
   Fisher[1:p,1:p] = D
   Fisher[1:p,p+1] = -(1+digamma(1))*apply(x,2,mean)
+  Fisher[p+1,1:p] = -(1+digamma(1))*apply(x,2,mean)
   Fisher[p+1,p+1] = pi^2/6+(1+digamma(1))^2
   s=1:neig
   s=s/(neig+1)
