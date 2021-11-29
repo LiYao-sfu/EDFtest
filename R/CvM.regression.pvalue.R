@@ -253,9 +253,9 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
 
   Q = qgamma(s,shape=shape)
   D = dgamma(Q,shape=shape)
-  G1 = - Q * D
+  G1base = - Q * D
   Del = apply(W,2,mean) # Del should now be a p vector
-  G1 = outer(Del, G1) # G1 should now be p by neig
+  G1 = outer(Del, G1base) # G1 should now be p by neig
 
   g = gamma(shape)
   dg = digamma(shape)
@@ -264,6 +264,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
   for(i in 1:neig){
     G2[i] = integrate(g2.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
+  G2=G2+G1base/shape
   M2 = rbind(G1,G2) # M2 should be p+1 by neig
   M1 - t(M2) %*% solve(Fisher,M2)
 }
