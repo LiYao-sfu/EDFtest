@@ -244,9 +244,9 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
     Fisher=matrix(0,nrow=pp,ncol=pp)
     Fisher[pp,pp]=trigamma(shape)-1/shape
     Fisher[1:p,1:p] = shape * M
-    #  
+    #
   #####
-  
+
   s=1:neig
   s=s/(neig+1)
   M1=outer(s,s,pmin)-outer(s,s)
@@ -383,7 +383,7 @@ CvM.weibull.regression.eigen = function(x,neig){
   mean.wsq.weibull= 1/54 -4*(log(3)^2-log(3)-1)/(9*pi^2)  # from Maple
   M=CvM.weibull.regression.covmat(x,neig=neig)
   e=eigen(M)$values/neig
-  e * mean.wsq./sum(e)
+  e * mean.wsq.weibull/sum(e)
 }
 
 
