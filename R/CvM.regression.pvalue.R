@@ -264,7 +264,7 @@ CvM.gamma.regression.covmat=function(x,theta,neig,link="log"){
   for(i in 1:neig){
     G2[i] = integrate(g2.integrand,0,Q[i],shape=shape)$value/g -s[i]*dg
   }
-  G2=G2+G1base/shape
+  G2=G2-G1base/shape
   M2 = rbind(G1,G2) # M2 should be p+1 by neig
   M1 - t(M2) %*% solve(Fisher,M2)
 }
