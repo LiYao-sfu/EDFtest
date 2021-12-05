@@ -18,7 +18,7 @@ NULL
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+Watson.normal.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.normal.regression.eigen(x,neig=neig)
@@ -41,7 +41,7 @@ Watson.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
+Watson.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.gamma.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -64,7 +64,7 @@ Watson.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),v
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+Watson.logistic.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.logistic.regression.eigen(x,neig=neig)
@@ -87,7 +87,7 @@ Watson.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.laplace.regression.pvalue = function(w,xneig=max(100,n),verbose=FALSE){
+Watson.laplace.regression.pvalue = function(w,xneig=max(400,n),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.laplace.regression.eigen(w,xneig=max(100,n))
@@ -110,7 +110,7 @@ Watson.laplace.regression.pvalue = function(w,xneig=max(100,n),verbose=FALSE){
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+Watson.weibull.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.weibull.regression.eigen(x,neig=neig)
@@ -133,7 +133,7 @@ Watson.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+Watson.extremevalue.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.weibull.regression.eigen(x,neig=neig)
@@ -156,7 +156,7 @@ Watson.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FAL
 
 #' @export
 #' @rdname Watson.regression.pvalue
-Watson.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
+Watson.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = Watson.exp.regression.eigen(x,theta=theta,link=link,neig=neig)
