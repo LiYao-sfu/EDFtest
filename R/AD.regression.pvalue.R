@@ -18,7 +18,7 @@ NULL
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+AD.normal.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = AD.normal.regression.eigen(x,neig=neig)
@@ -41,7 +41,7 @@ AD.normal.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
+AD.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = AD.gamma.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -64,7 +64,7 @@ AD.gamma.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbo
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+AD.logistic.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = AD.logistic.regression.eigen(x,neig=neig)
@@ -87,10 +87,10 @@ AD.logistic.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.laplace.regression.pvalue = function(w,xneig=max(100,n),verbose=FALSE){
+AD.laplace.regression.pvalue = function(w,x,neig=max(400,n),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
-  e = AD.laplace.regression.eigen(w,xneig=max(100,n))
+  e = AD.laplace.regression.eigen(w,x,neig=neig)
   plb=pchisq(w/max(e),df=1,lower.tail = FALSE)
   warn=getOption("warn")
   im = imhof(w,lambda=e,epsabs = 1e-9,limit=2^7)
@@ -110,7 +110,7 @@ AD.laplace.regression.pvalue = function(w,xneig=max(100,n),verbose=FALSE){
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+AD.weibull.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = AD.weibull.regression.eigen(x,neig=neig)
@@ -133,7 +133,7 @@ AD.weibull.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
+AD.extremevalue.regression.pvalue = function(w,x,neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = AD.weibull.regression.eigen(x,neig=neig)
@@ -156,7 +156,7 @@ AD.extremevalue.regression.pvalue = function(w,x,neig=max(n,100),verbose=FALSE){
 
 #' @export
 #' @rdname AD.regression.pvalue
-AD.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose=FALSE){
+AD.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,400),verbose=FALSE){
   p=dim(x)[2]
   n=dim(x)[1]
   e = AD.exp.regression.eigen(x,theta=theta,link=link,neig=neig)
@@ -179,7 +179,7 @@ AD.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,100),verbose
 # Helpers -----------------------------------------------------------------
 
 
-AD.normal.regression.eigen = function(x,neig=max(n,100)){
+AD.normal.regression.eigen = function(x,neig=max(n,400)){
   p=dim(x)[2]
   n=dim(x)[1]
   mean.wsq.normal=1/6 -7*sqrt(3)/(36*pi)
@@ -189,7 +189,7 @@ AD.normal.regression.eigen = function(x,neig=max(n,100)){
 }
 
 
-AD.normal.regression.covmat=function(x,m=max(n,100)){
+AD.normal.regression.covmat=function(x,m=max(n,400)){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
@@ -209,7 +209,14 @@ AD.normal.regression.covmat=function(x,m=max(n,100)){
 }
 
 
-AD.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
+AD.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,400)){
+  M.CvM = CvM.gamma.regression.covmat(x,theta,link=link,neig=neig)
+  s=1:neig
+  s=s/(neig+1)
+  w = 1/sqrt(s*(1-s))
+  return(M.CvM/outer(w,w))
+}
+AD.gamma.regression.covmat.old=function(x,theta,link="log",neig=max(n,400)){
   fisher.information.gamma=function(x,theta){
     #
     # returns the estimated Fisher Information per point
@@ -247,7 +254,7 @@ AD.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
   FI = fisher.information.gamma(shape.hat = shape)
   s=1:n
   s=s/(n+1)
-    w = 1/sqrt(s*(1-s))
+  w = 1/sqrt(s*(1-s))
   w = 1/sqrt(s*(1-s))
   M1=outer(s,s,pmin)-outer(s,s)
   G1 = s*0
@@ -264,7 +271,7 @@ AD.gamma.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
 
 
 
-AD.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
+AD.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,400)){
   p=dim(x)[2]
   n=dim(x)[1]
   M=AD.gamma.regression.covmat(x,theta=theta,link=link,neig=neig)
@@ -273,7 +280,15 @@ AD.gamma.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
 }
 
 
-AD.exp.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
+AD.exp.regression.covmat=function(x,theta,link="log",neig=max(n,400)){
+  M.CvM = CvM.exp.regression.covmat(x,theta,link=link,neig=neig)
+  s=1:neig
+  s=s/(neig+1)
+  w = 1/sqrt(s*(1-s))
+  return(M.CvM/outer(w,w))
+}
+
+AD.exp.regression.covmat=function(x,theta,link="log",neig=max(n,400)){
     #
     # returns the estimated Fisher Information per point
     # for an exponential regression model in which the log mean is predicted
@@ -309,7 +324,7 @@ AD.exp.regression.covmat=function(x,theta,link="log",neig=max(n,100)){
 
 
 
-AD.exp.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
+AD.exp.regression.eigen = function(x,theta,link="log",neig=max(n,400)){
   p=dim(x)[2]
   n=dim(x)[1]
   M=AD.exp.regression.covmat(x,theta=theta,link=link,neig=neig)
@@ -317,8 +332,15 @@ AD.exp.regression.eigen = function(x,theta,link="log",neig=max(n,100)){
   e # *mean.wsq.exp/sum(e) but this correction is not available yet
 }
 
+AD.logistic.regression.covmat=function(x,neig=max(n,400)){
+  M.CvM = CvM.logistic.regression.covmat(x,neig=neig)
+  s=1:neig
+  s=s/(neig+1)
+  w = 1/sqrt(s*(1-s))
+  return(M.CvM/outer(w,w))
+}
 
-AD.logistic.regression.eigen = function(x,neig=max(100,n)){
+AD.logistic.regression.eigen = function(x,neig=max(400,n)){
   p = dim(x)[2]
   n = dim(x)[1]
   mean.wsq.logistic= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
@@ -328,7 +350,7 @@ AD.logistic.regression.eigen = function(x,neig=max(100,n)){
 }
 
 
-AD.logistic.regression.covmat=function(x,neig=max(100,n)){
+AD.logistic.regression.covmat.old=function(x,neig=max(400,n)){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
@@ -347,17 +369,24 @@ AD.logistic.regression.covmat=function(x,neig=max(100,n)){
 }
 
 
-AD.laplace.regression.eigen  = function(x,neig = max(n,100)){
+AD.laplace.regression.eigen  = function(x,neig = max(n,400)){
   p = dim(x)[2]
   n = dim(x)[1]
-  mean = 1/6 -1/12-1/54
+#  mean = 1/6 -1/12-1/54
   M=AD.laplace.regression.covmat(x,neig = neig)
   e=eigen(M)$values/neig
-  e * mean / sum(e)
+  e  # * mean / sum(e)
 }
 
+AD.laplace.regression.covmat=function(x,neig=max(n,400)){
+  M.CvM = CvM.laplace.regression.covmat(x,neig=neig)
+  s=1:neig
+  s=s/(neig+1)
+  w = 1/sqrt(s*(1-s))
+  return(M.CvM/outer(w,w))
+}
 
-AD.laplace.regression.covmat=function(x,neig = max(n,100)){
+AD.laplace.regression.covmat.old=function(x,neig = max(n,400)){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
@@ -366,7 +395,7 @@ AD.laplace.regression.covmat=function(x,neig = max(n,100)){
   Fisher[p+1,p+1] = 1
   s=1:neig
   s=s/(neig+1)
-    w = 1/sqrt(s*(1-s))
+  w = 1/sqrt(s*(1-s))
   M1=outer(s,s,pmin)-outer(s,s)
   G1 = -s
   G1[s>0.5]=(s-1)[s>0.5]
@@ -377,8 +406,15 @@ AD.laplace.regression.covmat=function(x,neig = max(n,100)){
   (M1-M2%*%solve(FI,t(M2)))/outer(w,w)
 }
 
+AD.weibull.regression.covmat=function(x,neig=max(n,400)){
+  M.CvM = CvM.weibull.regression.covmat(x,neig=neig)
+  s=1:neig
+  s=s/(neig+1)
+  w = 1/sqrt(s*(1-s))
+  return(M.CvM/outer(w,w))
+}
 
-AD.weibull.regression.eigen = function(x,neig=max(100,n)){
+AD.weibull.regression.eigen = function(x,neig=max(400,n)){
   p = dim(x)[2]
   n = dim(x)[1]
   # mean.wsq.weibull= 1/6 -(4*pi^2-9)/(20*(pi^2+3))  # from Maple
@@ -388,7 +424,7 @@ AD.weibull.regression.eigen = function(x,neig=max(100,n)){
 }
 
 
-AD.weibull.regression.covmat=function(x,neig=max(100,n)){
+AD.weibull.regression.covmat.old=function(x,neig=max(400,n)){
   p=dim(x)[2]
   n = dim(x)[1]
   D = t(x)%*%x/n
