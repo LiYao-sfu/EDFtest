@@ -178,4 +178,57 @@ Watson.exp.regression.pvalue = function(w,x,theta,link="log",neig=max(n,400),ver
 
 # Helpers -----------------------------------------------------------------
 
+Watson.normal.regression.eigen = function(n){
+  M=Watson.normal.regression.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.normal.regression.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.normal.regression.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.gamma.regression.eigen = function(n,shape){
+  M=Watson.gamma.regression.covmat(n,shape)
+  eigen(M)$values/n
+}
+
+Watson.gamma.regression.covmat=function(n,shape){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.gamma.regression.covmat(n,shape=shape) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.logistic.regression.eigen = function(n){
+  M=Watson.logistic.regression.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.logistic.regression.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.logistic.regression.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.laplace.regression.eigen = function(n){
+  M=Watson.laplace.regression.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.laplace.regression.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.laplace.regression.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.weibull.regression.eigen = function(n){
+  M=Watson.weibull.regression.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.weibull.regression.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.weibull.regression.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
+
+Watson.exp.eigen = function(n){
+  M=Watson.exp.covmat(n)
+  eigen(M)$values/n
+}
+
+Watson.exp.regression.covmat=function(n){
+  (diag(n)-matrix(1/n,n,n)) %*% CvM.exp.regression.covmat(n) %*% (diag(n)-matrix(1/n,n,n))
+}
 
