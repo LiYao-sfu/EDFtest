@@ -11,27 +11,27 @@
 \alias{Watson.exp.regression.pvalue}
 \title{P-value of Watson statistic for regression}
 \usage{
-Watson.normal.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+Watson.normal.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
 Watson.gamma.regression.pvalue(
   w,
   x,
   theta,
   link = "log",
-  neig = max(n, 100),
+  neig = max(n, 400),
   verbose = FALSE
 )
 
-Watson.logistic.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+Watson.logistic.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
-Watson.laplace.regression.pvalue(w, xneig = max(100, n), verbose = FALSE)
+Watson.laplace.regression.pvalue(w, xneig = max(400, n), verbose = FALSE)
 
-Watson.weibull.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+Watson.weibull.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
 Watson.extremevalue.regression.pvalue(
   w,
   x,
-  neig = max(n, 100),
+  neig = max(n, 400),
   verbose = FALSE
 )
 
@@ -40,7 +40,7 @@ Watson.exp.regression.pvalue(
   x,
   theta,
   link = "log",
-  neig = max(n, 100),
+  neig = max(n, 400),
   verbose = FALSE
 )
 }

@@ -3,9 +3,27 @@
 \name{Watson.regression}
 \alias{Watson.regression}
 \alias{Watson.normal.regression}
+\alias{Watson.gamma.regression}
+\alias{Watson.logistic.regression}
+\alias{Watson.laplace.regression}
+\alias{Watson.weibull.regression}
+\alias{Watson.extremevalue.regression}
+\alias{Watson.exp.regression}
 \title{Watson statistic for regression}
 \usage{
-Watson.normal.regression(y, x, parameter = estimate.normal.regression(y, x))
+Watson.normal.regression(y, x, fit.intercept = TRUE)
+
+Watson.gamma.regression(y, x, fit, fit.intercept = TRUE, link = "log")
+
+Watson.logistic.regression(y, x, fit.intercept = TRUE)
+
+Watson.laplace.regression(y, x, fit.intercept = TRUE)
+
+Watson.weibull.regression(y, x, fit.intercept = TRUE)
+
+Watson.extremevalue.regression(y, x, fit.intercept = TRUE)
+
+Watson.exp.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 }
 \arguments{
 \item{y}{response variable}

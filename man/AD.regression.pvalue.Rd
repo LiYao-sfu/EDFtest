@@ -11,31 +11,31 @@
 \alias{AD.exp.regression.pvalue}
 \title{P-value of Anderson-Darling statistic for regression}
 \usage{
-AD.normal.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+AD.normal.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
 AD.gamma.regression.pvalue(
   w,
   x,
   theta,
   link = "log",
-  neig = max(n, 100),
+  neig = max(n, 400),
   verbose = FALSE
 )
 
-AD.logistic.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+AD.logistic.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
-AD.laplace.regression.pvalue(w, xneig = max(100, n), verbose = FALSE)
+AD.laplace.regression.pvalue(w, x, neig = max(400, n), verbose = FALSE)
 
-AD.weibull.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+AD.weibull.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
-AD.extremevalue.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+AD.extremevalue.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
 AD.exp.regression.pvalue(
   w,
   x,
   theta,
   link = "log",
-  neig = max(n, 100),
+  neig = max(n, 400),
   verbose = FALSE
 )
 }

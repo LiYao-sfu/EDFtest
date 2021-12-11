@@ -17,29 +17,41 @@ estimate.gamma.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 
 estimate.exp.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 
-estimate.logistic.regression(y, x, detail = FALSE)
+estimate.logistic.regression(y, x, fit, fit.intercept = TRUE, detail = FALSE)
 
 estimate.laplace.regression(y, x, fit.intercept = TRUE)
 
-estimate.weibull.regression(y, x, fit.intercept = TRUE, detail = FALSE)
+estimate.weibull.regression(y, x, fit.intercept = TRUE)
 
-estimate.extremevalue.regression(x, y, fit.intercept = TRUE, detail = FALSE)
+estimate.extremevalue.regression(y, x, fit.intercept = TRUE)
 }
 \arguments{
 \item{y}{A univariate response.}
 
 \item{x}{A design matrix which is not expected to have a column of 1s.}
 
-\item{fit.intercept}{Logical; if TRUE, an intercept term is added by lm.}
+\item{fit.intercept}{Logical; if TRUE, an intercept term is added.}
 }
 \value{
-Estimated sigma and coefficients of a linear regression.
+Estimated dispersion or sd or scale or inverse dispersion and coefficients of a linear regression.
 }
 \description{
 \code{estimate.normal.regression} fits a standard linear model by OLS (ordinary least square);
 \code{estimate.laplace.regression} fits a standard linear model by LAD (least absolute deviations);
+the scale parameter is estimated by maximum likelihood.
+\code{estimate.logistic.regression} fits a standard linear model by maximum likelihood when the errors
+are modeled as having a logistic distribution.
+\code{estimate.extremevalue.regression} fits a standard linear model by maximum likelihood when the errors
+are modeled as having an extreme value distribution with standard cdf given by  F(x) = exp(-exp(x)) .
+\code{estimate.weibull.regression} fits a Weibull model by maximum likelihood when the log of 
+scale parameter is linearly predicted.  The procedure is equivalent to taking logs and doing extreme value
+regression as above.
 \code{estimate.gamma.regression} estimate the parameters in a Gamma regression model
-which fits log(E(y))= x beta
+which fits link(E(y))= x beta.  "link" must be one of "log","identity", "inverse".
+A Gamma glm gets initial estimates which are improved by Maximum Likelihood.
+\code{estimate.exp.regression} estimate the parameters in an exponential regression model
+which fits link(E(y))= x beta.  "link" must be one of "log","identity", "inverse".
+A Gamma glm is used for fitting.
 }
 \examples{
 n = 500
@@ -80,6 +92,12 @@ estimate.weibull.regression(y=y,x=x)
 # Extreme Value regression
 y = log(rweibull(n=n,shape=1,scale=exp(mean)))
 estimate.extremevalue.regression(y=y,x=x)
+
+# Logistic regression
+y = rlogis(n=n,location=mean,scale=2)
+estimate.logistic.regression(y=y,x=x)
+
+
 
 }
 \seealso{

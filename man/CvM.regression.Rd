@@ -11,55 +11,19 @@
 \alias{CvM.exp.regression}
 \title{Cramer-von Mises statistic for regression}
 \usage{
-CvM.normal.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.normal.regression(x, y, fit.intercept = fit.intercept)
-)
+CvM.normal.regression(y, x, fit.intercept = TRUE)
 
-CvM.gamma.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.gamma.regression(fit, x, y, link = link),
-  link = "log"
-)
+CvM.gamma.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 
-CvM.logistic.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.logistic.regression(x, y)
-)
+CvM.logistic.regression(y, x, fit.intercept = TRUE)
 
-CvM.laplace.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.laplace.regression(y, x)
-)
+CvM.laplace.regression(y, x, fit.intercept = TRUE)
 
-CvM.weibull.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.weibull.regression(y, x)
-)
+CvM.weibull.regression(y, x, fit.intercept = TRUE)
 
-CvM.extremevalue.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.extremevalue.regression(y, x)
-)
+CvM.extremevalue.regression(y, x, fit.intercept = TRUE)
 
-CvM.exp.regression(
-  y,
-  x,
-  fit.intercept = TRUE,
-  parameter = estimate.exp.regression(y, x)
-)
+CvM.exp.regression(y, x, fit, fit.intercept = TRUE, link = "log")
 }
 \arguments{
 \item{y}{response variable}

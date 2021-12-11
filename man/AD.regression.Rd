@@ -2,9 +2,33 @@
 % Please edit documentation in R/AD.regression.statistic.R
 \name{AD.regression}
 \alias{AD.regression}
+\alias{AD.normal.regression}
+\alias{AD.gamma.regression}
+\alias{AD.logistic.regression}
+\alias{AD.laplace.regression}
+\alias{AD.weibull.regression}
 \alias{AD.extremevalue.regression}
+\alias{AD.exp.regression}
 \title{Anderson-Darling statistic for regression}
 \usage{
+AD.normal.regression(y, x, fit.intercept = TRUE)
+
+AD.gamma.regression(y, x, fit, fit.intercept = TRUE, link = "log")
+
+AD.logistic.regression(y, x, fit.intercept = TRUE)
+
+AD.laplace.regression(y, x, fit.intercept = TRUE)
+
+AD.weibull.regression(y, x, fit.intercept = TRUE)
+
+AD.extremevalue.regression(
+  y,
+  x,
+  parameter = estimate.extremevalue.regression(y, x)
+)
+
+AD.exp.regression(y, x, fit, fit.intercept = TRUE, link = "log")
+
 AD.extremevalue.regression(
   y,
   x,

@@ -11,30 +11,30 @@
 \alias{CvM.exp.regression.pvalue}
 \title{P-value of Cramer-von Mises statistic for regression}
 \usage{
-CvM.normal.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+CvM.normal.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
 CvM.gamma.regression.pvalue(
   w,
   x,
   theta,
-  neig = max(n, 100),
+  neig = max(n, 400),
   link = "log",
   verbose = FALSE
 )
 
-CvM.logistic.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+CvM.logistic.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
-CvM.laplace.regression.pvalue(w, x, neig = max(100, n), verbose = FALSE)
+CvM.laplace.regression.pvalue(w, x, neig = max(400, n), verbose = FALSE)
 
-CvM.weibull.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+CvM.weibull.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
-CvM.extremevalue.regression.pvalue(w, x, neig = max(n, 100), verbose = FALSE)
+CvM.extremevalue.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
 
 CvM.exp.regression.pvalue(
   w,
   x,
   theta,
-  neig = max(n, 100),
+  neig = max(n, 400),
   link = "log",
   verbose = FALSE
 )
