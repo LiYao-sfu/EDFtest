@@ -11,10 +11,10 @@
 \alias{AD.exp.regression.pvalue}
 \title{P-value of Anderson-Darling statistic for regression}
 \usage{
-AD.normal.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
+AD.normal.regression.pvalue(a, x, neig = max(n, 400), verbose = FALSE)
 
 AD.gamma.regression.pvalue(
-  w,
+  a,
   x,
   theta,
   link = "log",
@@ -22,16 +22,16 @@ AD.gamma.regression.pvalue(
   verbose = FALSE
 )
 
-AD.logistic.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
+AD.logistic.regression.pvalue(a, x, neig = max(n, 400), verbose = FALSE)
 
-AD.laplace.regression.pvalue(w, x, neig = max(400, n), verbose = FALSE)
+AD.laplace.regression.pvalue(a, x, neig = max(400, n), verbose = FALSE)
 
-AD.weibull.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
+AD.weibull.regression.pvalue(a, x, neig = max(n, 400), verbose = FALSE)
 
-AD.extremevalue.regression.pvalue(w, x, neig = max(n, 400), verbose = FALSE)
+AD.extremevalue.regression.pvalue(a, x, neig = max(n, 400), verbose = FALSE)
 
 AD.exp.regression.pvalue(
-  w,
+  a,
   x,
   theta,
   link = "log",
@@ -40,11 +40,11 @@ AD.exp.regression.pvalue(
 )
 }
 \arguments{
-\item{w}{Anderson-Darling statistic \eqn{A^2} with a given distribution.}
-
 \item{x}{explanatory variables}
 
 \item{verbose}{}
+
+\item{w}{Anderson-Darling statistic \eqn{A^2} with a given distribution.}
 }
 \value{
 
